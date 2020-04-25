@@ -1,0 +1,3122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>后台系统</title>
+    <link rel="stylesheet" href="/public/css/layui.css">
+    <link rel="stylesheet" href="/public/css/bootstrap.css">
+    <link rel="stylesheet" href="/public/css/base.css">
+    <link rel="stylesheet" href="/public/font/iconfont.css">
+    <link rel="stylesheet" href="/public/icon/iconfont.css">
+    <link rel="stylesheet" href="/public/icons/iconfont.css">
+    {{ block "sty" }}
+    {{ /block }}
+    <style>
+        /* 头像 */
+        body{
+            font-family:'Microsoft YaHei', 'Arial',iconfont ;
+        }
+        *{
+            text-decoration: none !important;
+        }
+        #avatarBox{
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+        #images{
+            width: 50px;
+            height: 50px;
+            border-radius: 100%;
+            
+
+        }
+        /* #tran{
+            transition: .5s !important;
+        } */
+        .nav-list{
+            
+            height: 100px;
+            display: flex;
+            flex-flow: column;
+            margin-left: 40px;
+            height: 0px;
+            overflow: hidden;
+            color: #919bae ;
+            transition: .5s;
+            
+        }
+        .order-list{
+            height: 80px;
+            display: flex;
+            flex-flow: column;
+            margin-left: 40px;
+            height: 0px;
+            overflow: hidden;
+            color: #919bae ;
+            transition: .5s;
+        }
+        .nav-list li,.order-list li{
+
+            border-left: 4px solid transparent;
+            height: 30px;
+            line-height: 30px;
+            padding-left: 20px;
+            cursor: pointer;
+            
+        }
+        .nav-list li a,.order-list li a{
+            display: block;
+
+            color: #919bae !important;
+        }
+        .nav-list li:hover,.order-list li:hover{
+            background: rgba(80, 80, 80, .1);
+            border-left: 4px solid #0097f7;
+        }
+        .ac{
+            background: rgba(80, 80, 80, .1);
+            border-left: 4px solid #0097f7 !important;
+        }
+        .form-container{
+            position: relative;
+        }
+        .shangjia1,.shangjia2{
+            position: absolute;
+
+        }
+        .shangjia1{
+            left: 240px;
+            top: 233px;
+        }
+        .shangjia2{
+            top: 233px;
+            left: 460px;
+        }
+
+        .image{
+            width: 100px;
+            height: 100px;
+        }
+        .tips{
+            display: none;
+            background: #8ec9ee;
+        }
+
+        #thead th{
+            text-align: center;
+        }
+        #update > tr{
+            
+            height: 90px;
+        }
+        #update > tr th{
+            text-align: center;
+            line-height: 90px;
+        }
+        #update > tr>th:nth-child(1){
+            width: 107px;
+        }
+       
+        #bookimg{
+            width: 100px;
+            height: 90px;
+        }
+        #updateTi{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform:  translateY(-50%);
+           
+        }
+        #operating{
+            display: flex;
+            flex-flow: column;
+            justify-content: space-around;
+            height: 109px;
+            border: none;
+        }
+        
+        #operating a{
+            line-height: 25px;
+        }
+        .icon-chacha{
+            color: rgba(255,0,0,.8);
+
+        }
+        .icon-chacha:hover{
+            color: rgba(255,0,0,1);
+        }
+        #userUp{
+            display:flex;
+            justify-content: space-around;
+            border: none;
+            border-top:1px #ddd solid;
+        }
+        tbody>tr:nth-child(1)>#userUp{
+            border: none !important;
+        }
+        #update > tr:not(:nth-child(1)){
+            border-top:1px #ddd solid ;
+        }
+        
+        .class{
+            
+            height: 60px;
+            line-height: 28px;
+            
+            cursor: pointer;
+            display: none;
+            padding-top: 2px;
+            margin-left: 20px;
+        }
+        .class div:hover{
+            background: rgba(80, 80, 80, .1);
+            border-left: 4px solid #0097f7 !important;
+        }
+        .class div{
+            border-left: 4px solid transparent;
+            box-sizing: border-box;
+            padding-left: 20px;
+        }
+        a:focus{
+            color: rgba(255,0,0,1);
+        }
+        /* 删除教材弹出层 */
+        
+        .modalMain,.rem{
+            display: none;
+            z-index: 100000;
+        }
+        .modal,.modalRemove{
+            width: 250px;
+            height: 170px;
+            display: flex;
+            background: #fff;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-30%) translateY(-50%);
+            flex-flow: column;
+            justify-content: space-around;
+            align-items: center;
+            border-radius: 5px;
+            z-index: 10000;
+            
+        }
+        .modal > div,.modalRemove>div{
+            width: 100%;
+            display: flex;
+            justify-content:space-around;
+        }
+        .modal>span,.modalRemove>span{
+            font-size: 15px;
+        }
+        #mask{
+            width:100%;
+            height: 100%;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: rgba(0, 0, 0, .5);
+            z-index: 1000;
+            
+            display: none;
+        }
+        .imgId{
+            display: none;
+        }
+        
+        .ims{
+            width: 300px;
+            height: 200px;
+        }
+        .fil{
+            margin-top: 15px;
+            width: 100px;
+            display: inline-block;
+            margin-right: 0;
+        }
+        .imgbox{
+            float: left;
+            position: relative;
+        }
+       .clear{
+           overflow: hidden;
+       }
+       
+    
+       .removeBtn{
+           position: absolute;
+           z-index: 1000;
+           bottom: 0;
+           right: 0;
+           background-color: red ;
+           border-color: red ;
+       }
+       #addBtn{
+           position: absolute;
+           top: -48px;
+           right: 50px;
+       }
+       .th{
+           position: relative;
+       }
+       .switch,.switch2{
+           width: 32px;
+           height:18px;
+           background: rgb(30, 185, 95);
+           box-shadow: 0 0 2px rgba(0, 0, 0, .2);
+           position: absolute;
+           margin: 0;
+           list-style: none;
+           border-radius:50px;
+           top: 50%;
+           left: 50%;
+           transform: translateX(-50%) translateY(-50%);
+           cursor: pointer;
+           transition: .3s;
+           
+       }
+       .switch3{
+            width: 32px;
+           height:18px;
+           background: rgb(121, 187, 149);
+           box-shadow: 0 0 2px rgba(0, 0, 0, .2);
+           position: absolute;
+           margin: 0;
+           list-style: none;
+           border-radius:50px;
+           top: 50%;
+           left: 50%;
+           transform: translateX(-50%) translateY(-50%);
+           cursor: pointer;
+           transition: .3s;
+       }
+       .inner3{
+            width: 16px;
+           height: 16px;
+           background: rgb(247, 245, 245);
+           border-radius: 100%;
+           position: absolute;
+           left: 1px;
+           top: 1px;
+           transition: .3s;
+       }
+       .inner,.inner2{
+           width: 16px;
+           height: 16px;
+           background: #fff;
+           border-radius: 100%;
+           position: absolute;
+           left: 1px;
+           top: 1px;
+           transition: .3s;
+       }
+       .acv,.acv2{
+           left: 15px;
+       }
+       .swc,.swc2{
+           background: rgb(223, 222, 222);
+       }
+
+       /* 加载动画 */
+       #animBox{
+           width: 100%;
+           height: 100%;
+       }
+       #anim {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+
+            top: 50%;
+            left: 55%;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            
+        }
+        li{
+            list-style: none;
+        }
+        #anim li:nth-child(5) {
+            width: 4px;
+            height: 15px;
+            background-color: rgb(250, 228, 132);
+            transition: all .3s;
+            animation: move 1s infinite;
+        }
+
+        #anim li:nth-child(4) {
+            width: 5px;
+            height: 15px;
+            background-color: rgb(255, 197, 205);
+            transition: all .3s;
+            animation: move 1s .5s infinite;
+        }
+
+        #anim li:nth-child(3) {
+            width: 4px;
+            height: 15px;
+            background-color: rgb(171, 247, 171);
+            transition: all .3s;
+            animation: move 1s infinite;
+        }
+
+        #anim li:nth-child(2) {
+            width: 4px;
+            height: 15px;
+            background-color: rgb(247, 218, 90);
+            transition: all .3s;
+            animation: move 1s .5s infinite;
+        }
+
+        #anim li:nth-child(1) {
+            width: 4px;
+            height: 15px;
+            background-color: #ff2600;
+            transition: all .3s;
+            animation: move 1s infinite;
+        }
+
+        /* 创建动画 */
+
+        @keyframes move {
+            0% {
+                transform: scaleY(1);
+            }
+
+            50% {
+                transform: scaleY(3);
+            }
+
+            100% {
+                transform: scaleY(1);
+            }
+        }
+
+        /* 多余隐藏 */
+        .line-length{
+            max-width: 220px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .title-length{
+            max-width: 80px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .newzixun{
+            color: #fff;
+            background-color: #337ab7;
+            border-color: #2e6da4;
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            user-select: none;
+            background-image: none;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            position: absolute;
+            right: 52px;
+            top: 0;
+        }
+        .newzixun:hover{
+            color: #fff;
+            background-color: #286090;
+            border-color: #204d74;
+        }
+
+
+        /* 订单管理样式 */
+        .orderbox{
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            
+            font-size: 15px;
+        }
+        .order-head{
+            width: 100%;
+            height: 30px;
+            background: #f2f2f2;
+            display: flex;
+            text-align: center;
+        }
+        .order-head>li{
+            flex: 1 1 auto;
+            line-height: 30px;
+            
+        }
+        .persons-list{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-flow: column;
+        }
+        .orderNums{
+            position: relative;
+        }
+       .deliDate{
+            position: absolute;
+            bottom: 0;
+            right: 46px;
+        }
+        .deliDate{
+            bottom: 20;
+            right: 147px;
+        }
+        .book-list{
+            display: flex;
+            justify-content: space-around;
+            width: 70%;
+            height: 60px;
+            line-height: 60px;
+            margin-bottom: 15px;
+        }
+       
+
+       .theads{
+            width: 100%;
+            height: 100%;
+            display: flex;
+       }
+       .theads > ul,.finance-list-head{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            height: 30px;
+            text-align:center;
+            justify-content: space-between;
+       }
+       .finance-list-head{
+           background: #fff;
+           position: absolute;
+           top: 97px;
+           left: 0;
+       }
+       .finance-list-head>li{
+           width: 110px;
+           line-height: 30px;
+       }
+       .theads > ul>li{
+        width: 100px;
+        line-height: 30px;
+       }
+       .theads > ul>li:nth-child(4){
+           width: 150px;
+       }
+       .finance-list-head>li:nth-child(4){
+           width: 250px;
+       }
+       .finance-list>li:nth-child(6){
+           line-height: 1.5rem;
+           display:flex;
+           align-items:center;
+           justify-content: center;
+       }
+       
+       .main-box{
+           display:flex;
+           flex-flow: column;
+           background-color:rgba(236, 231, 231, 0.2);
+       }
+       .order-con,.finance-list{
+            width: 100%;
+            display:flex;
+            height: 50px;
+            transition:  .4s;
+            cursor: pointer;
+            justify-content: space-between;
+       }
+       .finance-list>li{
+           width: 110px;
+           line-height: 50px;
+           text-align:center;
+       }
+       .finance-list>li:nth-child(4){
+           width: 250px;
+       }
+       .order-con:hover,.finance-list:hover{
+           background:#f2f2f2;
+           
+       }
+       
+       .order-con > li{
+           
+           width: 100px;
+           line-height: 50px;
+           text-align: center;
+       }
+
+       .order-con > li:nth-child(4){
+           width: 150px;
+       }
+       .order-con > li:nth-child(6),.order-con > li:nth-child(7),.order-con > li:nth-child(8){
+           line-height: 1.5rem;
+           display:flex;
+           align-items:center;
+           justify-content: center;
+       }
+       .order-con > li:nth-child(8)>span{
+           width: 60%;
+       }
+       
+       /* 扩展层 */
+       .expand{
+           display: none;
+           
+       }
+       .order-expand{
+           width: 100%;
+           background: #fff;
+           display: flex;
+           flex-flow: column;
+           position: relative;
+       }
+       .order-expand li img{
+           width: 80px;
+           height: 80px;
+       }
+       .order-book{
+           height: 120px;
+           width: 100%;
+           display: flex;
+           align-items: center;
+           padding: 10px;
+           position: relative;
+           
+       }
+       .order-book h2{
+           font-size: 16px;
+           font-weight: bold;
+           margin: 0;
+           position: absolute;
+           top: 29px;
+           left: 103px;
+       }
+       .classs{
+           position: absolute;
+           top: 50px;
+           left: 103px;
+       }
+       .order-expand>ul>li:nth-child(4){
+           position: absolute;
+           top: 50px;
+           left: 166px;
+       }
+       .order-expand li:nth-child(5){
+           position: absolute;
+           top: 50px;
+           left: 213px;
+       }
+       .allnumBox{
+           position: absolute !important;
+           bottom: 10px !important;
+           left: 50% !important;
+           transform: translateX(-50%) !important;
+       }
+       .replay{
+           position:absolute;
+           top: 48px;
+           right: 17px;
+       }
+       /* 评论层 */
+       .replayBox{
+           position: absolute;
+           top: 450px;
+           width: 450px;
+           height: 460px;
+           background: #ffffff;
+           left: 50%;
+           transform: translateX(-30%);
+           box-shadow: 0 0 2px rgba(0, 0, 0, .2);
+           display: none;
+           transition: .4s ease;
+           overflow: hidden;
+           
+       }
+       
+       .replayBox_active{
+            display: flex;
+            top: 70px !important;
+            
+       }
+       .replay-head{
+           box-sizing: border-box;
+           width: 100%;
+           height: 80px;
+           padding:10px;
+           position: relative;
+           border-bottom: 1px solid rgba(0, 0, 0, .2);
+       }
+       .replay-main{
+           width: 470px;
+           height:370px;
+           padding: 15px;
+           overflow-y: scroll;
+           flex: 1;
+       }
+       .book_img,.book_img img{
+           width: 60px;
+           height: 60px;
+       }
+       .book_bookName{
+           position: absolute;
+           top: 19px;
+           left: 87px;
+       }
+       .book_bookName h2{
+           margin: 0;
+           font-size: 15px;
+           font-weight: bold;
+       }
+       .book_class{
+           position: absolute;
+           left: 87px;
+           top: 40px;
+       }
+       .book_pri{
+           position: absolute;
+           top: 20px;
+           left: 165px;
+           color: #ee3131;
+           font-weight: bold;
+       }
+       
+        .allreplay{
+            position: relative;
+        }
+        .allreplay >img{
+            width: 40px;
+            height: 40px;
+            border-radius: 100%;
+        
+        }
+        .user_nick{
+            position: absolute;
+            top: 9px;
+            left: 52px;
+        }
+        .to-contents{
+            
+            max-width: 250px;
+            word-wrap: break-word;
+            display: block;
+        }
+        .to-contents-box{
+            margin-left: 24px;
+            max-width: 250px;
+        }
+
+        .toBox{
+            position: relative;
+            margin-top: 10px;
+            margin-bottom:10px;
+            margin-left: 50px;
+        }
+        .toBox > img{
+            width: 20px;
+            height: 20px;
+            border-radius: 100%;
+        }
+        .con_main{
+            max-width: 250px;
+            display: block;
+            word-wrap: break-word;
+            
+        }
+        .con_main_box{
+            max-width: 250px;
+            margin-left: 52px;
+        }
+        .Replay{
+            position: absolute;
+            top: 0;
+            right:-100px;
+        }
+        .Replays{
+            position: absolute;
+            top: 0;
+            right:48px;
+        }
+        .ic{
+            position: absolute;
+            top: 20px;
+            right: 26px;
+            cursor: pointer;
+        }
+        .ic:hover{
+            color: #ee3131;
+        }
+
+        .active-comment{
+            padding-top: 28px !important; 
+        }
+
+        .comment-form{
+            margin-top: 10px;
+            padding: 0 8px;
+            min-height: 60px;
+            position: relative;
+            display: none;
+            
+        }
+        .comment-main{
+            box-sizing: border-box;
+            width:100%;
+            min-height: 68px;
+            padding: 10px;
+            outline-style: none;
+            
+        }
+        .comment-main:focus{
+            border-color:rgba(0, 0, 0, .2);
+        }
+        #at{
+            position: absolute;
+            top: 6px;
+            left: 48px;
+            display: none; 
+            background: #fff;
+            border: none;
+            
+        }
+        #rep{
+            position: absolute;
+            top: 6px;
+            left: 18px;
+            border: none;
+            background: #fff;
+            width: 30px;
+            display: none; 
+        }
+        .subs{
+            width: 80px;
+            height: 26px;
+            cursor: pointer;
+            margin-top: 5px;
+            background: #ff7300;
+            color: #fff;
+            border: none;
+            outline-style: none;
+        }
+        .subs:active{
+            background: #f07612;
+            border: none;
+        } 
+        .subs:focus{
+            border: none;
+        }
+        .idc{
+            display: inline-block;
+            width: 44px;
+            height: 20px;
+            background: #ee3131;
+            text-align: center;
+            color: #fff;
+            line-height: 20px;
+            font-size: 12px;
+            
+        }
+        .deleteReplay{
+            position: absolute;
+            top: 0;
+            right: -144px;
+        }
+        .deleteReplays,.deleteManaReplays{
+            position: absolute;
+            top: 0;
+            right: 6px;
+        }
+        .mymsg{
+            position: relative;
+        }
+        .pioner{
+            background:#ee3131;
+            width: 10px;
+            height: 10px;
+            border-radius: 100%;
+            position: absolute;
+            left: 91px;
+            top: 10px;
+            display: none;
+        }
+        /* 聊天窗口样式 */
+        .msg{
+            width: 50%;
+            height: 450px;
+            border-bottom: none;
+            margin: 100px auto 0;
+            position: absolute;
+            top: 0;
+            left: 56%;
+            transform: translateX(-50%);
+            background: #fff;
+            display: none;
+            overflow: hidden;
+        }
+        .inputBox{
+            width: 100%;
+            height: 100px;
+            margin: 0 auto;
+            position: relative;
+            
+        }
+        .msg-main{
+            width: 100%;
+            height: 310px;
+            position: relative;
+            overflow-y: scroll;
+        }
+        #sendMsg{
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+        }
+        .inputBox textarea{
+            width: 100%;
+            height: 100%;
+            padding-bottom: 27px;
+        }
+
+        .mana-head{
+            width: 100%;
+            height: 40px;
+            border-bottom: 1px solid rgba(0, 0, 0, .2);
+        }
+        .msgs{
+            height: 40px;
+            padding: 5px;
+            position: relative;
+            margin-top: 15px;
+            margin-left: 13px;
+        }
+        .msgs>span{
+            display: inline-block;
+            background: rgba(202, 198, 198, 0.3);
+            height: 100%;
+            border-radius: 3px;
+            font-size: 15px;
+            margin-left: 40px;
+            box-sizing: border-box;
+            padding: 5px;
+        }
+        
+        .msgsed{
+            
+            height: 40px;
+            padding: 5px;
+            position: relative;
+            margin-top: 15px;
+            margin-right: 19px;
+        }
+        .msgsed>span{
+            box-sizing: border-box;
+            background: #6fb4f0;
+            border-radius: 3px;
+            float: right;
+            height: 100%;
+            font-size: 15px;
+            margin-right: 40px;
+            color: #fff;
+            padding: 5px;
+        }
+        .msgsed img{
+            width: 40px;
+            height: 40px;
+            border-radius: 100%;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+        .msgs img{
+            width: 40px;
+            height: 40px;
+            border-radius: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .finance-main{
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            padding: 15px;
+            position: relative;
+        }
+        .finance-head{
+            width: 100%;
+            position: relative;
+            
+        }
+        .finance-head::after{
+            content: " ";
+            display: block;
+            width: 100%;
+            height: 1px;
+            background: rgba(0, 0, 0, .2);
+            position: absolute;
+            bottom: -17px;
+        }
+        .finance-date{
+            width: 50%;
+            display: flex;
+            align-items:center ;
+
+        }
+        .finance-date > div{
+            width: 50%;
+        }
+        .finance-date > div:nth-child(2){
+            margin-left: 20px;
+        }
+        .finance-date span{
+            flex: none;
+        }
+        .finance-foot{
+            width: 100%;
+          
+            background: #fff;
+            position: absolute;
+            top: 132px;
+            left: 0;
+            display:flex;
+            flex-flow: column;
+            
+        }
+        .finance-pri{
+            position: absolute;
+            right:50px;
+            display: flex;
+            flex-flow: column;
+            top: 27px;
+        }
+        .finance-date>div:nth-child(3){
+            height: 38px;
+            position: absolute;
+            bottom: 0;
+            width: 60px;
+            text-align: center;
+            line-height: 38px;
+            left: 50%;
+            margin-left: 8px;
+        }
+        .finance-date>div:nth-child(3)>a{
+            display: block;
+            color: #000;
+            transition: .3s;
+        }
+        .finance-date>div:nth-child(3)>a:hover{
+            background: #ff7300;
+            color: #fff;
+        }
+        .finance-a-active{
+            background: #ff7300;
+            color: #fff !important;
+        }
+        .finance-foot > div{
+            animation: finance .5s ;
+        }
+        .finance-mation{
+            position: absolute;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            
+        }
+        .main-box{
+            animation: main .5s ;
+        }
+        tbody{
+            animation: border .5s ;
+        }
+        @keyframes finance {
+            0%{transform: translateY(20%);opacity: 0;}
+            100%{}    
+
+        }
+        @keyframes main {
+            0%{transform: translateY(20%);opacity: 0;}
+            100%{}    
+
+        }
+        @keyframes border {
+            0%{transform: translateY(10%);opacity: 0;}
+            100%{}    
+
+        }
+        /* 修改教材 */
+        .search_box{
+            position: relative;
+            height: 30px;
+            margin-bottom: 8px;
+        }
+        #search_main{
+            outline: none;
+            font-size: 13px;
+            height: 100%;
+            box-sizing: border-box;
+            color: #666;
+            padding-left: 8px;
+            border: 1px solid #ccc;
+        }
+        .search_book{
+            outline: none;
+            box-sizing: border-box;
+            width: 40px;
+            height: 100%;
+            border: 1px solid #ccc;
+            border-left: none;
+            font-size: 13px;
+            color: #666;
+            position: absolute;
+            left: 162px;
+        }
+        .search_box span{
+            margin-left: 50px;
+        }
+        .search_book:hover{
+            box-shadow: 0 0 2px rgba(0, 0, 0, .2);
+        }
+        #en-add{
+            margin-top: 15px;
+        }
+        #layui-add{
+            font-size: 25px;
+            width: 15px;
+            text-align: center;
+            position: relative;
+            height: 26px;
+            margin-top: 15px;
+            margin-left: 20px;
+        }
+        .addClass{
+            margin-top: 15px;
+        }
+        #layui-add>span{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%) translateY(-50%);
+        }
+        /* 分类框 */
+        .fication-main{
+            width: 135px;
+            height: 250px;
+            position: relative;
+            border: 1px solid rgba(230, 158, 158, 0.2);
+            display: flex;
+            flex-flow: column;
+            align-items: center;
+        }
+        .class-active{
+            background: rgba(80, 80, 80, .1) !important;
+        }
+        .fication-main input{
+            text-align: center;
+            height: 25px;
+            width: 100%;
+            background: transparent;
+            outline: none;
+            border: none;
+            transition: .3s;
+        }
+        .maxClass{
+            width: 100%;
+        }
+        .Max{
+            text-align: center;
+            height: 25px;
+            width: 100%;
+            background: transparent;
+           line-height: 25px;
+            transition: .3s;
+        }
+        .fication-main input:hover,.Max:hover{
+            
+            background: rgba(80, 80, 80, .1);
+        }
+        .minClass{
+            position: absolute;
+            top: 0;
+            left: 140%;
+            width: 135px;
+            height: 250px;
+            border: 1px solid rgba(0, 0, 0, .2);
+            display: flex;
+            flex-flow: column;
+            align-items: center;
+        }
+        .min-box{
+            flex-grow: 0 !important;
+            width: 100%;
+            position: relative;
+            display: none;
+        }
+        .update_class,.en-update_class{
+            position: absolute;
+            top: 0;
+            left: 273%;
+            width: 52px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            padding: 0;
+        }
+        .en-update_class{
+            top: 50px;
+            display: none;
+            margin: 0 !important;
+        }
+        .max-cha,.min-cha{
+            position: absolute;
+           
+            cursor: pointer;
+        }
+        .max-cha:hover,.min-cha:hover{
+            color: rgba(255,0,0,.8);
+        }
+        .max-cha{
+            right: 15px;
+            display: none;
+        }
+        .min-cha{
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    </style>
+</head>
+
+<body>
+     <!-- 头部 -->
+    <div id="mask"></div>
+    <div class="header">
+    	<!-- 网站标志 -->
+        <div class="logo fl">
+          教材管理后台 <i style="font-size: 8px;">Management Background</i>
+        </div>
+        <!-- /网站标志 -->
+        <!-- 用户信息 -->
+        <div class="info">
+            <div class="profile dropdown fr">
+                <span class="btn dropdown-toggle" data-toggle="dropdown" id="avatarBox">
+                    <img src="{{manaUser.avatar}}" id="images">
+                    <span id="nick">{{manaUser.nickname}}</span>
+                    <span id="userNoneID" style="display: none;">{{manaUser._id}}</span>
+					<span class="caret"></span>
+                </span>
+                <ul class="dropdown-menu">
+                    <li><a href="/people">个人资料</a></li>
+                    <li><a href="/loginO">退出登录</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- /用户信息 -->
+    </div>
+    <!-- /头部 -->
+    <!-- 主体内容 -->
+    
+    <div class="content">
+    	<!-- 侧边栏 -->
+        <div class="aside fl">
+            <ul class="menu list-unstyled">
+                <li>
+                    <a class="item active" href="/management">
+						<span class="icon-icon-user glyphicon-user"></span>
+						用户管理
+					</a>
+                </li>
+                <li id="tran">
+                    <a class="item" href="javascript:;" id="manaBook">
+			  			<span class="icon-shu glyphicon-th-list"></span>
+			  			教材管理
+                      </a>
+                    <ul class="nav-list">
+                            <li class="upBook"><span>上架教材</span></li>
+                            <li class="manaUp"><span>修改教材</span></li>
+                         
+                                    <li class="bookClass">
+                                            <span>教材分类</span>
+                                    </li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="item" href="javascript:;" id="zixun">
+			  			<span class="icon-zixun glyphicon-th-list"></span>
+			  			发布资讯
+			  		</a>
+                </li>
+                <li>
+                    <a class="item" href="javascript:;" id="lunbo">
+                        <span class="icon-lunbotuguanli glyphicon-th-list"></span>
+			  			轮播设置
+			  		</a>
+                </li>
+                <li>
+                    <a class="item" href="javascript:;" id="order">
+                        <span class="icon-dingdan glyphicon-th-list"></span>
+			  			订单管理
+                      </a>
+                      <ul class="order-list">
+                        <li class="ordered"><span>已处理订单</span></li>
+                        <li class="neworder"><span>未处理订单</span></li>
+                      </ul>
+                </li>
+                <li class="mymsg">
+                    <a class="item" href="javascript:;" id="message">
+                        <span class="icon-wodexiaoxi glyphicon-th-list"></span>
+			  			我的消息
+                      </a>
+                      <div class="pioner">
+
+                      </div>
+                      
+                </li>
+                <li class="Finance">
+                    <a class="item" href="javascript:;" id="finance">
+                        <span class="icon-caiwumingxi- glyphicon-th-list"></span>
+			  			财务明细
+                      </a>
+
+                </li>
+            </ul>
+            <div class="cprt">
+                login... <a href="http://www.itheima.com/" target="_blank" id="nick2">{{manaUser.nickname}}</a>
+            </div>
+        </div>
+        <!-- 侧边栏 -->
+        {{ block "content" }}
+        <div class="main">
+            
+            <p class="tips">错误信息</p>
+        	<!-- 分类标题 -->
+            <div class="title">
+                <h4>用户</h4>
+                <span id="use"></span>
+                <a href="javascript:;" class="btn btn-primary new" id="newPeople">新增用户</a>
+            </div>
+            <!-- /分类标题 -->
+            <!-- 内容列表 -->
+            <table class="table table-striped table-bordered table-hover custom-table">
+                <thead>
+                    <tr>
+                        
+                        <th>用户名</th>
+                        <th>邮箱</th>
+                        <th>角色</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <!-- /内容列表 -->
+          
+        </div>
+    </div>
+    {{ /block }}
+    <!-- /主体内容 -->
+    <!-- 删除确认弹出框 -->
+    <div class="modalMain">
+        <div class="modal">
+            <span>确认要删除这个用户吗?</span>
+            <div>
+                    <input type="submit" class="btn btn-primary" value="确定" id="en">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel">取消</button>
+                    
+            </div>
+        </div>
+    </div>
+    <!-- 删除教材弹出框 -->
+    <div class="rem">
+        <div class="modalRemove">
+            <span>确认要删除这款教材吗?</span>
+            <div>
+                    <input type="submit" class="btn btn-primary" value="确定" id="en-remove">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel-remove">取消</button>
+                    
+            </div>
+        </div>
+    </div>
+    <!-- 聊天弹窗 -->
+    <div class="msg">
+            <!-- 对方头像 渲染-->
+            <div class="mana-head">
+                <img src="" style="width: 40px;height: 40px;border-radius: 100%;">
+                <span id="toID" style="display: none;"></span>
+            </div>
+            <div class="msg-main">
+                
+            </div>
+            <div class="inputBox">
+                    <textarea id="sendVal" cols="30" rows="10"></textarea>
+        
+                    <input type="button" value="发送" id="sendMsg" class="btn btn-primary">
+            </div>
+        </div>
+        
+    <!-- /删除确认弹出框 -->
+    <script src="/public/js/jquery-3.4.1.js"></script>
+    <script src="/public/js/bootstrap.min.js"></script>
+    <script src="/public/js/socket.io.js"></script>
+   
+    <script src="/public/layer/layer.js"></script>
+    <script src="/public/layDate-v5.0.9/laydate/laydate.js"></script>
+    <script>
+            // 连接服务器
+              // 验证用户是否登陆，如果登陆传递id
+                    let socket = io()
+                    let id = $("#userNoneID").html()
+                     
+                    // 创建一个socket对象
+                    socket.emit("manauser",{
+                        // 要发送的内容
+                        id
+                    })
+                    $.post("/userlist",(data)=>{
+                            $("#message").click(()=>{
+                                $(".pioner").hide()
+                                $(".main").html(data)
+                                messageAvatar()
+                            })
+                    })
+                    let arr
+                    // 接收普通用户id
+                    socket.on("users",(data)=>{
+                        // 在线用户列表
+                    })
+                    // 获取在线用户列表
+
+                    // 请求用户数据
+                    $.get("/user",function(data){
+                        $("table").append(`
+                        <tbody>
+                            ${data}
+                        </tbody>
+                       
+                        `)
+                        // 编辑和删除用户
+                        reUP()
+                        // 修改用户权限
+                        
+                        var allTr = document.querySelectorAll("tbody>tr").length
+                        $("#use").html("共找到"+allTr+"个用户")
+                        upUsers()
+                    })
+                    // 修改用户权限
+                    
+                    async function upUsers(){
+                        $(".switch2").click(function(){
+                            let id = $(this).parent().children(".noneUserID").html()
+                            let staus = parseInt($(this).parent().children(".noneUserStatus").text())
+                            let code = parseInt($(this).parent().children(".noneCode").text())
+                            
+                            if(staus === 1){
+                                // 要改为禁用
+                                layer.confirm("确定要禁用该用户吗?",{
+                                    btn:["确定","取消"]
+                                },()=>{
+                                    $(this).toggleClass("swc")
+                                    $(this).children(".inner2").toggleClass("acv")
+                                    layer.closeAll('dialog');
+                                    let index = layer.load(2, {shade: [0.1,'#000']})
+                                    // 确定
+                                    staus = -1
+                                    $.post("/offUser",{id,staus,code},data=>{
+                                        if(data.co == 1){
+                                            $(this).parent().children(".noneUserStatus").text(`-1`)
+                                            // 修改成功
+                                            layer.close(index)
+                                            layer.msg("修改成功！",{icon:1,time:1500})
+                                            // 实时告诉客户端被封禁
+                                            socket.emit("off",{
+                                                // 要发送的内容
+                                                id
+                                            })
+                                        }
+                                    })
+                                },()=>{
+                                    // 取消
+                                })
+                            }
+
+                            if(staus === -1){
+                                // 要改为启用
+                                layer.confirm("确定要启用该用户吗?",{
+                                    btn:["确定","取消"]
+                                },()=>{
+                                    // 确定
+                                    $(this).toggleClass("swc")
+                                    $(this).children(".inner2").toggleClass("acv")
+                                    layer.closeAll('dialog');
+                                    let index = layer.load(2, {shade: [0.1,'#000']})
+                                    staus = 1
+                                    $.post("/offUser",{id,staus,code},data=>{
+                                        if(data.co == 1){
+                                            $(this).parent().children(".noneUserStatus").text(`1`)
+                                            // 修改成功
+                                            layer.close(index)
+                                            layer.msg("修改成功！",{icon:1,time:1500})
+                                        }
+                                    })  
+                                },()=>{
+                                    // 取消
+                                })
+                            }
+
+
+                        })
+                    }
+                   
+                
+                    // 删除和修改用户
+                function reUP(){
+                        // 删除用户
+                    $(".remove").click(function(){
+                        let fadeTr = $(this).parent().parent().children(".username").text()
+                        let identity =  $(this).parent().parent().children(".identity").text()
+                        
+                        let code = 0
+                        if(identity == "管理员"){
+                            code = 1
+                        }else{
+                            code = -1
+                        }
+                        layer.confirm("确定删除吗?",{
+                            ntm:["确定","取消"]
+                        },()=>{
+                            $.post("/removeUser",{username:fadeTr,code},data=>{
+                                if(data.co == 1){
+                                    layer.msg("删除成功！",{icon:1,time:1500})
+                                    setTimeout(()=>{
+                                        location.href = "/management" 
+                                    },1500)
+                                   
+                                    
+                                }
+                            })
+                            
+                        },()=>{
+
+                        })
+                        
+                    })
+                    
+                    
+                    
+       
+
+                    // 发送更新页面请求
+        
+                    $(".update").click(function(){
+            
+                    let identity =  $(this).parent().parent().children(".identity").text()
+                    let Tr = $(this).parent().parent().children(".username").text()
+                    
+                    let cod = 0
+                    
+                    if(identity == "管理员"){
+                        cod = 1
+                    }else{
+                        cod = -1
+                    }
+            
+                    $.get("/update",{username:Tr,code:cod},function(data){
+                        $(".main").html(data)
+
+                        $("#submit2").click(function(e){
+                            e.preventDefault()
+                            let newP = {}
+                            let $nick = $(".nick").val()
+                            let $username = $(".user").val()
+                            let $password = $(".pass").val()
+                            let $enPassword = $(".en-pass").val()
+                            let $ordinary = $(".ordinary").find("option:selected").text()
+                            let $manaStaus = $(".manaUsers").find("option:selected").text()
+                            newP.username = $username
+                            newP.nickname = $nick
+                            newP.password = $password
+                            if($ordinary == "普通用户"){
+                                newP.code = -1
+                            }else{
+                                newP.code = 1
+                            }
+                            if($manaStaus == "启用"){
+                                newP.status = 1
+                            }else{
+                                newP.status = -1
+                            }
+                            
+                            if($password != $enPassword){
+                                $(".tips").html("两次密码不一致!")
+                                $(".tips").css("background","rgba(255,0,0,.6)")
+                                tips()
+                            }else{
+                                $.post("/update",{newP,oldUsername:Tr,cod:cod},function(data){
+                                    if(data.co == 1){
+                                        $(".tips").html("修改成功!")
+                                        tips()
+                                        
+                                        setTimeout(function(){
+                                            location.href = "/management"
+                                        },1600)
+                                    }else{
+                                        $(".tips").html("邮箱账号已存在!")
+                                        $(".tips").css("background","rgba(255,0,0,.6)")
+                                        tips()
+                                    }
+
+                                })
+                            }
+
+                        })
+                    })
+                })
+            
+        }
+        
+                
+                
+                    // 发送消息
+                    function ms (){
+                    
+                        $("#sendMsg").click(function(){
+                            let toid = $("#toID").html()
+                            let id = $("#userNoneID").html()
+                            let val = $("#sendVal").val()
+                            let nick = $("#nick").html()
+                            let avatar = $("#images").attr("src")
+                            socket.emit("sendMessage",{
+                                id,
+                                toid,
+                                val,
+                                nick,
+                                avatar
+                            })
+                            
+                            
+                            $("#sendVal").val("")
+                        })
+                    }
+                    // 回车触发消息
+                    $(document).keydown((e)=>{
+                        if(e.keyCode === 13){
+                            let toid = $("#toID").html()
+                            let id = $("#userNoneID").html()
+                            let val = $("#sendVal").val()
+                            let nick = $("#nick").html()
+                            let avatar = $("#images").attr("src")
+                            socket.emit("sendMessage",{
+                                id,
+                                toid,
+                                val,
+                                nick,
+                                avatar
+                            })
+                            
+                            
+                            
+                            $("#sendVal").val("")
+                        }
+                    })
+                    // 接收消息
+                    res()
+                    function res(){
+                        socket.on("reloveMessage",(data)=>{
+                        // 接收数据
+                        let h = $(".msg-main").scrollTop()
+                        if(data.data.length){
+                            let data2 = data.data
+                            $(".pioner").show()
+                            for(let i in data2){
+                                $(".msg-main").append(`
+                                    <li class="msgs">
+                                        <div>
+                                            <img src="${data2[i].touser.avatar}">
+                                            
+                                        </div>
+                                        <span>
+                                           ${data2[i].touser.val}
+                                        </span>
+                                    </li>
+                            `)
+                            h += 100
+                            $(".msg-main").scrollTop(h)
+                            }
+                        }else{
+                            if(data.sure){
+                            
+                            $(".pioner").show()
+                            // 接收别人的消息
+                            $(".msg-main").append(`
+                                    <li class="msgs">
+                                        <div>
+                                            <img src="${data.data.avatar}">
+                                            
+                                        </div>
+                                        <span>
+                                           ${data.data.val}
+                                        </span>
+                                    </li>
+                            `)
+                            h += 100
+                            $(".msg-main").scrollTop(h)
+                        }else{
+                            // 接收自己发送的消息
+                            $(".msg-main").append(`
+                                    <li class="msgsed">
+                                        <div>
+                                           <img src="${data.data.avatar}">
+                                        </div>
+                                        <span>
+                                           ${data.data.val}
+                                        </span>
+                                    </li>
+                            `)
+                            h += 100
+                            $(".msg-main").scrollTop(h)
+                        }
+                        }
+    
+                        
+                })
+                    }
+                    function messageAvatar(){
+                        $(".messageImg").click(function(){
+                            let img = $(this).children("img").attr("src")
+                            let id = $(this).children("span").html()
+                            $(".msg > .mana-head > img").attr("src",img)
+                            $(".msg > .mana-head > #toID").html(id)
+                            $(".msg").show()
+                            let w = $(".msg-main").width()
+                            $(".msg-main").css("width",w+20)
+                            ms()
+                            
+                        })
+                    }
+                   
+                    
+            
+
+           var allLi = document.querySelectorAll(".nav-list>li")
+           var menuA = document.querySelectorAll(".menu>li>a")
+           var classDiv = document.querySelectorAll(".class>div")
+        
+            
+            $(".menu>li>a").click(function(){
+                for(let i in menuA){
+                    menuA[i].className = "item"
+                }
+                $(this).addClass(" active")
+                $(".nav-list>li").removeClass(" ac")
+                $(".order-list>li").removeClass(" ac")
+                $(".nav-list").css("height","0px")
+                $(".order-list").css("height","0px")
+                $(".msg").hide()
+            })
+        
+        
+           $("#manaBook").click(function(){
+            for(let i in menuA){
+                menuA[i].className = "item"
+            }
+            if($(".nav-list").css("height") == "0px"){
+                $(".class").css("display","none")
+                $(".nav-list").css("height","100px")
+            }
+            else{
+                $(".nav-list").css("height","0px")
+            }
+            
+            $(this).addClass(" active")
+        })
+        $(".bookClass").click(function(){
+           
+            $(this).addClass(" ac")
+         
+            
+        })
+        $("#order").click(function(){
+            if($(".order-list").css("height") === "0px"){
+                $(".order-list").css("height","80px")
+            }else{
+                $(".order-list").css("height","0px")
+            }
+            
+        })
+        $(".order-list >li").click(function(){
+            
+            $(".order-list >li").each(function(i,v){
+                $(v).removeClass(" ac")
+            })
+            $(this).addClass(" ac")
+        })
+
+
+        $(".class>div").click(function(){
+            for(let i in classDiv){
+                classDiv[i].className = ""
+            }
+            $(this).addClass(" ac")
+        })
+        
+
+     
+        $(".nav-list>li").click(function(){
+            $(".class>div").removeClass(" ac")
+            $(".bookClass").removeClass(" ac")
+            for(let i in allLi){
+                allLi[i].className = ""
+            }
+
+            $(this).addClass(" ac")
+
+        })
+         
+       
+        // 加载动画函数
+        function move (){
+            $(".main").html(`
+            <div id="#animBox">
+                <div id="anim">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                </div>
+            </div>
+            `)
+        }
+        
+
+
+        //上架教材请求
+        $(".upBook").click(function(){
+            move()
+            $.get("/manaBook",function(data){
+                $(".main").html(data)
+                let maxSelect = $("#selectMax").find("option:selected").text()
+                $.get("/minClass",{val:maxSelect},data=>{
+                    $("#select").html(data)
+                })
+                
+            $("#selectMax").change(()=>{
+               let maxSelect = $("#selectMax").find("option:selected").text()
+                $.get("/minClass",{val:maxSelect},data=>{
+                    $("#select").html(data)
+                })
+            })
+            //上架教材 
+            $("#release").click(function(e){
+                e.preventDefault()
+                let newVal = {}
+                let $option = $("#select").find("option:selected").text()
+                let $price = $("#price").val()
+                let $booktitle = $("#bookTitle").val()
+                var $imageCode1 = $(".image1").attr("src")
+                var $imageCode2 = $(".image2").attr("src")
+                var $imageCode3 = $(".image3").attr("src")
+                var $val = $(".bookVal").val()
+                let $maxVal = $("#selectMax").find("option:selected").text()
+                newVal.bookName = $booktitle
+                newVal.bookImg = [
+                    $imageCode1,
+                    $imageCode2,
+                    $imageCode3
+                ]
+                newVal.price = $price
+                newVal.class = $option
+                newVal.maxClass = $maxVal
+                newVal.val = $val
+                if($booktitle === ""){
+                    layer.tips('教材名称不能为空哦！',"#bookTitle",{
+                                tips: [1, '#ee3131'],
+                                time: 4000,
+                                tipsMore: true
+                    });
+                    return
+                }
+                
+                if(!$imageCode1&&!$imageCode2&&!$imageCode3){
+                    layer.tips('至少一张封面图！',".image1",{
+                                tips: [1, '#ee3131'],
+                                time: 4000,
+                                tipsMore: true
+                    });
+                    return
+                }
+                if($price === ""){
+                    layer.tips('请填写价格！',"#price",{
+                                tips: [1, '#ee3131'],
+                                time: 4000,
+                                tipsMore: true
+                    });
+                    return
+                }
+                if($val === ""){
+                    layer.tips('请填写教材描述！',".bookVal",{
+                                tips: [1, '#ee3131'],
+                                time: 4000,
+                                tipsMore: true
+                    });
+                    return
+                }
+
+
+                $.post("/Upload",newVal,function(data){
+                    if(data.co == 1){
+                       
+                        $(".tips").html("上架成功!")
+                        document.querySelector("#bookTitle").value = ""
+                        document.querySelector("#price").value = ""
+                        document.querySelector(".image1").src = ""
+                        document.querySelector(".image2").src = ""
+                        document.querySelector(".image3").src = ""
+                        document.querySelector(".bookVal").value = ""
+                        tips()
+                        
+                    }
+                })
+               
+
+
+            })
+            
+            
+            
+            
+            
+            
+            })
+        })
+            
+        // 提示信息框
+        function tips(){
+            
+            $(".tips").fadeIn()
+             setTimeout(function(){
+                 $(".tips").fadeOut()
+            },1300)
+            
+        }
+        
+
+        // 教材分类请求
+       
+        function viewClass(){
+            $.get("/classification",data=>{
+                move()
+                $(".main").html(data)
+                addclass()
+                update_class()
+                $(".addClass").click(()=>{
+                    $.get("/addClass",data=>{
+                        $(".main").html(data)
+                        addC()
+                        en_add()
+                    })
+                })
+                
+            })
+        }
+            $(".bookClass").click(function(){
+                $.get("/classification",data=>{
+                    move()
+                    $(".main").html(data)
+                    addclass()
+                    update_class()
+                    $(".addClass").click(()=>{
+                        $.get("/addClass",data=>{
+                            $(".main").html(data)
+                            addC()
+                            en_add()
+                        })
+                    })
+                    
+                })
+            })
+        
+        // 一级分类添加class
+        function addclass(){
+           $(".Max").click(function(){
+              $(this).addClass("class-active")
+              let inputs = $(".min-box")
+              let zindex = $(".minClass")
+              inputs.each((i,v)=>{
+                $(v).hide()
+              })
+              zindex.each((i,v)=>{
+                $(v).css("z-index",0)
+              })
+             
+              $(".min-cha").hide()
+              
+              $(this).parent().children(".minClass").css("z-index",10)
+              $(this).parent().children(".minClass").children(".min-box").show()
+              
+           })
+       }
+    //    点击按钮修改分类
+       function update_class(){
+            $(".update_class").click(function(){
+                
+                let up = $(".class-active")
+                if(up.length === 0){
+                    layer.msg("请选择要修改的分类!",{icon:2,time:1500})
+                    return
+                }
+                
+                $(".max-cha").show()
+                $(".min-box").each((i,v)=>{
+                    if($(v).css("display") == "block"){
+                        $(v).children(".min-cha").show()
+                    }
+                })
+                remove_Class()
+                $(".en-update_class").show()
+                up.attr("contenteditable",true)
+                up.parent().children(".minClass").children(".min-box").children("input").prop("disabled",false)
+                en_update()
+            })
+       }
+    //    确认修改
+    function en_update(){
+        $(".en-update_class").click(function(){
+
+            let max = $(".class-active")
+            let minD = $(".class-active").parent().children(".minClass").children(".min-box").children("input")
+            let idD = $(".class-active").parent().children(".classID")
+            let arr = []
+            
+            max.each((i,v)=>{
+                let obj = {}
+                let min = []
+                obj.id = $(v).parent().children(".classID").html()
+                obj.maxClass = $(v).children("span").html()
+                minD.each((i,v)=>{
+                    let obj = {}
+                    obj.minClass =  $(v).val()
+                    min.push(obj)
+                })
+                obj.min = min
+                arr.push(obj)
+            })
+            layer.confirm("确认修改吗?",{
+                btn:["确认","取消"]
+            },()=>{
+                let index = layer.load(2, {shade: [0.1,'#000']})
+                $.post("/enUpdateClass",{arr},data=>{
+                    if(data.co == 1){
+                        layer.close(index)
+                        layer.msg("修改成功！",{icon:1,time:1500})
+                        setTimeout(()=>{
+                            viewClass()
+                        },1500)
+                    }
+                })
+            },()=>{})
+            
+
+        })
+    }
+        // 添加二级分类
+        function addC (){
+            $("#layui-add").click(function(){
+                $(".class-box").append(`
+                <div class="form-group addMin">
+                                <label>二级分类</label>
+                                <input type="text" class="form-control" autocomplete="off">
+                </div>
+                `)
+            })
+        }
+        // 确认添加
+        function en_add(){
+            $("#en-add").click(function(){
+                let max = $(".addMax").children("input").val()
+                let minD = $(".addMin").children("input")
+                let min = []
+                minD.each((i,v)=>{
+                    let obj = {}
+                    obj.minClass = $(v).val()
+                    min.push(obj)
+                })
+                
+                let obj = {}
+                obj.maxClass = max
+                obj.min = min
+                $.post("/addClass",{obj},data=>{
+                    if(data.co==1){
+                        layer.msg("添加成功!",{icon:1,time:1500})
+                        setTimeout(()=>{
+                            viewClass()
+                        },1500)
+                    }
+                })
+            })
+        }
+        // 删除分类
+        function remove_Class(){
+            let off
+            $(".max-cha").click(function(){
+                let id = $(this).parent().parent().children(".classID").html()
+                off = 1
+                layer.confirm("确认删除吗?",{
+                    btn:["确认","取消"]
+                },()=>{
+                    layer.closeAll('dialog');
+                    let index = layer.load(2, {shade: [0.1,'#000']})
+                    $.post("/removeClass",{id,off},data=>{
+                        if(data.co == 1){
+                            layer.close(index)
+                            layer.msg("删除成功!",{icon:1,time:1500})
+                            $(this).parent().parent().remove()
+                        }
+                    })
+                },()=>{})
+            })
+            $(".min-cha").click(function(){
+                let id = $(this).parent().children(".minClassID").html()
+                off = -1
+                layer.confirm("确认删除吗?",{
+                    btn:["确认","取消"]
+                },()=>{
+                    layer.closeAll('dialog');
+                    let index = layer.load(2, {shade: [0.1,'#000']})
+                    $.post("/removeClass",{id,off},data=>{
+                        if(data.co == 1){
+                            layer.close(index)
+                            layer.msg("删除成功!",{icon:1,time:1500})
+                            $(this).parent().remove()
+                        }
+                    })
+                },()=>{})
+            })
+        }
+        
+        
+        // 修改教材页面请求
+        $(".manaUp").click(function(){
+            move()
+            
+            manaUp()
+            
+        })
+        // 模糊查询教材
+        async function search2(){
+            $(".search_book").click(()=>{
+                let val = $("#search_main").val()
+                if(val === ""){
+                    $("#search_main").attr("placeholder","输入内容不能为空!")
+                    setTimeout(()=>{$("#search_main").attr("placeholder","请输入教材名称/分类!")},1500)
+                    return
+                }
+                $.get("/manaSearch",{val,page:1},data=>{
+                    if(data.co == -1){
+                        $(".main").html("<span id='updateTi'>对不起，没有相关教材哦！</span>")
+                        $("#search_main").val(val)
+                        return
+                    }
+                    $(".main").html(data)
+                    $("#search_main").val(val)
+                    search2()
+                    pages("/manaSearch")
+                    searchAll()
+                })
+            })
+        }
+        // 查看全部
+        function searchAll(){
+            $(".allsearch").click(()=>{
+                manaUp()
+                searchAll()
+                pages("/manaUp")
+            })
+            
+        }
+        // 点击分页跳转
+        function pages(url){
+            left()
+            right()
+            page()
+            function left(){
+                $(".previous").click(()=>{
+                let page = parseInt($("#nowPage").html())
+                page--
+                $.get(url,{page},data=>{
+                    $(".main").html(data)
+                    bookRemove()
+                    editBook ()
+                    search2()
+                    pages(url)
+                    searchAll()
+                })
+            })
+            }
+            function right(){
+                $(".next").click(()=>{
+                let page = parseInt($("#nowPage").html())
+                
+                page++
+                $.get(url,{page},data=>{
+                    $(".main").html(data)
+                    bookRemove()
+                    editBook ()
+                    search2()
+                    pages(url)
+                    searchAll()
+                })
+            })
+            }
+            function page(){
+                $(".pages").click(function(){
+                let val = $("#search_main").val()
+                let page = parseInt($(this).html())
+                
+                $.get(url,{page,val},data=>{
+                    $(".main").html(data)
+                    bookRemove()
+                    editBook ()
+                    pages(url)
+                    search2()
+                    searchAll()
+                   
+                })
+            })
+            }
+            
+
+
+        }
+
+        // 提取修改教材页面请求的函数
+        function manaUp(){
+           
+            $.get("/manaUp",{page:1},function(data){
+                if(data.co == -1){
+                    $(".main").html("<span id='updateTi'>对不起，您还没有添加教材哦！</span>")
+                }else{
+                    $(".main").html(data)
+                    search2()
+                    pages("/manaUp")
+                    $(".switch").click(function(){
+                    let istime =  $(this).parent().parent().children(".date")
+                    let thi = $(this).parent().parent().children(".sw")
+                    let oldoff = $(this).parent().parent().children(".sw").text()
+                    let id = $(this).parent().parent().children(".imgId").text()
+                    let inr = $(this).children(".inner")
+                    
+                    if(oldoff == 1){
+                        oldoff = -1
+                    }else if(oldoff == -1){
+                        oldoff = 1
+                    }
+                    $(this).toggleClass(" swc")
+                    inr.toggleClass(" acv")
+                    $.post("/off",{off:oldoff,id:id},function(data){
+                        if(data.co == 1){
+                            $(".tips").html("上架成功!")
+                            $(".tips").css("background","#8ec9ee")
+                            istime.text(data.time)
+                            thi.text(1)
+                            tips()
+                        }else if(data.co == -1){
+                            $(".tips").html("下架成功!")
+                            $(".tips").css("background","red")
+                            thi.text(-1)
+                            tips()
+                        }
+                    })
+                    })
+                    editBook()
+                    bookRemove()
+                    
+                }
+                
+            })
+             
+        }
+        
+        
+        // 删除教材
+        function bookRemove(){
+
+            $(".editRemove").click(function(){
+                let id = $(this).parent().parent().children(".imgId").text()
+               layer.confirm("确认删除吗?",{
+                   btn:["确定","删除"]
+               },()=>{
+                    layer.closeAll('dialog');
+                    re(id)
+               },()=>{
+
+               })
+            })
+        }
+        // 删除教材请求的函数
+        function re (id){
+            $.post("/removeBook",{id:id},function(data){
+                if(data.co == 1){
+                    $(".tips").html("删除成功!")
+                    tips()
+                    setTimeout(function(){
+                        manaUp()
+                    },2600)
+                    
+                }
+            })
+            
+        }
+
+        // 修改具体教材的页面请求
+        function editBook (){
+            $(".editBianji").click(function(){
+                let index = layer.load(2, {shade: [0.1,'#000']})
+                var id = $(this).parent().parent().children(".imgId").text()
+                var lei = $(this).parent().parent().children(".cla").text()
+                
+                $.get("/editBook",{id,lei},function(data){
+                   
+                    $(".main").html(data)
+                    layer.close(index)
+                    option()
+                    edit(id)
+                })
+                
+            })
+        }
+        function option(){
+            $("#editMax").change(()=>{
+                let maxSelect = $("#editMax").find("option:selected").text()
+                $.get("/minClass",{val:maxSelect},data=>{
+                    $("#editSelect").html(data)
+                })
+            })
+        }
+
+
+
+        // 提交教材修改数据函数
+        function edit (id){
+
+            $("#editRelease").click(function(){
+                let $editNick = $("#editNick").val()
+                let $editMax = $("#editMax").find("option:selected").text()
+                let $editSelect = $("#editSelect").find("option:selected").text()
+                let $imgCode1 = $(".image1").attr("src")
+                let $imgCode2 = $(".image2").attr("src")
+                let $imgCode3 = $(".image3").attr("src")
+                let val = $(".bookVal2").val()
+                let $price = $("#editPrice").val()
+                
+                let newObj = {
+                
+                bookName : $editNick,
+                bookImg:[
+                $imgCode1,
+                $imgCode2,
+                $imgCode3
+                ],
+                price : $price,
+                class : $editSelect,
+                maxClass : $editMax,
+                val
+                }
+                $.post("/editBook",{id:id,newObj:newObj},function(data){
+                    if(data.co ==1){
+                        $(".tips").html("修改成功!")
+                        tips()
+                        setTimeout(function(){
+                            manaUp()
+                        },2600)
+                        
+                    }
+                })
+
+
+
+            })
+
+        }
+
+
+
+
+
+        // 添加新用户
+        $("#newPeople").click(function(){
+            $.get("/peopleUp",function(data){
+                
+                    $(".main").html(data)
+                 // 提交用户数据
+                
+                
+                
+                 $("#submit").click(function(e){
+                   e.preventDefault()
+                    let newP = {}
+                    let $nick = $(".nickname").val()
+                    let $username = $(".username").val()
+                    let $password = $(".password").val()
+                    let $enPassword = $(".en-password").val()
+                    let $ordinary = $(".ordinary").find("option:selected").text()
+                    let $manaStaus = $(".manaUsers").find("option:selected").text()
+                    
+                    newP.username = $username
+                    newP.nickname = $nick
+                    newP.password = $password
+                    if($ordinary == "普通用户"){
+                        newP.code = -1
+                    }else{
+                        newP.code = 1
+                    }
+                    if($manaStaus == "启用"){
+                        newP.status = 1
+                    }else{
+                        newP.status = -1
+                    }
+                    
+                    
+                    if($password != $enPassword){
+                        $(".tips").html("两次密码不一致!")
+                        $(".tips").css("background","rgba(255,0,0,.6)")
+                        tips()
+                    }else{
+                        
+                        $.post("/peopleUp",newP,function(data){
+                            if(data.co == 1){
+                                $(".tips").html("添加成功!")
+                                tips()
+                                location.href = "/management"
+                            }else{
+                                $(".tips").html("邮箱账号已存在!")
+                                $(".tips").css("background","rgba(255,0,0,.6)")
+                                tips()
+                            }
+
+                        })
+                    }
+
+                })
+                
+                        
+                    })
+        })
+       
+        // 资讯页面请求
+        $("#zixun").click(function(){
+            move()
+            allzixun()
+            
+        })
+        // 所有资讯页面函数
+        function allzixun(){
+            $.get("/allzixun",function(data){
+                $(".main").html(data)
+                // 删除资讯请求
+                $(".zixunDelete").click(function(){
+                    let id = $(this).parent().parent().children(".zixunID").text()
+                    
+                    layer.confirm("确认删除吗?",{
+                        btn:["确定","删除"]
+                    },()=>{
+                        layer.closeAll('dialog');
+                        $.post("/alldelete",{id:id},function(data){
+                            if(data.co == 1){
+                             layer.msg("删除成功！",{icon:1,time:1500})   
+                             allzixun()
+                        }
+                    })
+                    },()=>{
+
+                    })
+                   
+
+
+                })
+
+                // 编辑资讯
+                $(".zixunBianji").click(function(){
+                    let id = $(this).parent().parent().children(".zixunID").text()
+                    let val =$(this).parent().parent().children("textarea").val()
+                    $.get("/updateNews",{id:id},function(data){
+                            $(".main").html(data)
+
+                            $("#releas").click(function(e){
+                                e.preventDefault()
+                                let newobj = newObj()
+                                $.post("/updateNews",{id:id,newobj:newobj},function(data){
+                                    if(data.co == 1){
+                                        $(".tips").html("修改成功!")
+                                        tips()
+                                        setTimeout(()=>{
+                                            allzixun()
+                                        },1600)
+                                    }
+                                })
+                            })
+                    })
+                })
+                
+                $(".newzixun").click(function(){
+                    move()
+                    $.get("/information",function(data){
+                        $(".main").html(data)
+                        addrele()
+                        
+                    })
+                })
+
+            })
+        }
+       
+        // 添加资讯获取的数据
+        function newObj(){
+            let newobj = {}
+                let imgcode = $("#maximg").attr("src")
+                let tit = $("#tit").val()
+                let main = $("textarea").val()
+                let stikey = $("#sticky").prop("checked")
+                
+                newobj.title = tit
+                newobj.img = imgcode
+                newobj.main = main
+                
+                newobj.stikey = (stikey === true?true:false)
+                return newobj
+        }
+         // 添加资讯
+         
+        function addrele(){
+            
+            $("#relea").click(function(e){
+                e.preventDefault()
+                let newobj = newObj()
+                
+                $.post("/rele",newobj,function(data){
+                    if(data.co == 1){
+                        $(".tips").html("发布成功!")
+                        tips()
+                        $("textarea").val("")
+                        $("#tit").val("")
+                        $("#maximg").attr("src","")
+                        allzixun()
+                    }else{
+                        $(".tips").html("发布失败,请稍后重试!")
+                        $(".tips").css("background","red")
+                        tips()
+                    }
+                })
+
+             })
+
+
+
+
+        }
+
+
+
+
+        function add (){
+            // 添加图片
+            $("#addBtn").click(function(){
+            let val = $(".clear").html()
+            $(".clear").html(`
+                    ${val}
+                    <div class="form-group imgbox">
+                        <label for="exampleInputFile">图片预览</label>
+                        <div class="thumbnail-waper chi">
+                            <img class="img-thumbnail ims"  src="">
+                            <div class="buttons re">
+                                    <input type="button" class="btn btn-primary removeBtn" value="删除图片">
+                            </div>
+                        </div>
+                        <input type="file" class="fil" onchange="read(this)">
+                        
+                    </div>
+            `)
+            remo()
+            })
+        }
+        
+
+
+
+
+        // 轮播图页面请求
+        $("#lunbo").click(function(){
+            move()
+            $.get("/lunbo",function(data){
+                $(".main").html(data)
+                add()
+                lun()
+                remo()
+            })
+        })
+        // 提交删除轮播图片请求
+        function remo (){
+            
+            $(".removeBtn").click(function(){
+              let reDiv = $(this)
+              let id = $(this).parent().parent().children(".lunboID").text()
+                
+               
+                   $.post("/removeLunbo",{id:id},function(data){
+                    if(data.co == 1){
+                        // 删除成功
+                        $(".tips").html("删除成功!")
+                        tips()
+                        reDiv.parent().parent().parent().remove()
+                       
+                    }else{
+                        reDiv.parent().parent().parent().remove()
+                    }
+                   })
+               
+
+
+
+            })
+        }
+        
+        
+        // 提交轮播图
+        function lun (){
+            let newArr = []
+            $("#lunboBtn").click(function(e){
+                e.preventDefault()
+                
+                $.each($(".ims"),function(i,n){
+                    var newObj = {}
+                    newObj.id = $(n).parent().children(".lunboID").text()
+                    newObj.image = $(n).attr("src")
+                    newArr.push(newObj)
+                })
+               
+                $.post("/lunbo",{all:newArr},function(data){
+                    if(data.co == 1){
+                        $(".tips").html("修改成功!")
+                        tips()
+                    }
+                })
+            })
+               
+            
+        }
+
+        // 处理订单请求的函数
+        order()
+        function order(){   
+            //绑定点击监听
+            // 已处理订单
+            $(".ordered").click(function(){
+                post()
+                
+
+            })
+
+            // 未处理订单
+            $(".neworder").click(function(){
+                post2()
+                
+            })
+
+            // 提取发送请求的ajax
+            function post(){
+                $.post("/manaOrder",function(data){
+                    $(".main").html(data)
+                    replay()
+                    $(".nick").each((i,v)=>{
+                        $(v).html($(v).parent().parent().parent().children().children(".Nick").html())
+                    })
+                    $(".phone").each((i,v)=>{
+                        $(v).html($(v).parent().parent().parent().children().children(".Phone").html())
+                    })
+                    $(".address").each((i,v)=>{
+                        $(v).html($(v).parent().parent().parent().children().children(".Address").html())
+                    })
+
+                    let allnum = $(".allnum")
+                    allnum.each((i,v)=>{
+                        $(v).html($(v).parent().parent().children(".order-book").length)
+                    })
+                    
+                    // 点击展开扩展层
+                    $(".order-con").click(function(){
+                        if($(this).parent().children(".expand").css("display") != "block"){
+                            $(".order-con").parent().children(".expand").slideUp()
+                        }
+                        
+                        $(this).parent().children(".expand").slideToggle()
+                    })
+
+                })
+
+            }
+            function post2(){
+                $.post("/neworder",function(data){
+                    $(".main").html(data)
+                    
+                    replay()
+                    $(".nick").each((i,v)=>{
+                        $(v).html($(v).parent().parent().parent().children().children(".Nick").html())
+                    })
+                    $(".phone").each((i,v)=>{
+                        $(v).html($(v).parent().parent().parent().children().children(".Phone").html())
+                    })
+                    $(".address").each((i,v)=>{
+                        $(v).html($(v).parent().parent().parent().children().children(".Address").html())
+                    })
+                    let allnum = $(".allnum")
+                    allnum.each((i,v)=>{
+                        $(v).html($(v).parent().parent().children(".order-book").length)
+                    })
+                    // 点击展开扩展层
+                    $(".order-con").click(function(){
+                        if($(this).parent().children(".expand").css("display") != "block"){
+                            $(".order-con").parent().children(".expand").slideUp()
+                        }
+                        $(this).parent().children(".expand").slideToggle()
+                    })
+
+                    $(".deli").click(function(e){
+                        e.stopPropagation()
+                        let num = $(this).parent().parent().children(".Nums").html()
+                        let id = $(this).parent().parent().parent().parent().children(".nonebox").children(".userid").html()
+                        ordering(num,id)
+                        
+                    })
+                })
+                
+            }
+            // 发货
+            function ordering(num,id){
+                $.post("/ordering",{orderNum:num,id},function(data){
+                    if(data.co == 1){
+                        layer.msg("发货成功!",{icon:1,time:1500})
+                    }
+                })
+            }
+            // 点击查看评论
+            function replay(){
+                    $(".replay").click(function(){
+                       
+                        let bookid = $(this).parent().children(".noneid").html()
+                        let img = $(this).parent().children(".bookImg").children("img").attr("src")
+                        let name = $(this).parent().children(".book_name").children("h2").html()
+                        let price = $(this).parent().children(".book_price").children("span").html()
+                        let $class = $(this).parent().children(".classs").html()
+                        $(".book_img>img").attr("src",img)
+                        $(".book_bookName>h2").html(name)
+                        $(".book_class").html($class)
+                        $(".book_pri>span").html(price)
+                        $(".bookid").html(bookid)
+                        re(bookid)
+                    })
+            }
+            // 渲染评论的请求
+            function re(bookid){
+                // 发送渲染评论请求
+                let index = layer.load(2, {shade: [0.1,'#000']})
+                $.post("/Replay",{bookid},function(data){
+                    
+                            if(data.co === -1){
+                                $(".replay-main").html("暂时没有评论哦!")
+                            }else{
+                                $(".replay-main").html(data)
+                                
+                            }
+                            layer.close(index)
+                            $(".replayBox").fadeIn(100)
+                            $(".replayBox").addClass(" replayBox_active")
+                            
+                            // 同步id
+                            $(".commentIDs").each((i,v)=>{
+                                let vals = $(v).parent().parent().children(".commentID").html()
+                                $(v).html(vals)
+                            })
+                            $(".ic").click(()=>{
+                                $(".replayBox").fadeOut(200)
+                                $(".replayBox").removeClass(" replayBox_active")
+                                clickReplayOut()
+                                $(".replay-main").css("height","370px")
+                            })
+                            submit()
+                            deleteReplay(bookid)
+                            clickReplay() 
+                        })
+            }
+            // 回复评论
+            function clickReplay(){
+                $(".Replay").click(function(){
+                    $(".comment-form").fadeIn()
+                    $(".replay-main").css("height","250px")
+                    Replays(this)
+                    
+                })
+                $(".Replays").click(function(){
+                    $(".comment-form").fadeIn()
+                    $(".replay-main").css("height","250px")
+                    replays(this)
+                })
+            }
+            function clickReplayOut(){
+                $(".comment-form").fadeOut()
+                $(".replay-main").css("height","370px")
+            }
+
+            function submit(){
+                $(".subs").click(function(){
+                    let index = layer.load(2, {shade: [0.1,'#000']})
+                    let val = $(".comment-main").val()
+                    let id = $(".bookid").html()
+                    let user = $(".comment-form > p").html()
+                    let atval = $("#at").val()
+                    let identity = 1
+                    if(val == ""){
+                        $(".comment-main").val("请输入要回复的内容")
+                        setTimeout(function(){
+                            $(".comment-main").val("")
+                        },1000)
+                        
+                    }else{
+                            $.post("/manaComment",{val,id,user,atval,identity},function(data){
+                                // 回复成功
+                                if(data.co == 1){
+                                    // window.alert("回复成功")
+                                    layer.close(index)
+                                    layer.msg("回复成功!",{icon:1,time:1500})
+                                    $(".comment-main").val("")
+                                    clickReplayOut()
+                                    // 重新渲染评论
+                                    $.post("/Replay",{bookid:id},function(data){
+                                        if(data.co === -1){
+                                            $(".replay-main").html("暂时没有评论哦!")
+                                        }else{
+                                            $(".replay-main").html(data)
+                                            $(".commentIDs").each((i,v)=>{
+                                                let vals = $(v).parent().parent().children(".commentID").html()
+                                                $(v).html(vals)
+                                            })
+                                            clickReplay()
+                                            deleteReplay(id)
+                                        }
+                                    })
+                                }
+                            })
+            
+                
+                        
+                    }
+                    
+                })
+                
+
+            }
+            // 删除评论
+            function deleteReplay(bookid){
+                let index
+                $(".deleteReplay").click(function(){
+                    // 删除一个主评论附带所有的子评论
+                    let id = $(this).parent().parent().children(".commentID").html()
+                    index = 1
+                    layer.confirm("确认删除吗?",{
+                        btn:["确定","取消"]
+                    },()=>{
+                        deleteR(id,index,bookid)
+                        layer.msg("删除成功!",{icon:1,time:1500})
+                    },()=>{})
+                    
+                    
+                })
+                $(".deleteReplays").click(function(){
+                    // 删除一个子评论
+                    
+                    let id = $(this).parent().children(".deleteID").html()
+                    index = -1
+                    layer.confirm("确认删除吗?",{
+                        btn:["确定","取消"]
+                    },()=>{
+                        deleteR(id,index,bookid)
+                        layer.msg("删除成功!",{icon:1,time:1500})
+                    },()=>{})
+                    
+                })
+                $(".deleteManaReplays").click(function(){
+                    // 删除一个管理员评论
+                    let id = $(this).parent().children(".deleteID").html()
+                    index = 0
+                    layer.confirm("确认删除吗?",{
+                        btn:["确定","取消"]
+                    },()=>{
+                        deleteR(id,index,bookid)
+                        layer.msg("删除成功!",{icon:1,time:1500})
+                    },()=>{})
+                })
+
+                function deleteR (id,index,bookid){
+                    
+                    $.post("/deleteReplay",{id,index,bookid},function(data){
+                        if(data.co == 1){
+                            // 删除成功
+                            $.post("/Replay",{bookid},function(data){
+                                        if(data.co === -1){
+                                            $(".replay-main").html("暂时没有评论哦!")
+                                        }else{
+                                            $(".replay-main").html(data)
+                                            deleteReplay(bookid)
+                                            clickReplay()
+                                        }
+                                })
+                        }
+                    })
+                }
+            }
+
+            // 财务明细页面请求
+            finance()
+            async function finance(){
+                $("#finance").click(()=>{
+                    // 计算收入
+                    
+                    let d = new Date()
+                    let m = (d.getMonth()+1).toString().length === 1? '0'+(d.getMonth()+1):(d.getMonth()+1)
+                    $.get("/financeHtml",data=>{
+                        $(".main").html(data)
+
+                        laydate.render({    //日期范围
+                            elem: '#date'
+                            ,range: true
+                            
+                            ,done:function(value,date,endDate){
+                                $(".allFinance").removeClass(" finance-a-active")
+                                $("#date2").val("")
+                                date.month = date.month.toString().length ===1?'0'+date.month:date.month
+                                date.date = date.date.toString().length ===1?'0'+date.date:date.date
+                                endDate.month = endDate.month.toString().length ===1?'0'+endDate.month:endDate.month
+                                endDate.date = endDate.date.toString().length ===1?'0'+endDate.date:endDate.date
+                                
+                                let start = date.year+"/"+date.month+"/"+date.date
+                                let end = endDate.year+"/"+endDate.month+"/"+endDate.date
+                                
+                                upFi(null,start,end)
+                            }
+                        });
+                        
+                        laydate.render({     //单天日期
+                            elem: '#date2'
+                            ,showBottom: false
+                            ,value:`${d.getFullYear()}-${m}-${d.getDate()}`
+                            ,done:function(value,date){//选中日期的回调
+                                $(".allFinance").removeClass(" finance-a-active")
+                                $("#date").val("")
+                                // value为日期
+                                upFi(value.replace(/-/g,"/"))
+                            }
+                        });
+                        upFi()
+                        $(".allFinance").click(()=>{
+                            $(".allFinance").addClass(" finance-a-active")
+                            allfin()
+                            $("#date").val("")
+                            $("#date2").val("")
+                        })
+                    })   
+                   
+                
+                        
+                   
+                })
+            }
+            // 刷新财务页面请求
+            async function upFi(date,start,end){
+                
+                $.get("/finance",{date,start,end},data=>{
+                        
+                        if(data.co == -1){
+                            $(".finance-foot").html(`<span class="finance-mation">没有任何收入<span>`)
+                            $(".dayFina").html(0)
+                            $(".allFina").html("/")
+                        }else{
+                            $(".finance-foot").html(data)
+                            let pri = 0
+                            $(".finance-list>.smallPri>span").each((i,v)=>{
+                                pri +=parseFloat($(v).html()) 
+                            })
+                            
+                            $(".dayFina").html(pri)
+                            $(".allFina").html("/")
+                            $(".nick2").each((i,v)=>{
+                            $(v).html($(v).parent().parent().children().children(".Nick2").html())
+                            })
+                            $(".phone2").each((i,v)=>{
+                                $(v).html($(v).parent().parent().children().children(".Phone2").html())
+                            })
+                            $(".address2").each((i,v)=>{
+                                $(v).html($(v).parent().parent().children().children(".Address2").html())
+                            })
+                        }
+                    })
+            }
+            // 查看全部财务账单
+            async function allfin(){
+                $.get("/allfinance",data=>{
+                        
+                        if(data.co == -1){
+                            $(".finance-foot").html(`<span class="finance-mation">没有任何收入<span>`)
+                            $(".allFina").html(0)
+                            $(".dayFina").htmk("/")
+                        }else{
+                            $(".finance-foot").html(data)
+                            let pri = 0
+                            $(".finance-list>.smallPri>span").each((i,v)=>{
+                                pri +=parseFloat($(v).html()) 
+                            })
+                            $(".allFina").html(pri)
+                            $(".dayFina").html("/")
+                            $(".nick2").each((i,v)=>{
+                            $(v).html($(v).parent().parent().children().children(".Nick2").html())
+                            })
+                            $(".phone2").each((i,v)=>{
+                                $(v).html($(v).parent().parent().children().children(".Phone2").html())
+                            })
+                            $(".address2").each((i,v)=>{
+                                $(v).html($(v).parent().parent().children().children(".Address2").html())
+                            })
+                        }
+                    })
+
+            }
+            
+
+
+
+            function replays (v){
+                let id = $(v).parent().children(".commentIDs").html()
+                let nick = $(v).parent().children(".commentNick").html()
+                $(".comment-form > span").html(`@${nick}`)
+                $(".comment-form > p").html(`${id}`)
+                $("#at").val(`${nick}`)
+                
+                $("#at").fadeIn()
+                $("#rep").fadeIn()
+                $(".comment-main").addClass(" active-comment")
+            }
+            
+            function Replays (v){
+                let id = $(v).parent().parent().children(".commentID").html()
+                let nick = $(v).parent().parent().children(".user_nick").children(".user_nick_span").html()
+                $(".comment-form > span").html(`@${nick}`)
+                $(".comment-form > p").html(`${id}`)
+                $("#at").val(`${nick}`)
+                
+                $("#at").fadeIn()
+                $("#rep").fadeIn()
+                $(".comment-main").addClass(" active-comment")
+            }
+            
+
+        }
+        
+        
+            
+        
+       
+
+
+        
+        function read (tt){
+            
+            const image = $(tt).parent().children(".chi").children(".ims")
+            let file = tt.files[0]
+            var reader = new FileReader()
+                reader.readAsDataURL(file)
+
+            reader.onloadstart = function(){
+                console.log("上传....")
+            }
+            reader.onload = function(e){
+                image.attr("src",reader.result)
+                
+            }
+            
+            
+            
+
+        }
+        function star (){
+            const fileInput = document.querySelector("#maxfile")
+            const image = document.querySelector("#maximg")
+
+            if(fileInput&&image){
+                Handle(fileInput,image)
+            }
+            
+        }
+        function st (cc){
+            const image = $(cc).parent().parent().children("dd").children(".image")
+            console.log(image)
+            let file = cc.files[0]
+
+            var reader = new FileReader()
+                reader.readAsDataURL(file)
+
+            reader.onloadstart = function(){
+                console.log("上传....")
+            }
+            reader.onload = function(e){
+                image.attr("src",reader.result)
+                
+            }
+            
+        }
+        function startRead (){
+            const fileInput = document.querySelector("#file")
+            const image = document.querySelector("#image")
+
+            if(fileInput&&image){
+                Handle(fileInput,image)
+            }
+
+        }
+        
+        function Handle(fileInput,image){
+            let file = fileInput.files[0]
+            var reader = new FileReader()
+                reader.readAsDataURL(file)
+
+            reader.onloadstart = function(){
+                console.log("上传....")
+            }
+            reader.onload = function(e){
+                image.setAttribute("src",reader.result)
+                
+            }
+        }
+        
+
+
+    </script>
+    {{ block "script" }}
+    {{ /block }}
+</body>
+
+</html>

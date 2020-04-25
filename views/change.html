@@ -1,0 +1,21 @@
+{{ each allBook }}
+{{ if $value.off === 1 }}
+<li class="fl">
+    <a href="/shoping?id={{$value.id}}&browse={{$value.browse}}" class="thumbnail">
+        <span class="noneID" style="display: none;">{{$value.id}}</span>
+        <img src="{{ $value.bookImg[0] }}" onclick=" shop(this);">
+    </a>
+    <div class="content">
+        <a class="article-title" href="/shoping?id={{$value.id}}&browse={{$value.browse}}">{{ $value.bookName }}</a>
+        <div class="product">
+            <span>浏览量:{{$value.browse}}</span>
+        </div>
+        <div class="article-info">
+            <span class="author">{{ $value.price }}元</span>
+            
+        </div>
+    
+    </div>
+</li>
+{{ /if }}
+{{ /each }}

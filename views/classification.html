@@ -1,0 +1,40 @@
+<div class="title">
+        <h4>教材分类</h4>
+        <p class="tips">错误信息</p>
+    </div>
+
+
+    <form action="" class="fication-box form-container">
+           
+        <div class="fication-main">        
+            <!-- 一级分类 -->
+          
+            {{each allClass}}
+                <div class="maxClass">
+                         <span class="classID" style="display: none;">{{$value._id}}</span>
+                        <div style=" cursor: pointer;" class="Max" contenteditable="false">
+                                <span>{{$value.maxClass}}</span>
+                                <i class="icon-chacha max-cha"></i>
+                        </div>
+                        
+                    <!-- 二级分类 -->
+                    
+                    <div class="minClass" >
+                        
+                        {{each $value.min}}
+                            <div class="min-box">
+                                    <span class="minClassID" style="display: none;">{{$value._id}}</span>
+                                    <input class="Min" type="text" value="{{$value.minClass}}" disabled style=" cursor: pointer;">
+                                    <i class="icon-chacha min-cha"></i>
+                            </div>
+                        {{/each}}
+                    </div>
+                    
+                </div>
+            {{/each}}
+            <button type="button" class="layui-btn update_class">修改</button>
+            <button type="button" class="layui-btn en-update_class">确定</button>
+        </div>
+            <input type="button" class="btn btn-primary addClass" value="添加分类">
+    </form>
+

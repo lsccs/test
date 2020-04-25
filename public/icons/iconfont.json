@@ -1,0 +1,30 @@
+{
+  "id": "1728113",
+  "name": "new",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "7903216",
+      "name": "hman-我的消息",
+      "font_class": "wodexiaoxi",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "12992265",
+      "name": "财务明细m",
+      "font_class": "caiwumingxi-",
+      "unicode": "e643",
+      "unicode_decimal": 58947
+    },
+    {
+      "icon_id": "13027151",
+      "name": "心",
+      "font_class": "01",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    }
+  ]
+}

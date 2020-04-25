@@ -1,0 +1,72 @@
+{{ extend "./userIndex.html" }}
+{{block "con"}}
+         <div class="nav2">
+                <div class="w1100">
+                        <a href="/">首页></a>
+                        
+                        <span>我的购物车</span>
+            
+                </div>
+                
+        </div>
+
+        <!-- 购物车内容 -->
+        <div class="shop-con w1100">
+            <!-- 头部 -->
+            <div class="shop-head">
+                    <div class="center-bar">
+                            <div>
+                                <input type="checkbox" class="check">
+                                <span>教材图片</span>
+                            </div>
+                            <span>教材名称</span>
+                            <span>教材分类</span>
+                            <span>单价</span>
+                            <span>数量</span>
+                            <span>小计</span>
+                            <span>操作</span>
+                        </div>
+            </div>
+            <!-- 主体 -->
+            <div class="shop-center">
+                <!-- 遍历书的id -->
+                {{ each user.shop }}
+                <span class="shopid" style="display: none;"><span class="boo">{{$value.bookid}}</span><span class="boo2">{{$value.num}}</span></span>
+                {{ /each ]}}
+                {{ each shops }}
+                <ul class="center-list" >
+                    <span class="boids" style="display: none;">{{$value.id}}</span>
+                    <span class="sales" style="display: none;">{{$value.sales}}</span>
+                    <input type="checkbox" class="checks">
+                    <li ><img src="{{$value.bookImg[0]}}"></li>
+                    <li class="order-length">{{$value.bookName}}</li>
+                    <li >{{$value.class}}</li>
+                    <li style="color: #ee3131;font-weight: bold;" class="prices">{{$value.price}}元</li>
+                    
+                    <li class="num-box"> <input  type="text" class="num"></li>
+                    <li class="subtotal" style="color: #ee3131;font-weight: bold;"></li>
+                    <li ><a href="javascript:;" class="removeshop"> <i  class="icon-chacha" style="font-family:iconfont;"></i> 不想要了</a></li>
+                    
+                </ul>
+                {{ /each }}
+            </div>
+            <!-- 底部 -->
+            <div class="shop-foot">
+                    <div class="pay">
+                            <span class="en-pay">确认支付</span>
+                            <span  class="pers"  style="display: none;">{{user.payPassword}}</span>
+                    </div>
+                <div>
+                        <span>共计:</span>
+                        <span class="allpri" style="color: #ee3131; font-weight: bold;">0元</span>
+                </div>
+                
+            </div>
+        </div>
+       
+
+{{/block}}
+
+{{block "script"}}
+
+{{/block}}

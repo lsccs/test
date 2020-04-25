@@ -1,0 +1,44 @@
+{
+  "id": "1728113",
+  "name": "new",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "680987",
+      "name": "书",
+      "font_class": "shu",
+      "unicode": "e726",
+      "unicode_decimal": 59174
+    },
+    {
+      "icon_id": "1237898",
+      "name": "用户",
+      "font_class": "icon-user",
+      "unicode": "e699",
+      "unicode_decimal": 59033
+    },
+    {
+      "icon_id": "1424268",
+      "name": "叉叉",
+      "font_class": "chacha",
+      "unicode": "e658",
+      "unicode_decimal": 58968
+    },
+    {
+      "icon_id": "2053214",
+      "name": "资讯",
+      "font_class": "zixun",
+      "unicode": "e6f9",
+      "unicode_decimal": 59129
+    },
+    {
+      "icon_id": "8348110",
+      "name": "编辑",
+      "font_class": "bianji",
+      "unicode": "e718",
+      "unicode_decimal": 59160
+    }
+  ]
+}

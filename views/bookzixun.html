@@ -1,0 +1,76 @@
+
+<div class="nav2">
+        <div class="w1100 nav3">
+                <a href="/">首页></a>
+                <a class="ser" href="javascript:;" style="color: rgb(109, 135, 211);">课程咨询</a>
+    
+        </div>
+        
+</div>
+
+<div class="w1100 center">
+    <div class="search">
+            <input type="text" class="search-text" placeholder="模糊查询资讯" >
+            <input type="submit" class="search-box" value="搜索">
+            <a href="javascript:;" class="all"><span>查看全部</span></a>
+    </div>
+        <span class="quantity">共找到 {{zixun.total}} 条内容</span>
+        <h2>课程咨询列表</h2>
+    <div class="mediaBox" style="width: 100%; min-height: 70px;">
+{{ each zixun.records }}
+{{ if $value.stikey}}
+
+        <div class="media">
+            <span class="ic" style="color: #ee3131; font-size: 15px;">&#xe603;</span>
+            <img class="mr-3 post-thumb d-none d-md-flex avav" src="{{$value.img}}" alt="image" >
+            <div class="media-body">
+                <h3 class="title mb-1"><a>{{ $value.title}}</a></h3>
+                <div class="meta mb-1"><span class="date">{{$value.date}}</span><span style="margin-left: 180px;"><a href="javascript:;">浏览量: {{ $value.browse }}</a></span></div>
+                <div class="intro line-length">{{ $value.main }}</div>
+                <span class="dailID" style="display: none;">{{ $value.id }}</span>
+                <a class="more-link more" href="javascript:;">Read more &rarr;</a>
+                
+            </div>
+        </div>
+
+{{ /if }}
+{{if $value.stikey == false}}
+
+        <div class="media">
+            
+            <img class="mr-3 post-thumb d-none d-md-flex avav" src="{{$value.img}}" alt="image" >
+            <div class="media-body">
+                <h3 class="title mb-1"><a href="blog-post.html">{{ $value.title}}</a></h3>
+                <div class="meta mb-1"><span class="date">{{$value.date}}</span><span  style="margin-left: 180px;" ><a href="javascript:;">浏览量: {{ $value.browse }}</a></span></div>
+                <div class="intro line-length">{{ $value.main }}</div>
+                <span class="dailID" style="display: none;">{{ $value.id }}</span>
+                <a class="more-link more" href="javascript:;" >Read more &rarr;</a>
+                
+            </div><!--//media-body-->
+        </div><!--//media-->
+
+{{ /if }}
+{{ /each }}
+<ul class="pagination">
+    <span id="page" style="display: none;">{{zixun.page}}</span>
+    {{if zixun.page>1}}
+    <li>
+        <a href="javascript:;" class="left-zixun">
+        <span>←Previous</span>
+      </a>
+    </li>
+    {{/if}}
+
+    {{if zixun.page < zixun.pages}}
+    <li>
+        <a href="javascript:;" class="right-zixun">
+        <span>Next→</span>
+      </a>
+    </li>
+    
+
+    {{/if}}
+
+</ul>
+</div>
+</div>

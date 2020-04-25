@@ -1,0 +1,110 @@
+
+<div class="title">
+    <h4>已处理订单</h4>
+    <p class="tips">错误信息</p>
+</div>
+
+
+<div class="table table-striped table-bordered table-hover custom-table">
+        <div class="theads">
+            <ul>
+                <li>订单编号</li>
+                <li>用户昵称</li>
+                <li>联系方式</li>
+                <li>地址</li>
+                <li>订单总价</li>
+                <li>付款时间</li>
+                <li>发货时间</li>
+                <li>状态</li>
+                <li>操作</li>
+            </ul>
+        </div>
+        <div id="orders">
+                {{ each  allOrder}}
+                
+                <div class="main-box">
+                    <ul style="display:none;">
+                        
+                        <div class="Nick">{{$value.userid.nickname}}</div>
+                        <div class="Phone">{{$value.userid.phone}}</div>
+                        <div class="Address">{{$value.userid.address}}</div>
+                    </ul>
+                    {{ each $value.bookId }}
+                    {{if $value.deliTime}}
+                   <div>
+                        <ul class="order-con">
+                               
+                                <li >{{$value.orderNum}}</li>
+                                <li class="nick" ></li>
+                                <li class="phone" ></li>
+                                <li class="address" ></li>
+                                <li style="color: #ee3131;font-weight: bold;">{{$value.allpri}}元</li>
+                                <li ><span>{{$value.payTime}}</span></li>
+                                <li ><span>{{$value.deliTime}}</span></li>
+                                {{if $value.receipt}}
+                                        <li style="color:#23eb5f;">已确认收货,交易关闭</li>
+                                {{else}}
+                                <li style="color:rgb(66, 223, 131);">已发货</li>
+                                {{/if}}
+                                <li><a herf="javascript:;">查看详情</a></li>
+                            </ul>
+                            <!-- 扩展层 -->
+                            <div class="expand">
+                                <ul class="order-expand">
+                                    {{each $value.bookid}}
+                                    <ul class="order-book">
+                                            
+                                            <li class="bookImg"><img src="{{$value.bookid.bookImg[0]}}"></li>
+                                            <li class="book_name"><h2>{{$value.bookid.bookName}}</h2></li>
+                                            <li class="classs">{{$value.bookid.class}}</li>
+                                            <li class="book_price" style="color: #ee3131;font-weight: bold;"> <span>{{$value.bookid.price}}</span> 元</li>
+                                            <li>×{{$value.num}}</li>
+                                            <span class="noneid" style="display: none;">{{$value.bookid._id}}</span>
+                                            <li class="replay"><a href="javascript:;">查看评论</a></li>
+                                    </ul>
+                                    
+                                    {{/each}}
+                                    <li class="allnumBox">共 <span class="allnum"></span> 件</li>
+                                </ul>
+                            </div>
+                           
+                   </div>
+                    {{/if}}
+                    {{ /each }}
+                </div>
+                
+                {{ /each }}
+            </div>
+                    
+               
+</div>
+
+ <!-- 评论层 -->
+ <div class="replayBox">
+        <ul class="replay-head">
+                <span class="bookid" style="display: none;"></span>
+                <li class="book_img"><img src=""></li>
+                <li class="book_bookName"><h2></h2></li>
+                <li class="book_class"></li>
+                <li class="book_pri"><span></span>元</li>
+                <li class="icon-chacha ic"></li>
+        </ul>
+        <!-- 回复评论 -->
+        <form class="comment-form">
+            
+            <textarea class="comment-main"></textarea>
+            <input type="text"  id="rep" disabled value="回复:">
+            <input type="text"  id="at" disabled>
+            <input class="subs" type="button" value="提交">
+            <span></span>
+            <p style="display: none;"></p>
+            
+    </form>
+        <!-- 下划线 -->
+        <ul class="replay-main">
+              
+        </ul>
+    </div>    
+
+        
+

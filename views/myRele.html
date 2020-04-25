@@ -1,0 +1,330 @@
+{{ extend "./userIndex.html" }}
+    {{block "con"}}
+    <div class="nav2">
+            <div class="w1100 nav3">
+                    <a href="/">首页></a>
+                    <a class="ser" href="javascript:;" style="color: rgb(109, 135, 211);">个人信息</a>
+        
+            </div>
+            
+    </div>
+    <div class="w1100 releBox">
+        
+
+        <!-- 个人信息导航栏 -->
+        <div class="menu-bar2">
+                <ul class="menu2">
+                        <li><a href="/myRele" class="menu_active">个人资料</a></li>
+                        <li><a href="javascript:;" class="updatePassword">修改密码</a></li>
+                        <li><a href="javascript:;" class="payupdatePassword">修改支付密码</a></li>
+                        <li><a href="javascript:;" class="account">我的账户</a></li>
+                        
+                </ul>
+        </div>
+
+        <!-- 个人信息表单 -->
+        <form class="form-container">
+            <!-- 修改按钮 -->
+            <div class="buttons btn_per_box">
+                <input type="button" class="btn btn-primary btn_per" value="修改" >
+            </div>
+            <!-- 修改按钮结束 -->
+            <div class="form-group">
+                <label>昵称</label>
+                <input type="text" name="nackname" class="form-control none_active inp nickname" placeholder="请输入用户名" value="{{main.nickname}}" disabled>
+            </div>
+            <div class="form-group">
+                <label>邮箱/用户名</label>
+                <input type="email" class="form-control none_active" placeholder="请输入邮箱地址" value="{{main.username}}" disabled>
+            </div>
+            <div class="form-group">
+                <label>手机号</label>
+                <input type="text" name="phone" class="form-control none_active inp phone" placeholder="请输入手机号" value="{{main.phone}}" disabled>
+            </div>
+            <div class="form-group">
+                <label>头像</label>
+                <dl>
+                        <dd><img src="{{main.avatar}}" id="image"></dd>
+                        <div class="fileBox">
+                           
+                            <input type="file" id="file" class="inp" onchange="start(this)" disabled>
+                        </div>
+                </dl>
+            </div>
+            <div class="form-group">
+                <label>地址</label>
+               <input type="text" name="address" class="form-control none_active inp address" value="{{main.address}}" disabled>
+            </div>
+            <div class="buttons">
+                <input type="submit" class="btn btn-primary Submit" value="确认修改">
+            </div>
+        </form>
+    </div>
+  {{/block}}
+  {{block "script"}}
+  <script>
+      let as = $(".menu2>li>a")
+      as.click(function(){
+          as.each((i,v)=>{
+            $(v).removeClass(" menu_active")
+          })
+          $(this).addClass(" menu_active")
+      })
+
+    //   点击修改移除锁定
+    $(".btn_per").click(()=>{
+        $("input").removeClass(" none_active")
+        $(".inp").prop("disabled",false)
+        $(".Submit").css("display","block")
+    })
+
+    // 点击提交发送修改信息请求
+    $(".Submit").click((e)=>{
+        e.preventDefault()
+        let reg = /^1[3456789]\d{9}$/
+        let nickname = $(".nickname").val()
+        let phone = $(".phone").val()
+        let avatar = $("#image").attr("src")
+        let address = $(".address").val()
+        let obj = {
+            nickname,
+            phone,
+            avatar,
+            address
+        }
+        // name 不能为空
+        if(nickname === ""){
+            layer.tips('请输入昵称',".nickname",{
+            tips: [1, '#ee3131'],
+            time: 4000
+            });
+            return
+        }
+        // 验证手机号码格式
+        if(reg.test(phone)){
+                layer.confirm("确认修改吗?",{
+                btn:["确定","取消"]
+            },()=>{
+                layer.closeAll('dialog');
+                let index = layer.load(2, {shade:[.1,"#000"]});
+                $.post("/upUser",{obj},(data)=>{
+                    if(data.co == 1){
+                        // 修改成功
+                        $("#avatar").attr("src",avatar)
+                        layer.close(index)
+                        layer.msg("修改成功!",{icon:1,time:1500})
+                    }
+                })
+            },()=>{
+
+            })
+        }else{
+            layer.tips('请输入合格的手机号',".phone",{
+            tips: [1, '#ee3131'],
+            time: 4000
+            });
+        }
+
+    })
+    // 修改密码请求
+    let promise = new Promise((reslove,reject)=>{
+        $(".updatePassword").click(()=>{
+            $.get("/updatePassword",function(data){
+                $(".form-container").html(data)
+                reslove()
+            })
+        })
+        
+    })
+    promise.then(()=>{
+        $("#submit").click((e)=>{
+            e.preventDefault()
+            // 判断密码是否合格
+            let reg = /^[a-z0-9_-]{6,18}$/
+            
+            let password = $(".password").val()
+            let passworded = $(".passworded").val()
+            let enter = $(".enter-password").val()
+            if(password ===""||passworded===""||enter===""){
+                
+                layer.msg("密码不能为空!",{icon:2,time:1500})
+                return
+            }
+            if(!reg.test(password)){
+                layer.tips('请输入密码6-18位',".password",{
+                tips: [1, '#ee3131'],
+                time: 4000
+                });
+                
+                return
+            }
+
+            if(enter !==password ){
+                layer.tips('两次密码不一致',".enter-password",{
+                tips: [1, '#ee3131'],
+                time: 4000
+                });
+                
+                
+                return
+            }
+           
+
+            if(enter ===password && reg.test(password)){
+                // 进入判断，提交旧密码验证
+                layer.confirm("确认修改吗?",{
+                btn:["确定","取消"]
+                },()=>{
+                    layer.closeAll('dialog');
+                    let index = layer.load(2, {shade:[.1,"#000"]});
+                    $.post("/userUpdatePassword",{passworded,password},(data)=>{
+                        if(data.co == 1){
+                            // 密码正确，可以修改
+                            layer.close(index)
+                            layer.msg("修改成功",{icon:1,time:1500})
+                        }else{
+                            // 旧密码错误，不可修改
+                            layer.close(index)
+                            layer.msg("密码错误，修改失败",{icon:2,time:1500})
+                        }
+                 })
+                },()=>{})
+                
+            }
+
+
+        })
+    })
+    
+    // 修改支付密码
+    let promise2 = new Promise((reslove,reject)=>{
+        $(".payupdatePassword").click(()=>{
+            $.get("/payupdatePassword",function(data){
+                $(".form-container").html(data)
+                reslove()
+            })
+        })
+        
+    })
+    promise2.then(()=>{
+        $("#paysubmit").click((e)=>{
+            e.preventDefault()
+            
+            // 判断密码是否合格
+            let reg = /^[a-z0-9_-]{6,18}$/
+            
+            let password = $(".paypassword").val()
+            let passworded = $(".paypassworded").val()
+            let enter = $(".payenter-password").val()
+            if(password ===""||passworded===""||enter===""){
+                
+                layer.msg("密码不能为空!",{icon:2,time:1500})
+                return
+            }
+            if(!reg.test(password)){
+                layer.tips('请输入密码6-18位',".paypassword",{
+                tips: [1, '#ee3131'],
+                time: 4000
+                });
+                
+                return
+            }
+
+            if(enter !==password ){
+                layer.tips('两次密码不一致',".payenter-password",{
+                tips: [1, '#ee3131'],
+                time: 4000
+                });
+                
+                
+                return
+            }
+           
+
+            if(enter ===password && reg.test(password)){
+                // 进入判断，提交旧密码验证
+                layer.confirm("确认修改吗?",{
+                btn:["确定","取消"]
+                },()=>{
+                    layer.closeAll('dialog');
+                    let index = layer.load(2, {shade:[.1,"#000"]});
+                    $.post("/userUpdatePayPassword",{passworded,password},(data)=>{
+                        if(data.co == 1){
+                            // 密码正确，可以修改
+                            layer.close(index)
+                            layer.msg("修改成功",{icon:1,time:1500})
+                        }else{
+                            // 旧密码错误，不可修改
+                            layer.close(index)
+                            layer.msg("密码错误，修改失败",{icon:2,time:1500})
+                        }
+                 })
+                },()=>{})
+                
+            }
+
+
+        })
+    })
+    // 我的账户页面请求
+        $(".account").click(()=>{
+            $.get("/account",data=>{
+                $(".form-container").html(data)
+                
+                account()
+            })
+        })
+        // 余额充值
+        function account (){
+            $("#account").click(()=>{
+                // 验证支付密码
+                layer.prompt({title: '请输入支付密码，并验证', formType: 1}, function(pass, index){
+                    layer.close(index);
+                    $.post("/topUp",{pass},data=>{
+                        if(data.co == 1){
+                            layer.prompt({title: '请输入充值金额', formType: 3}, function(pass, index){
+                            layer.close(index);
+                            layer.msg('充值中...', {
+                                icon: 15
+                                ,shade: 0.01
+                            });
+                                $.post("/rechargeAmount",{pass},data=>{
+                                    if(data.co == 1){
+                                        // 重置成功
+                                        layer.msg("充值成功！",{icon:1,time:1500})
+                                        // let acc = parseFloat(data.acc).toFixed(2)
+                                        $("#account").parent().children("div").children("span").html(data.acc)
+
+                                    }
+                                })
+                            });
+                        }else{
+                            layer.msg("密码错误",{icon:2,time:1500})
+                        }
+                    })
+
+
+
+                });
+
+
+            })
+        }
+
+      function start(cc){
+            const image = $("#image")
+            let file = cc.files[0]
+            var reader = new FileReader()
+                reader.readAsDataURL(file)
+
+            reader.onloadstart = function(){
+                console.log("上传....")
+            }
+            reader.onload = function(e){
+                image.attr("src",reader.result)
+                
+            }
+            
+        }
+  </script>
+  {{/block}}

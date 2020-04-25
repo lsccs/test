@@ -1,0 +1,103 @@
+
+<div class="nav2">
+    <div class="w1100">
+            <a href="/">首页></a>
+            <span>全部课程</span>
+
+    </div>
+    
+</div>
+
+<div class="w1100 cont" >
+  
+    <ul class="left-nav">
+        <div>
+                <li class="max">分类</li>
+                <li class="mins">按分类查询 <a href="javascript:;" class="allcour" style="float: right;">查看全部</a> </li>
+                {{each allclass}}
+                <li>
+                   
+                    {{$value.maxClass}}>
+                    <div class="biancheng">
+                        {{each $value.min}}
+                        <span class="cour">{{$value.minClass}}</span>
+                        {{/each}}
+                    </div>
+                </li>
+                {{/each}}
+        </div>
+    </ul>
+
+    <div class="right-main">
+        <!-- 搜索框 -->
+        <div class="search_box">
+            <input type="text"  id="search_main" placeholder="请输入教材名称">
+            <input type="button" class="search_book" value="搜索">
+            <span>共找到 {{allBook2.total}} 条内容</span>
+        </div>
+        <!-- 搜索框结束 -->
+        <div class="right-nav">
+            <span>排序:</span>
+           
+            <select  id="sort" >
+                <option >按销售量排序</option>
+                <option >按浏览量排序</option>
+                <option >按收藏量排序</option>
+                
+            </select>
+        </div>
+        
+        <div class="bookBox">
+
+
+        
+        {{ each allBook2.records }}
+            {{ if $value.off == 1 }}
+            <li class="fl">
+                <a href="/shoping?id={{$value.id}}&browse={{$value.browse}}" class="thumbnail">
+                    <span class="noneID" style="display: none;">{{$value.id}}</span>
+                    <img src="{{ $value.bookImg[0] }}">
+                </a>
+                <div class="content">
+                    <a class="article-title" href="/shoping?id={{$value.id}}&browse={{$value.browse}}" >{{ $value.bookName }}</a>
+                    <div class="product2">
+                            <span class="SA active_span">销量:{{$value.sales}}</span>
+                            <span class="BR">浏览量:{{$value.browse}}</span>
+                            <span class="FA">收藏量:{{$value.favorite}}</span>
+                    </div>
+                    <div class="article-info">
+                        <span class="author">{{ $value.price }}元</span>
+                        
+                    </div>
+                
+                </div>
+            </li>
+            {{ /if }}
+            {{ /each }}
+        </div>
+        <!-- 页码 -->
+        <ul class="pagination2">
+                <span id="page2" style="display: none;">{{allBook2.page}}</span>
+                {{if allBook2.page>1}}
+                <li>
+                    <a href="javascript:;" class="left-book">
+                    <span>←Previous</span>
+                  </a>
+                </li>
+                {{/if}}
+            
+                {{if allBook2.page < allBook2.pages}}
+                <li>
+                    <a href="javascript:;" class="right-book">
+                    <span>Next→</span>
+                  </a>
+                </li>
+                
+            
+                {{/if}}
+            
+            </ul>
+
+    </div>
+
+</div>

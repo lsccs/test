@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>注册</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="/public/css/bootstrap.css">
+    
+    <link rel="stylesheet" href="/public/css/style.default.css" id="theme-stylesheet">
+	<link rel="stylesheet" href="/public/css/demo.css">
+	{{ block "style"}}{{ /block}}
+	<style>
+	.is-invalid{
+		transition: .3s;
+		border-bottom: red;
+	}
+	.control{
+		transition: .3s !important;
+		border-bottom:1px solid rgba(121, 106, 238, 0.9) !important;
+	}
+	.invalid-feedback{
+		opacity: 1;
+		color: rgba(121, 106, 238, 0.9);
+		font-size: 14px;
+		transition: all .4s;
+		
+	}
+	.active{
+		opacity: 0 !important;
+		transition: all .4s !important;
+	}
+	.form-group{
+		margin-bottom: 10px !important;
+	}
+	#regbtn{
+		width: 60px;
+    	height: 35px;
+    	font-size: 14px;
+	}
+	#info{
+		position: absolute;
+		width: 100%;
+		height: 50px;
+		/* background: rgba(255, 167, 164, 0.7); */
+		color: rgb(148, 74, 74);
+		z-index: 10;
+		line-height: 50px;
+		text-align: center;
+		font-size: 14px;
+		animation: move .7s;
+	}
+	@keyframes move{
+		0%{transform: scale(.5);opacity: 0;}
+		100%{}
+	}
+	</style>
+</head>
+  <body>
+	 
+    <div class="page login-page">
+      <div class="container d-flex align-items-center main">
+        <div class="form-holder has-shadow">
+          <div class="row">
+            <!-- Logo & Information Panel-->
+            <div class="col-lg-6">
+              <div class="info d-flex align-items-center">
+                <div class="content">
+                  <div class="logo">
+                    <h1>欢迎注册</h1>
+                  </div>
+                  <p>教材管理系统</p>
+                </div>
+              </div>
+            </div>
+			<!-- Form Panel    -->
+			{{ block "content"}}
+            <div class="col-lg-6 bg-white">
+					
+              <form class="form d-flex align-items-center">
+                <div class="content">
+                    <div class="form-group">
+                      <input id="register-username" class="input-material" type="text" name="username" placeholder="请输入用户名/邮箱" value="{{ form && form.username }}"  autocomplete="off">
+								      <div class="invalid-feedback">
+								        	请输入合格邮箱
+								      </div>
+                    </div>
+                    <div class="form-group">
+                      <input id="register-password" class="input-material" type="password" name="password" placeholder="请输入密码" value="{{ form && form.password }}"  >
+                    	<div class="invalid-feedback">
+								        	密码必须在6~10位之间
+								      </div>
+                    </div>
+                    <div class="form-group">
+                      <input id="register-passwords" class="input-material" type="password" name="registerPasswords" placeholder="确认密码" value="{{ form && form.password }}"  >
+                    	<div class="invalid-feedback">
+								        	两次密码必须相同
+								      </div>
+                    </div>
+                    <div class="form-group">
+					  <button id="regbtn" type="submit" name="registerSubmit" class="btn btn-primary">注册</button>
+					  <input type="checkbox" class="custom-control-input" id="check2" name="zhuce">
+					  <label class="custom-control-label" for="check2">管理员注册</label>
+					</div>
+					
+                  <small>已有账号?</small><a href="/login" class="signup">&nbsp;登录</a>
+                </div>
+              </form>
+			</div>
+			{{ /block }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- JavaScript files-->
+    <script src="/public/js/jquery-3.4.1.js"></script>
+	<script src="/public/js/bootstrap.min.js"></script>
+	<script src="/public/layer/layer.js"></script>
+    <script>
+    	$(function(){
+    		
+    		var flagName=false;
+    		var flagPas=false;	
+    		var flagPass=false;
+    		/*验证用户名*/
+    		var name,passWord,passWords;
+    		$("#register-username").change(function(){
+				name=$("#register-username").val();
+				let reg = /^[a-z\d]+(\.[a-z\d]+)*@([\da-z](-[\da-z])?)+(\.{1,2}[a-z]+)+$/
+				if(name === ""){
+					
+					$("#register-username").removeClass(" is-invalid");
+				}
+    			if(!reg.test(name)){
+					$("#register-username").addClass("is-invalid");
+					$("#register-username + div").removeClass(" active");
+					$("#register-username + div").css("color","red");
+    				flagName=false;
+    			}else{
+    				$("#register-username").removeClass(" is-invalid")
+					$("#register-username").addClass(" control");
+					$("#register-username + div").addClass(" active");
+    				flagName=true;
+    			}
+    		})
+    		/*验证密码*/
+    		$("#register-password").change(function(){
+    			passWord=$("#register-password").val();
+    			if(passWord.length<6||passWord.length>18){
+    				
+					$("#register-password").addClass(" is-invalid");
+					$("#register-password + div").removeClass(" active");
+					$("#register-password + div").css("color","red");
+    				flagPas=false;
+    			}else{
+    				$("#register-password").removeClass("is-invalid")
+					$("#register-password").addClass("control");
+					$("#register-password + div").addClass(" active");
+    				flagPas=true;
+    			}
+    		})
+    		/*验证确认密码*/
+    		$("#register-passwords").change(function(){
+				passWords=$("#register-passwords").val();
+				
+				
+				if((passWord!=passWords)||(passWords.length<6||passWords.length>18)){
+    				
+					$("#register-passwords").addClass(" is-invalid");
+					$("#register-passwords + div").removeClass(" active");
+					$("#register-passwords + div").css("color","red");
+    				flagPass=false;
+    			}else{
+    				$("#register-passwords").removeClass("is-invalid")
+					$("#register-passwords").addClass("control");
+					$("#register-passwords + div").addClass(" active");
+    				flagPass=true;
+    			}
+    		})
+    		
+    		
+    		
+			$("#regbtn").click(async function(e){
+				e.preventDefault()
+				let check = undefined
+				if($("#check2").prop("checked")){
+					check =1
+				}
+				let username = $("#register-username").val()
+				let password = $("#register-password").val()
+				if(flagName&&flagPas&&flagPass){
+					$.post("/rePost",{username,password,zhuce:check},data=>{
+						if(data.co === 1){
+							// 注册成功
+							layer.confirm("恭喜，注册成功!",{
+								btn:["取消","立即登录"]
+							},()=>{
+
+							},()=>{
+								location.href = "/login"
+							})
+							
+						}else{
+							// 注册失败
+							layer.msg("用户名邮箱已存在，注册失败!",{icon:2,time:1500})
+						}
+
+
+					})
+				}
+				
+
+			})
+
+			
+			
+			
+
+
+
+    	})
+    </script>
+  </body>
+</html>

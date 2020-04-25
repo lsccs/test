@@ -1,0 +1,23 @@
+{{ each allBook2.records }}
+            {{ if $value.off == 1 }}
+            <li class="fl">
+                <a href="/shoping?id={{$value.id}}&browse={{$value.browse}}" class="thumbnail">
+                    <span class="noneID" style="display: none;">{{$value.id}}</span>
+                    <img src="{{ $value.bookImg[0] }}">
+                </a>
+                <div class="content">
+                    <a class="article-title" href="/shoping?id={{$value.id}}&browse={{$value.browse}}" >{{ $value.bookName }}</a>
+                    <div class="product2">
+                            <span class="SA">销量:{{$value.sales}}</span>
+                            <span class="BR">浏览量:{{$value.browse}}</span>
+                            <span class="FA">收藏量:{{$value.favorite}}</span>
+                    </div>
+                    <div class="article-info">
+                        <span class="author">{{ $value.price }}元</span>
+                        
+                    </div>
+                
+                </div>
+            </li>
+            {{ /if }}
+            {{ /each }}

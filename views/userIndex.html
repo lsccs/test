@@ -1,0 +1,2634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="/public/css/bootstrap.css">
+	<link rel="stylesheet" href="/public/css/base3.css">
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/font/iconfont.css">
+    <link rel="stylesheet" href="/public/icon/iconfont.css">
+    <link rel="stylesheet" href="/public/icons/iconfont.css">
+    <style>
+        body{
+            font-size: 12px;
+            overflow-x: hidden;
+        }
+       
+        a{
+            text-decoration: none !important;
+            border: none !important;
+        }
+        h2,h3{
+            font-size: 15px;
+            
+        }
+        h2{
+            margin: 15px 0;
+        }
+        body{
+            font-family: "微软雅黑",iconfont;
+        }
+        .center{
+            padding: 20px 50px;
+        }
+        .media{
+            display: flex;
+            width: 50%;
+            position: relative;
+            margin-top: 20px;
+        }
+        .media:hover{
+            background: rgba(230, 223, 223,.3);
+        }
+        .avav{
+            width: 70px !important;
+            height: 70px !important;
+            margin-right: 10px;
+        }
+        .ic{
+            position: absolute;
+
+        }
+
+
+        /* 多余部分省略 */
+        .line-length{
+            max-width: 420px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .title-length{
+            max-width: 230px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .order-length{
+            max-width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .search{
+            width: 100%;
+            display: flex;
+            height: 40px;
+        }
+        .search-text{
+            outline: none;
+            font-size: 13px;
+            height: 100%;
+            box-sizing: border-box;
+            color: #666;
+            padding-left: 8px;
+        }
+        .search-box{
+            outline: none;
+            box-sizing: border-box;
+            width: 40px;
+            height: 100%;
+            border: 1px solid #ccc;
+            border-left: none;
+            font-size: 13px;
+            color: #666;
+            cursor: pointer;
+            
+        }
+        .search-box:hover{
+            color: #ff7600;
+            box-shadow: 0 0 2px rgba(0, 0, 0, .2);
+        }
+        #tip{
+            line-height: 70px;
+
+        }
+        .all{
+            height: 40px;
+            margin-left: 10px;
+            display: flex;
+            align-items: center;
+            
+        }
+
+        .heads{
+            background:#fffcfc;
+            position: relative;
+        }
+        #avatar-nav{
+            position: relative;
+        }
+        #avatar{
+            width: 50px;
+            height: 50px;
+            border-radius: 100%;
+            position: absolute;
+            left: 5px;
+            top:5px;
+        }
+        .cons{
+            margin-top: 40px;
+            padding-left: 10px;
+        }
+        .infos{
+            height: 70px;
+            background: #fff;
+        }
+        .authors{
+            position: absolute;
+            left: 66px;
+            top: 12px;
+        }
+        .dat{
+            position: absolute;
+            left: 66px;
+            top: 35px;
+        }
+        
+        .brow{
+            position: absolute !important;
+            right: 23px;
+            top: 11px;
+        }
+        .titles{
+            position: absolute;
+            top: 65px;
+            left:50%;
+            transform: translateX(-50%);
+        }
+
+
+        /* 教材详情页面样式 */
+  
+        .book-list{
+            
+            list-style: none;
+            margin: 0;
+            
+        }
+        ul,li{
+            margin: 0;
+            list-style: none;
+        }
+        .book-head{
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+        .book-list>li,.book-list>li img{
+            width: 280px;
+            height: 280px;
+            
+        }
+        .book-list li{
+            position: relative;
+        }
+        .book-list li img{
+            position: absolute;
+        }
+        .tity{
+            line-height: 35px;
+            width: 55px;
+            height: 35px;
+            text-align: center;
+            margin-left: 15px;
+        }
+        .book-massage{
+            padding: 0;
+            margin-left: 15px;
+            font-size:12px;
+            line-height: 25px;
+        }
+        .box{
+            margin-top: 15px;
+            display: flex;
+            font-size: 12px;
+        }
+        .box>span{
+            line-height: 35px;
+        }
+        .collect{
+            margin-left:15px;
+            text-decoration: none;
+            width: 55px;
+            height: 35px;
+            color: #fff;
+            background: #549f54;
+            text-align: center;
+            line-height: 35px;
+        }
+        .shoping{
+            margin-left:15px;
+            text-decoration: none;
+            width: 100px;
+            height: 35px;
+            color: #fff;
+            background: #549f54;
+            text-align: center;
+            line-height: 35px;
+        }
+        .book-head{
+            display: flex;
+        }
+        .footer{
+            width: 100%;
+            height: 60px;
+            background: rgb(218, 215, 215);
+            
+        }
+        .description,.comment{
+            float: left;
+            width: 80px;
+            line-height: 60px;
+            font-size: 12px;
+            text-align: center;
+
+        }
+        .book-list2{
+            width: 280px;
+            height: 85px;
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+        .book-list2>li{
+            
+            width: 75px;
+            height: 75px;
+            border: 2px solid transparent;
+            
+            cursor: pointer;
+        }
+        .active{
+            border-color: #ff7600 !important;
+        }
+        .zindex{
+            z-index: 2;
+        }
+        .book-list2>li>img{
+            width: 71px;
+            height: 71px;
+            
+        }
+        .pagination,.pagination2{
+            width: 50%;
+            display: flex;
+        }
+        .pagination2{
+            
+            
+            width: 100%;
+            bottom: -119px;
+        }
+        
+        .pagination li,.pagination2 li{
+            width: 100% !important;
+            flex: 1 1 auto;
+        }
+       
+        .left-zixun,.right-zixun,.left-book,.right-book{
+            
+            width: 100%;
+            height: 45px;
+            border-radius: 4px !important;
+            background:#3f91da !important;
+            text-align: center;
+            color: #fff !important;
+        }
+        .pagination2 li a{
+            display: block;
+            line-height: 45px;
+        }
+        .left-zixun:active,.right-zixun:active,.left-book:active,.right-book:active{
+            background:#337ab7 !important;
+        }
+        .left-zixun span,.right-zixun span,.left-book span,.right-book span{
+            line-height: 32px;
+        }
+        
+
+        .mediaBox{
+            height: 495px;
+        }
+        .colltishi-box{
+            display: none;
+            position: relative;
+            z-index: 10000;
+        }
+        .colltishi{
+            position:fixed;
+            right: 45px;
+            top: 35%;
+            width: 150px;
+            height: 60px;
+            background: rgb(235, 234, 234);
+            display: flex;
+            flex-flow: column;
+            justify-content: space-around;
+            padding:0 8px;
+            border-radius: 2px;
+        }
+
+        /* 我的收藏 */
+        .collect-box{
+            margin-top: 40px;
+        }
+        .collect-con{
+            width: 100%;
+            height: 40px;
+            background: #555;
+            display: flex;
+            color: #fff;
+        }
+        .collects-box{
+            width: 100%;
+        }
+        .collects{
+            width: 100%;
+            height: 40px;
+            background: #fff;
+            display: flex;
+            color: #000;
+        }
+        .collect-con>li{
+            flex: 1 1 auto;
+            font-size: 15px;
+            text-align: center;
+            line-height: 40px;
+        }
+        .collects>li{
+            width: 275px;
+            font-size: 15px;
+            text-align: center;
+            line-height: 40px;
+        }
+        .collects>li{
+            border: 1px #555 solid ;
+            border-right: none;
+            border-bottom: none;
+        }
+        .collbox{
+           box-shadow: 2px 2px 5px rgba(0, 0, 0, .2);
+           
+        }
+        .collbox>li{
+            position: relative;
+        } 
+        .collbox>li span{
+            position: absolute;
+            right: 10px;
+            color: #ff7600;
+            cursor: pointer;
+        }
+        .collbox>li span:hover{
+           
+            color:rgb(255, 158, 73);
+            
+        }
+        .collbox >a:nth-child(1){
+            display: block;
+            margin-bottom: 20px;
+            height: 140px;
+
+        }
+
+        .collbox >li{
+            margin: 10px 0;
+            
+        }
+        .collects>li:nth-child(4){
+            border-right: 1px #555 solid !important;
+        }
+        .collect-con>li{
+            border-right: 1px rgba(255, 255, 255, .5) solid !important;
+        }
+
+        .collect-con>li:nth-child(4),.collects>li:nth-child(4){
+            border: none;
+        }
+        .collect:hover{
+            box-shadow: 0 0 2px rgba(0, 0, 0, .2);
+            color: #fff;
+        }
+        /* 我的购物车 */
+        .shop-con{
+            margin-top:40px;
+            background: rgba(204, 203, 203, 0.3);
+        }
+        .shop-head{
+            width: 100%;
+            height: 30px;
+            background: rgba(230, 223, 223,.3);
+        }
+       
+        .center-bar{
+            display: flex;
+            justify-content: space-between;
+        }
+        .center-bar>span{
+            font-size: 14px;
+            font-weight: bold;
+            width: 150px;
+            line-height: 30px;
+            text-align: center;
+        }
+        .center-bar>div{
+            font-size: 14px;
+            font-weight: bold;
+            width: 150px;
+            line-height: 30px;
+            text-align: center;
+        }
+        .center-list{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            line-height: 50px;
+        }
+       
+        .center-list>li>img{
+            width: 50px;
+            height: 50px;
+        }
+        .center-list>li{
+           
+            text-align: center;
+            width: 150px;
+            flex-grow: 0;
+        }
+        .num{
+            width: 35px;
+            height: 32px;
+            text-align: center;
+            
+        }
+        
+
+        /* 购物车多选框 */
+        .center-list,.center-bar{
+            position: relative;
+        }
+        .checks,.check{
+            position: absolute;
+            margin: 0 !important;
+            left: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .shop-foot{
+            height: 40px;
+            background: rgba(204, 203, 203, 0.3);
+            position: relative;
+        }
+        .shop-foot>div:nth-child(2){
+            width: 100px;
+            position: absolute;
+            right: 125px;
+            line-height: 40px;
+            font-weight: bold;
+        }
+        .pay{
+            width: 100px;
+            height: 35px;
+            color: #fff;
+            background: #549f54;
+            line-height: 35px;
+            text-align: center;
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+        #pay-enter:active{
+            background: #498d49
+        }
+        #pay-cancel:active{
+            background: #d82c2c;
+        }
+        .pay:active{
+            background: #498d49;
+        }
+        .pay:hover{
+            box-shadow: 0 0 2px rgba(0, 0, 0, .3);
+            
+        }
+        /* 填写个人信息支付 */
+        .person{
+            width: 350px;
+            display: flex;
+            flex-flow: column;
+            background: #fff;
+            align-items: center;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            height: 400px;
+            z-index: 100000;
+            justify-content: space-around;
+            box-shadow: 0 0 2px rgba(0, 0, 0, .3);
+        }
+        .person input{
+            width: 80%;
+            height: 30px;
+            padding-left: 8px;
+        }
+        .person >div>input:nth-child(2){
+            border: none;
+            width: 100px;
+            height: 35px;
+            color: #fff;
+            background: #549f54;
+        }
+        .person >div>input:nth-child(1){
+            border: none;
+            width: 100px;
+            height: 35px;
+            color: #fff;
+            background: #ee3311;
+        }
+        .person >div{
+            width: 80%;
+            display: flex;
+            
+        }
+        .person>span{
+            font-size: 16px;
+        }
+        .person >div>input:hover{
+            box-shadow: 0 0 2px rgba(0, 0, 0, .3);
+        }
+        .person >div:not(:nth-child(5)){
+            justify-content: flex-start;
+        }
+        .last{
+            justify-content: space-around !important;
+        }
+        .person-box{
+            display: none;
+        }
+
+        /* 支付密码弹窗 */
+        .pay-box{
+            display: none;
+        }
+        .pay-done{
+            width: 290px;
+            height: 320px;
+            background: #fff;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            display: flex;
+            flex-flow: column;
+            z-index: 10000;
+            align-items: center;
+            justify-content: space-around;
+            box-shadow: 0 0 2px rgba(0, 0, 0, .3);
+        }
+        .pay-done>span{
+            font-size: 17px;
+        }
+        .pro{
+            width: 80%;
+            display: flex;
+            justify-content: flex-start;
+            position: absolute;
+            top: 50%;
+            margin-top: -48px;
+        }
+        .pay-done>input{
+            width: 80%;
+            height: 40px;
+            text-align: center;
+            font-size: 16px;
+        }
+        .btns{
+            display: flex;
+            width: 80%;
+            justify-content: space-around;
+        }
+        .btns input{
+            border: none;
+            width: 100px;
+            height: 35px;
+            color: #fff;
+            background: #549f54;
+        }
+        .btns input:nth-child(1){
+            background: #ee3311;
+        }
+        .btns input:hover{
+            box-shadow: 0 0 2px rgba(0, 0, 0, .3);
+        }
+        .myorder{
+            cursor: pointer;
+        }
+
+
+        /* 我的订单 */
+        .myorder-con{
+            margin-top: 40px;
+        }
+        .myorder-head{
+            width: 100%;
+            height: 40px;
+            background: rgba(204, 203, 203, 0.3);
+            line-height: 40px;
+            box-sizing: border-box;
+            padding-left: 15px;
+        }
+        .order-list{
+            width:300px;
+            min-height: 120px;
+            max-height: 320px;
+            background: #fff;
+            display: flex;
+            flex-flow: column;
+            position: relative;
+            box-sizing: border-box;
+            padding-left:15px;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, .2);
+            margin-top: 15px;
+            overflow: hidden;
+            transition: .5s height;
+            float: left;
+            margin-left: 33px;
+            margin-right: 33px;
+        }
+        .orderNum{
+            margin-left: 5px;
+        }
+        .order-list img{
+            width: 60px;
+            height: 60px;
+            background-size: contain;
+        }
+        .order-book{
+            display: flex;
+            margin-bottom: 40px;
+        }
+        .order-book>li:nth-child(2){
+            display: flex;
+            width: 150px;
+            margin: 5px;
+            position: relative;
+        }
+        .math>li:nth-child(2)>span:nth-child(1){
+            margin-right: 6px;
+        }
+        .order-book>li:nth-child(2)>h2{
+            margin: 0;
+            font-weight: bold;
+        }
+        .nums{
+            position: absolute;
+            right: -51px;
+            color: #ee3311;
+            font-weight: bold;
+            font-size: 13px;
+            top: 0px;
+        }
+        .cla{
+            position: absolute;
+            left: 0px;
+            top: 19px;
+        }
+         .order-b{
+             overflow: hidden;
+             max-height: 100px;
+         }
+        .order-book>li:nth-child(2)>span>.nu{
+            position: absolute;
+            color: gray;
+            font-size: 12px;
+            top: 18px;
+            right: 0;
+            font-weight: 1 !important;
+        }
+        .math{
+            display: flex;
+            
+            margin-top: 15px;
+            
+        }
+        .oldstau{
+            position: absolute;
+            top: 2px !important;
+            right: 19px;
+        }
+        .math>li:nth-child(2){
+            position: absolute;
+            bottom: 30px;
+            right: 19px;
+        }
+        .math>li:nth-child(3),.math>li:nth-child(4),.math>li:nth-child(5){
+            position: absolute;
+            
+        }
+        .math>li:nth-child(4){
+            right: 19px;
+            bottom: 8px;
+        }
+        .math>li:nth-child(5){
+            right: 71px;
+            bottom: 8px;
+        }
+        .math>li:nth-child(3){
+            left: 23px;
+            bottom: 8px;
+        }
+
+        .payicon{
+            font-size:30px;
+            color:#2fc555; 
+            font-family:iconfont;
+            margin-right: 15px;
+        }
+        .order-book-box{
+            background:#fff;
+            min-height: 80px;
+            margin-top: 140px;
+            max-height: max-content;
+        }
+        .persons{
+            position: absolute;
+            top: 73px;
+            background: #fff;
+            width: 100%;
+            padding:15px;
+            font-size: 13px;
+            color: #000;
+            display: none;
+        }
+        .persons>li:nth-child(1)>span:nth-child(2){
+            font-size: 12px;
+            color: rgb(184, 183, 183);
+        }
+        /* 查看详情 */
+        .order-tishi{
+            position: absolute;
+            width: 100%;
+            display: none;
+            top: 0;
+            z-index: 10000;
+            
+        }
+        .order-tishi>h2{
+            text-align: center;
+        }
+
+        .order-active{
+            width: 500px;
+            min-height: 300px;
+            max-height: 10000px;
+            position: absolute;
+            left: 30%;
+            top: 50%;
+            transform: translateY(-20%);
+            margin: 0;
+            background: rgba(216, 207, 207, 0.2);
+            padding: 0;
+           
+        }
+        .stau{
+            position: static;
+            margin: 0 0 10px 50px;
+        }
+        .order-book-active{
+            margin-top: 15px;
+        }
+        .nums-active{
+            width: 430px !important;
+        }
+        .pri-active{
+            right: 16px;
+        }
+        .order-message{
+            background: #fff;
+            margin-top: 15px;
+            display: none;
+            padding: 10px;
+        }
+        .math-active{
+            height: 40px;
+            width: 100%;
+            background: #fff;
+            margin-top:-40px;
+            position: relative;
+        }
+
+        .minheight{
+            min-height: 600px;
+        }
+        .top-bar{
+            height:60px;
+        }
+        .comment-form{
+            margin-top: 10px;
+            border-bottom: 1px solid rgba(0, 0, 0, .3);
+            min-height: 120px;
+            position: relative;
+        }
+        .comment-main{
+            box-sizing: border-box;
+            width:100%;
+            min-height: 68px;
+            padding: 10px;
+            
+        }
+        .active-comment{
+            padding-top: 28px;
+        }
+        .subs{
+            width: 100px;
+            height: 26px;
+            cursor: pointer;
+            margin-top: 5px;
+            background: #ff7300;
+            color: #fff;
+            border: none;
+        }
+        .subs:active{
+            background: #ee6f07;
+        }
+        .description_main{
+            min-height: 420px;
+            margin-top: 10px;
+            padding: 8px;
+        }
+        .com{
+            min-height: 300px;
+        }
+        .comment-user{
+            min-height:60px;
+            margin-top: 25px;
+            position: relative;
+        }
+        .comment-user img{
+            width: 40px;
+            height: 40px;
+            border-radius: 100%;
+
+        }
+        .contents{
+            
+            position: absolute;
+            top: 46px;
+            left: 44px;
+            max-width: 250px;
+            display: block;
+            word-wrap: break-word;
+        }
+        .msglist-box{
+            position: absolute;
+            z-index: 1000000;
+            
+            top: 61%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+        }
+        /* 回复的评论 */
+        .toBox{
+            position: relative;
+            margin-top: 30px;
+            margin-left: 50px;
+        }
+        .toimg{
+            width: 20px !important;
+            height: 20px !important;
+            border-radius: 100% !important;
+        }
+        .to-contents{
+            position: absolute;
+            left: 25px;
+            top: 23px;
+            max-width: 250px;
+            display: block;
+            word-wrap: break-word;
+        }
+        
+        #at{
+            position: absolute;
+            top: 6px;
+            left: 40px;
+            display: none; 
+            background: #fff;
+            border: none;
+            
+        }
+        #rep{
+            position: absolute;
+            top: 6px;
+            left: 10px;
+            border: none;
+            background: #fff;
+            width: 30px;
+            display: none; 
+        }
+        .idc{
+            display: inline-block;
+            width: 44px;
+            height: 20px;
+            background: #ee3131;
+            text-align: center;
+            color: #fff;
+            line-height: 20px;
+            font-size: 12px;
+            
+        }
+
+        /* 默认选中评论状态 */
+        .comment-avtive{
+            background: #ff7300;
+            color: #fff;
+        }
+        .description,.comment{
+            cursor: pointer;
+            transition: .3s;
+        }
+        .description:hover,.comment:hover{
+            background: #ff7300;
+        }
+        /* 个人信息页面样式 */
+        .releBox{
+            width: 80%;
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        .menu-bar2{
+            width: 111px;
+            
+        }
+        .form-container{
+            width: 500px;
+            margin-left: 100px;
+            position: relative;
+        }
+        #image{
+            width: 100px;
+            height: 100px;
+        }
+        #file{
+            margin-top: 10px;
+        }
+        .menu_active{
+            color: #fff !important;
+            background: #ff7300;
+        }
+        /* 个人信息修改按钮 */
+        .btn_per_box{
+            position: absolute;
+            top: -19px;
+            right: 0;
+        }
+        .Submit{
+            display: none;
+        }
+        .none_active{
+            background: #fff !important;
+            box-shadow: none;
+            border: none !important;
+        }
+        
+        /* 联系我们相关样式 */
+        .msg{
+            
+            width: 50%;
+            height: 450px;
+            border: 1px solid rgba(0, 00, 0, .2);
+            border-bottom: none;
+            margin: -99px auto 0;
+            overflow: hidden;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, .2);
+            background: #fff;
+            
+        }
+        .inputBox{
+            width: 50%;
+            height: 100px;
+            margin: 0 auto;
+            position: relative;
+            margin-top: -74px;
+        }
+        .msg-main{
+            width: 588px;
+            height: 310px;
+            position: relative;
+            overflow-y: scroll;
+        }
+        #sendMsg,#sendMsg2{
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+        }
+        .msglist{
+            margin-top: 30px;
+        }
+        .msg-content{
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+        .msg-content:hover{
+            background: rgba(0, 0, 0, .2);
+        }
+        .inputBox textarea{
+            width: 100%;
+            height: 100%;
+            padding-bottom: 27px;
+        }
+
+        .mana-head{
+            width: 100%;
+            height: 40px;
+            border-bottom: 1px solid rgba(0, 0, 0, .2);
+            position: relative;
+        }
+        .msgs{
+            height: 40px;
+            padding: 5px;
+            position: relative;
+            margin-top: 15px;
+            margin-left: 10px;
+        }
+        .msgs>span{
+            display: inline-block;
+            background: rgba(202, 198, 198, 0.3);
+            height: 100%;
+            border-radius: 3px;
+            font-size: 15px;
+            margin-left: 40px;
+            padding:5px;
+            box-sizing: border-box;
+        }
+        
+        .msgsed{
+            
+            height: 40px;
+            padding: 5px;
+            position: relative;
+            margin-top: 15px;
+            margin-right: 30px;
+        }
+        .msgsed>span{
+            box-sizing: border-box;
+            background: #6fb4f0;
+            border-radius: 3px;
+            float: right;
+            height: 100%;
+            font-size: 15px;
+            margin-right: 40px;
+            color: #fff;
+            padding:5px;
+        }
+        .msgsed img{
+            width: 40px;
+            height: 40px;
+            border-radius: 100%;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+        .msgs img{
+            width: 40px;
+            height: 40px;
+            border-radius: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .mymsg{
+            position: relative;
+        }
+        .pioner{
+            background:#ee3131;
+            width: 10px;
+            height: 10px;
+            border-radius: 100%;
+            position: absolute;
+            left:81px;
+            top: 6px;
+            display: none;
+        }
+        /* 全部课程搜索框 */
+        .search_box{
+            position: relative;
+            height: 30px;
+            margin-bottom: 8px;
+        }
+        #search_main{
+            outline: none;
+            font-size: 13px;
+            height: 100%;
+            box-sizing: border-box;
+            color: #666;
+            padding-left: 8px;
+            border: 1px solid #ccc;
+        }
+        .search_book{
+            outline: none;
+            box-sizing: border-box;
+            width: 40px;
+            height: 100%;
+            border: 1px solid #ccc;
+            border-left: none;
+            font-size: 13px;
+            color: #666;
+            position: absolute;
+            left: 162px;
+        }
+        .search_box span{
+            margin-left: 50px;
+        }
+        .search_book:hover{
+            box-shadow: 0 0 2px rgba(0, 0, 0, .2);
+        }
+        /* 教材信息 */
+        .content{
+            position: relative;
+            max-width: 180px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .product{
+            position: absolute;
+            display: flex;
+            flex-flow: column;
+            right: 32px;
+            bottom: 28px;
+        }
+        .product2{
+            position: absolute;
+            display: flex;
+            flex-flow: column;
+            right: 86px;
+            bottom: 62px;
+        }
+        .product2 span{
+            position: absolute;
+        }
+        .FA,.BR,.SA{
+            display: none;
+        }
+        .active_span{
+            display: block;
+        }
+        .list{
+            padding-left: 25px;
+            margin-top: 24px;
+            position: relative;
+        }
+        .list>fl{
+            margin-right:27px;
+        }
+        #change{
+            position: absolute;
+            right: 40px;
+        }
+        .po{
+            position: absolute;
+            bottom: 32px;
+            left: 38px;
+            display: none;
+        }
+        .amount{
+            position: absolute;
+            top: 68px;
+            font-size: 12px;
+        }
+        /* 心心图标字体 */
+        .heart-active{
+            color: #ff2c55 !important;
+            font-style:normal !important;
+        }
+        .likeID{
+            cursor: pointer;
+            color: rgba(0, 0, 0, .5);
+        }
+        .likenum{
+            color:rgba(0, 0, 0, .5);
+        }
+        .msg-i{
+            position: absolute;
+            right: 13px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: .2s;
+            cursor: pointer;
+        }
+        .msg-i:hover{
+            color: #ee3131;
+            
+        }
+    </style>
+    
+</head>
+<body>
+    
+	<!-- 头部框架开始 -->
+	<div class="header">
+		<div class="w1100 nav">
+			<!-- 网站logo开始 -->
+			<h1 class="logo">
+				<a href="/" id="logoA">教材订购</a>
+			</h1>
+			<!-- 网站logo结束 -->
+			<!-- 网站导航开始 -->
+			<ul class="navigation fr">
+				<li>
+					<a class="active" href="/">首页</a>
+                </li>
+                <li>
+                        <a href="javascript:;" class="allcourse">全部课程</a>
+                </li>
+                <li>
+                        <a href="javascript:;" class="bookzixun">课程资讯</a>
+                </li>
+                {{ if user }}
+                <li id="avatar-nav">
+                        <a href="javascript:;"><img src="{{ user.avatar }}" alt="个人信息" id="avatar"></a>
+                        <span id="userNoneID" style="display: none;">{{user._id}}</span>
+                        <span id="Nick" style="display: none;">{{user.nickname}}</span>
+                            
+                </li>
+                <div class="menu-bar">
+                        <ul class="menu">
+                                <li><a href="/myRele">个人资料</a></li>
+                                <li class="mymsg">
+                                    <a href="javascript:;">我的消息</a>
+                                    <span class="pioner"></span>
+                                </li>
+                                <li><a href="/loginOut">退出登录</a></li>
+                        </ul>
+                </div>
+                
+                {{ else }}
+				<li>
+					<a href="/login">登录</a>
+                </li>
+                {{ /if }}
+			</ul>
+			<!-- 网站导航结束 -->
+		</div>
+	</div>
+    <!-- 头部框架结束 -->
+    
+    <div class="main">
+        {{ block "con" }}
+        <!-- 资讯  轮播-->
+        <div class="hea w1100">
+
+            
+            <ul class="list-bar">
+                <li class="list-head">
+                    <h2>NEWS</h2>
+                    <!-- 最新资讯 -->
+                    {{ each zixun }}
+                    {{ if $value.stikey }}
+                    <a href="javascript:;" class="title-length">
+                        <span style="display: none;" class="dailID">{{ $value.id }}</span>
+                        <span class="zixuntitle">{{ $value.title }}</span>
+                    </a>
+                    {{ /if }}
+                    {{ /each }}
+                </li>
+                <!-- 购买流程 -->
+                <li class="flow">
+                    <h2 style="color: #555;">购买流程></h2>
+                    <span>---注册账户</span>
+                    <span>---登陆</span>
+                    <span>---加入购物车</span>
+                    <span>---在购物车中点击支付</span>
+                    <span>---支付成功查看我的订单</span>
+                </li>
+                <span style="width:100%; padding:0 12px 12px 0;">如有疑问?<a href="#">联系我们</a></span>
+            </ul>
+            <div class=" lunbo">
+                {{ each lunbo }}
+                    <div class="image active w1100">
+                        <img src="{{ $value.image }}" alt="">
+                        </div>
+                {{ /each }}
+                        <ul class="piner-list">
+                            {{ each lunbo }}
+                            <li class="piner"></li>
+                            {{ /each }}
+                            <!-- <li class="piner"></li>
+                            <li class="piner"></li>
+                    -->
+                        </ul>
+            </div>
+        </div>
+        <!-- 轮播图结束 -->
+        <!-- 教材列表开始 -->
+        <ul class="list w1100">
+            <h2 style="font-weight: bold;">大家都在看</h2>
+            <a href="javascript:;" id="change">换一换</a>
+            {{ each allBook }}
+            {{ if $value.off === 1 }}
+            <li class="fl">
+                <a href="/shoping?id={{$value.id}}&browse={{$value.browse}}" class="thumbnail">
+                    <span class="noneID" style="display: none;">{{$value.id}}</span>
+                    <img src="{{ $value.bookImg[0] }}" onclick=" shop(this);">
+                </a>
+                <div class="content">
+                    <a class="article-title" href="/shoping?id={{$value.id}}&browse={{$value.browse}}">{{ $value.bookName }}</a>
+                    <div class="product">
+                        <span>浏览量:{{$value.browse}}</span>
+                    </div>
+                    <div class="article-info">
+                        <span class="author">{{ $value.price }}元</span>
+                        
+                    </div>
+                
+                </div>
+            </li>
+            {{ /if }}
+            {{ /each }}
+
+        </ul>
+        <!-- 实时消息提示 -->
+        <div class="msglist-box">
+           
+        <div class="w1100 send" style="display: none;">
+            <div class="msg">
+                <!-- 对方头像 渲染-->
+                <div class="mana-head">
+                    <img src="" style="width: 40px;height: 40px;border-radius: 100%;">
+                    <span></span>
+                    <i class="icon-chacha msg-i"></i>
+                </div>
+                <div class="msg-main">
+                    
+                </div>
+            </div>
+            <div class="inputBox">
+                <textarea id="sendVal" cols="30" rows="10"></textarea>
+                
+                <span class="manaid" style="display: none;"></span>
+            
+                <input type="button" value="发送" id="sendMsg2" class="btn btn-primary">
+            </div>
+        </div>
+
+
+        </div>
+
+
+        {{ /block }}
+    </div>
+
+    <!-- 右侧固定栏 -->
+    <div class="fixed">
+        <ul class="fixed-list">
+            <li class="coll"><span>我的收藏</span></li>
+            <li class="myorder"><span>我的订单</span></li>
+            <li class="sendMessage"><span>联系我们</span></li>
+            <li style="background: #ff7600; font-size: 20px;" class="shop" ><span>&#xe609;</span></li>
+        </ul>
+    </div>
+    <!-- 提示框 -->
+    <div class="colltishi-box">
+        <div class="colltishi">
+        <span>要先登陆才能收藏哦！</span>
+        <a href="/login" style="color: rgb(129, 156, 245); margin-left:60px;">点击登陆</a>
+        </div>
+    </div>
+    
+</body>
+
+<!-- 填写个人信息 -->
+<div class="person-box">
+    <div class="person">
+        <span>填写个人信息</span>
+        <div><span>手机号:</span></div>
+        <input type="text"  id="phone" placeholder="手机号">
+        <div><span>发货地址:</span></div>
+        
+        <input type="text"  id="address" placeholder="发货地址">
+        <div><span>支付密码</span></div>
+        
+        <input type="password"  id="payPassword" placeholder="支付密码">
+        <div><span>确认密码</span></div>
+        
+        <input type="password"  id="payPassword2" placeholder="确认密码">
+        <div class="last">
+            <input type="button" value="取消支付" class="cancel-pay">
+            <input type="button" value="确认支付" class="enter-pay">
+        </div>
+        
+
+    </div>
+</div>
+<!-- 验证支付密码 -->
+<div class="pay-box">
+    <div class="pay-done">
+        <span>
+            完成支付
+        </span>
+        <span class="amount">
+            应付金额:
+            <span style="color: #ff3131;"></span>
+            <span style="color: #ff3131;">元</span>
+        </span>
+        <div class="pro">
+            <span>请输入支付密码:</span>
+        </div>
+        <input type="password"  id="pay-pass">
+        <div  class="btns">
+            <input type="button"  id="pay-cancel" value="取消支付">
+            <input type="button"  id="pay-enter" value="确认支付">
+        </div>
+    </div>
+
+
+</div>
+
+
+<script src="/public/js/jquery-3.4.1.js"></script>
+<script src="/public/js/tools.js"></script>
+<script src="/public/js/index.js"></script>
+<script src="/public/js/socket.io.js"></script>
+<script src="/public/layer/layer.js"></script>
+
+{{block "script"}}
+{{/block}}
+    <script>
+
+
+        $(function(){
+            
+
+            let socket = io()
+            $.get("/usered",(data)=>{
+                    if(data.co == 1){
+                        let id = $("#userNoneID").html()
+                            // 创建一个socket对象
+                        
+                        socket.emit("user",{
+                            // 要发送的内容
+                            id
+                            })
+                        // 接收管理员id
+                        socket.on("manas",(data)=>{
+                            let newarr = data.newarr
+                            console.log(newarr)
+                        })        
+                                
+                    }
+            })
+            socket.on("off",data=>{
+                if(!data){
+                    // 弹出警示
+					layer.open({
+                    type: 1
+					,title: false //不显示标题栏
+					,closeBtn: false
+					,area: '300px;'
+					,shade: 0.8
+					,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+					,resize: false
+					,btn: ['我知道了', '好吧']
+					,btnAlign: 'c'
+					,moveType: 1 //拖拽模式，0或者1
+					,content: `<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">
+									
+					该账户违反规定已被封禁！</br>请稍后再试
+                    </div>`
+                    ,success: function(layero){
+                        var btn = layero.find('.layui-layer-btn');
+                        btn.find('.layui-layer-btn0').attr({
+                        href: '/loginOut'
+                        ,target: '_self'
+                        });
+                    }
+								
+					});
+                }
+            })
+            // 实时接收消息提示
+            socket.on("reloveMessage",(data)=>{
+              
+                    resMsg(data)
+                    if(data.data.length){
+                        layer.tips('您有一条新消息！',"#avatar",{
+                            tips: [2, '#d2d8d0'],
+                            time: 2000,
+                            tipsMore: true
+                        });
+                        $(".pioner").show()
+                            let data2 = data.data
+                           
+                            $(".mana-head").children("img").attr("src",data2[0].touser.avatar)
+                            $(".mana-head").children("span").html(data2[0].touser.nickname)
+                            $(".inputBox > .manaid").html(data2[0].touser.fromid)
+                            $(".mymsg").click(()=>{
+                            $(".send").show()
+                            $(".pioner").hide()
+                        })
+                    }else{
+                        if(data.sure){
+                            layer.tips('您有一条新消息！',"#avatar",{
+                            tips: [2, '#d2d8d0'],
+                            time: 2000,
+                            tipsMore: true
+                        });
+                        $(".pioner").show()
+                            $(".mana-head").children("img").attr("src",data.data.avatar)
+                            $(".mana-head").children("span").html(data.data.nick)
+                            $(".inputBox > .manaid").html(data.data.id)
+                            $(".mymsg").click(()=>{
+                                $(".send").show()
+                                $(".pioner").hide()
+
+                                $(".msg-i").click(()=>{
+                                    $(".send").hide()
+                                })
+                            })
+                        }
+                    }
+                   
+                    Message("#sendMsg2")
+            })
+
+            // 点击换一换
+            change()
+            function change (){
+                $("#change").click(()=>{
+                $.get("/changeBook",data=>{
+                    $(".list").html(`
+                    <h2 style="font-weight: bold;">大家都在看</h2>
+                    <a href="javascript:;" id="change">换一换</a>
+                    ${data}
+                    `)
+                    change()
+                })
+            })
+            }
+
+
+            $("#avatar").click(function(e){
+                e.stopPropagation()
+                 $(".menu-bar").fadeToggle()
+            })
+
+            $(document).click(function(){
+                $(".menu-bar").fadeOut()
+            })
+
+            // 请求全部课程页面
+            $(".allcourse").click(function(){
+                allCourse()
+            })
+            function allCourse(){
+                $.get("/allcourse",{page:1},function(data){
+                    $(".main").html(data)
+                    course()
+                    allcour()
+                    bookSearch()
+                    left()
+                    right()
+                    sort()
+                })
+            }
+            async function allCourse2(index){
+                await $.get("/allcourse",{page:1,index},function(data){
+                    $(".bookBox").html(data)
+                   
+                    course()
+                    allcour()
+                    bookSearch()
+                    left()
+                    right()
+                    sort()
+                })
+            }
+            function allcour(){
+                $(".allcour").click(function(){
+                    allCourse()
+                })
+                
+            }
+            // 按销量等排序
+            function sort (){
+                $("#sort").change(async ()=>{
+                    let val = $("#sort").find("option:selected").text()
+                    let index
+                    $(".BR").hide()
+                        $(".SA").hide()
+                        $(".FA").show()
+                    if(val==="按浏览量排序"){
+                        index = 1
+                        await allCourse2(index)
+                        $(".BR").addClass("active_span")
+                    }else
+                    if(val==="按销售量排序"){
+                        index = 2
+                        await allCourse2(index)
+                       
+                        $(".SA").addClass("active_span")
+                        
+                    }else
+                    if(val==="按收藏量排序"){
+                        index = 3
+                        await allCourse2(index)
+                        
+                        $(".FA").addClass("active_span")
+                    }
+                })
+            }
+            // 点击课程分页
+            function left (){
+                let page = $("#page2").html() - 0
+                $(".left-book").click(()=>{
+                    page--
+                    $.get("/allcourse",{page},(data)=>{
+                        $(".main").html(data)
+                        left()
+                        right()
+                        course()
+                        allcour()
+                        bookSearch()
+                        sort()
+                    })
+                })
+                
+            }
+            function right (){
+                let page = $("#page2").html() - 0
+                $(".right-book").click(()=>{
+                    page++
+                    $.get("/allcourse",{page},(data)=>{
+                        $(".main").html(data)
+                        left()
+                        right()
+                        course()
+                        allcour()
+                        bookSearch()
+                        sort()
+                    })
+                })
+            }
+            // 课程模糊查询
+            function bookSearch (){
+                $(".search_book").click(()=>{
+                    
+                    let val = $("#search_main").val()
+                    if(val == ""){
+                        $("#search_main").attr("placeholder","内容不能为空!")
+                        setTimeout(()=>{
+                            $("#search_main").attr("placeholder","请输入教材名称")
+                        },1200)
+                    }else{
+                       $.get("/bookSearch",{val},(data)=>{
+                            $(".main").html(data)
+                            bookSearch ()
+                            allcour()
+                            course()
+                            left()
+                            right()
+                            sort()
+                            if($(".bookBox > .fl").length === 0){
+                                $(".bookBox").html('目前没有相关教材')
+                            }
+                       })
+                    }
+                })
+            }
+            // 课程分类查询
+            function course(){
+                $(".cour").click(function(){
+                    let val = $(this).text()
+                    $.get("/cour",{class:val},function(data){
+                        $(".main").html(data)
+                        if($(".bookBox > .fl").length === 0){
+                            $(".bookBox").html('目前没有相关教材')
+                        }
+                        bookSearch()
+                        course()
+                        allcour()
+                        left()
+                        right()
+                        sort()
+                    })
+
+
+
+                })
+            }
+
+
+            // 联系我们的函数调用
+            sendMessage()
+           
+            // 查看所有资讯
+            $(".all").click(function(){
+                    bookzixun()
+                    
+            })
+            // 课程咨询
+            $(".bookzixun").click(function(){
+               bookzixun()
+               
+                
+            })
+            // 切换页码资讯
+            // left按钮
+            function le(){
+                let page = $("#page").text() - 0
+                let left = $(".left-zixun")
+                left.click(function(){
+                    page--
+                    $.get("/release",{page:page},function(data){
+                        $(".main").html(data)
+                        ri()
+                        le()
+                        search()
+                        $(".more").click(function(){
+                            let val = $(".nav3").html()
+                            dail(this)
+                            $(".nav3").html(`${val}<i style='color:#555;'>></i><span>资讯详情</span>`)
+                            // 返回课程咨询
+                                $(".ser").click(function(){
+                                    bookzixun()      
+                                })
+                        })
+                    })
+                })
+            }
+            function ri(){
+                let page = $("#page").text() - 0
+                let right = $(".right-zixun")
+                right.click(function(){
+                    page++
+                    $.get("/release",{page:page},function(data){
+                        $(".main").html(data)
+                        le()
+                        ri()
+                        search()
+                        $(".more").click(function(){
+                            let val = $(".nav3").html()
+                            dail(this)
+                            $(".nav3").html(`${val}<i style='color:#555;'>></i><span>资讯详情</span>`)
+                            // 返回课程咨询
+                                $(".ser").click(function(){
+                                    bookzixun()      
+                                })
+                        })
+                    })
+                })
+            }
+            // 我的收藏页面请求
+            
+            function col(){
+                
+                $.get("/mycollect",function(data){
+                        if(data.co == -1){
+                            // 提示需要先登录
+                            layer.tips('要登录才能收藏哦！',".coll",{
+                            tips: [4, '#ee3131'],
+                            time: 4000,
+                            tipsMore: true
+                            });
+                        }else{
+                            
+                            $("body").html(data)
+                            let i =  layer.load(2, {shade:[.1,"#000"]});
+                            if($(".books").length == 0){
+                                $(".collects-box").html("空空如也，快去收藏吧!")
+                                layer.close(i)
+                            }else{
+                                let bookids = document.querySelectorAll(".books")
+                                let arr = []
+                                for(let i = 0;i<bookids.length;i++){
+                                    arr.push(bookids[i].innerHTML)
+                                }
+                                $.get("/collects",{ids:arr},function(data){
+                                    $("body").html(data)
+                                    layer.close(i)
+                                    // 给取消收藏绑定函数
+                                    removeColl()
+                                })
+                            }
+                            
+
+
+
+
+                        }
+                    })
+            }
+            $(".coll").click(function(){
+                col()
+            })
+            
+            // 购物车请求
+            $(".shop").click(function(){
+                shop()
+            })
+
+            // 删除购物车内教材
+            function removeshop(){
+                $(".removeshop").click(function(){
+                    let par = $(this).parent().parent()
+                    let id = $(this).parent().parent().children(".boids").text()
+                   
+                    $.post("/removeshop",{id:id},function(data){
+                        if(data.co == 1){
+                            par.remove()
+                            layer.msg("删除成功！",{icon:1,time:1500})
+                            
+                            $(".checks").change()
+
+                        }
+
+                    })
+
+                })
+            }
+            
+            
+
+
+            // 订单页面请求
+            $(".myorder").click(function(){
+                myorder()
+            })
+            
+
+            // 处理登陆才能查看订单
+            async function myorder(){
+                
+                $.get("/myorder",function(data){
+                    if(data.co == -1){
+                        // 没有登陆
+                        layer.tips('要登录才能查看订单哦！',".myorder",{
+                            tips: [4, '#ee3131'],
+                            time: 4000,
+                            tipsMore: true
+                            });
+                    }else{
+                         $("body").html(data)
+                         
+                         let allpo = $(".po")
+                         allpo.each((i,v)=>{
+                             if($(v).parent().children(".order-b").children(".order-book").length>=2){
+                                 $(v).show()
+                             }
+                         })
+                         receipt()
+                         removeOrder()
+                         orderMessage()
+                         orderID()
+                        
+                         
+                         
+                    }
+                })
+
+            }
+            // 确认收货
+            async function receipt(){
+                $(".receipt").click(function(){
+                    
+                    let stau = $(this).parent().parent().children(".oldstau").html()
+                    let orderNum = $(this).parent().parent().parent().children(".orderNum").children("span").html()
+                    if(stau === "交易完成"){
+                        layer.msg("该订单已关闭!",{icon:1,time:1500})
+                        return
+                    }
+                    if(stau === "未发货"){
+                        layer.confirm("教材还未发货，确认要收货吗?",{
+                            btn:["确认","取消"]
+                        },()=>{
+                            layer.closeAll('dialog');
+                            let index =  layer.load(2, {shade:[.1,"#000"]});
+                            // 确认
+                            rece(orderNum,index)
+                        },()=>{})
+                        return
+                    }
+                    layer.confirm("确认要收货吗?",{
+                            btn:["确认","取消"]
+                        },()=>{
+                            layer.closeAll('dialog');
+                            let index =  layer.load(2, {shade:[.1,"#000"]});
+                            // 确认
+                            rece(orderNum,index)
+                        },()=>{})
+                })
+                // 请求函数
+                function rece(orderNum,index){
+                    $.post("/receipt",{orderNum},data=>{
+                        if(data.co){
+                           
+                            layer.close(index)
+                            layer.msg("收货成功!",{icon:1,time:1500})
+                        }
+                    })
+                }
+
+            }
+            // 删除订单的请求
+            async function removeOrder(){
+                
+                $(".removeOrder").click(async function(){
+                    
+                    let orderNum = parseInt($(this).parent().parent().parent().children(".orderNum").children("span").html() )               
+                    layer.confirm("确认要删除吗?",{
+                        btn:["确定","取消"]
+                    },()=>{
+                        $.post("/removeOrder",{orderNum},async function(data){
+                            if(data.co == 1){
+                                await myorder()
+                                layer.msg("删除成功!",{icon:1})
+                            }
+                        })
+                    },()=>{
+
+                    })
+                    
+
+
+
+                })
+            }
+
+            // 查看订单详情
+            function orderMessage(){
+                $(".order-message-btn").click(function(){
+                   
+                    let box = $(this).parent().parent().parent()
+                    let orderbox = $(this).parent().parent().parent().children(".order-b")
+                    let orderbook = $(this).parent().parent().parent().children(".order-b").children(".order-book")
+                    let li = $(this).parent().parent().parent().children(".order-b").children(".order-book").children(".length-box")
+                    let pri = $(this).parent().parent().parent().children(".order-b").children(".order-book").children(".length-box").children(".nums")
+                    let math = $(this).parent().parent()
+                    let oldstau = $(this).parent().parent().children(".oldstau")
+                    box.toggleClass(" order-active")
+                    orderbox.toggleClass(" order-book-box")
+                    orderbook.toggleClass(" order-book-active")
+                    pri.toggleClass(" pri-active")
+                    li.toggleClass(" nums-active")
+                    math.toggleClass(" math-active")
+                    $(".persons").toggle()
+                    $(".order-tishi").toggle()
+                    $(".order-message").toggle()
+                    oldstau.toggle()
+                    $(".myorder-main").toggleClass(" minheight")
+
+                    if($(this).html() == "返回"){
+                        $(".order-list").each((i,v)=>{
+                           
+                            $(v).css("display","block")
+                            
+                        })
+                        $(this).html("查看详情")
+                    }else{
+                        $(this).html("返回")
+                        $(".order-list").each((i,v)=>{
+                            if(!$(v).hasClass("order-active")){
+                                $(v).css("display","none")
+                            }
+                    })
+                    
+                    }
+
+
+
+
+                })
+            }
+            
+
+
+
+            // 求出订单的总价
+            function orderID (){
+                let allnum = $(".allnum")
+
+                let index = 0
+                for(let i in allnum){
+                    index = $(allnum[i]).parent().parent().parent().parent().children().children(".order-book").length
+                    
+                    $(allnum[i]).html(index)
+                }
+                
+            }
+
+
+
+            function shop (){
+                $.get("/shop",function(data){
+                    if(data.co == -1){
+                        // 没有登陆
+                        layer.tips('要登录才能添加购物车哦！',".shop",{
+                            tips: [4, '#ee3131'],
+                            time: 4000,
+                            tipsMore: true
+                            });
+                    }else{
+                         $("body").html(data)
+                        var index =  layer.load(2, {shade:[.1,"#000"]});
+                        
+                        let ids = document.querySelectorAll(".shopid > .boo")
+                        let nums = document.querySelectorAll(".shopid > .boo2")
+                        if(ids.length ===0){
+                                    $(".shop-center").html(`
+                                        <div style="width:100%;text-align:center;line-height:300px">
+                                            <span>购物车空空如也，快去抢购吧</span>
+                                        </div>
+                                    `)
+                                    layer.close(index)
+
+                        }else{
+                        let arr2 = []
+                        for(let i = 0;i<ids.length;i++){
+                            arr2.push(ids[i].innerHTML)
+                        }
+
+                        let arr3 = []
+                        for(let i = 0;i<ids.length;i++){
+                            var obj = {}
+                            obj.bookid = ids[i].innerHTML
+                            obj.num = nums[i].innerHTML
+                            arr3.push(obj)
+                        }
+                        
+                        
+                            $.get("/shopids",{ids:arr2},function(data){
+                                $("body").html(data)
+                                layer.close(index)
+                                    // 同步数量
+                                    let boids = $(".boids")
+                                    let pri = 0
+                                    for(var i in boids){
+                                        for(var j in arr3){
+                                            if(boids[i].innerHTML==arr3[j].bookid){
+                                                $(boids[i]).parent().children(".num-box").children(".num").val(arr3[j].num)
+                                                pri = parseInt($(boids[i]).parent().children(".prices").html())
+                                                $(boids[i]).parent().children(".subtotal").html(arr3[j].num*pri + "元")
+                                                
+                                            }
+                                        }
+                                    }
+                                    removeshop()
+                                    sub()
+                                    allpri()
+                                    allpris()
+                                    order()
+                                
+                            })
+                        
+                        }
+                        
+                    }
+                })
+            }
+            // 提交订单获取数据
+             function order(){
+                $(".pay").click(function(){
+                    let allcheck = document.querySelectorAll(".checks")
+                    let on = true
+                    let arr = []
+                        for(let i in allcheck){
+                            if(allcheck[i].checked === false){
+                                on = false
+                            }else if(allcheck[i].checked){
+                                on = true
+                                break
+                            }
+                        }
+                        
+                    
+                    if(!on){
+                        layer.msg("请选择要购买的教材",{icon:2,time:1500})
+                    }else{
+                        let allpri = parseInt($(".allpri").html())
+                        
+                        for(let i in allcheck){
+                            if(allcheck[i].checked){
+                                var obj = {}
+                                obj.bookid = $(allcheck[i]).parent().children(".boids").text()
+                                obj.num = $(allcheck[i]).parent().children(".num-box").children(".num").val()
+                                obj.sales = $(allcheck[i]).parent().children(".sales").text()
+                                arr.push(obj)
+                                
+                            }
+                        }
+                        let arr2 = arr.concat()
+                        delete arr.sales
+                        order2(arr,allpri,arr2)
+                        
+                    }
+           
+                })
+                // 处理填写信息的函数
+                function order2(arr,allpri,arr2){
+                        // 判断是否填写过个人信息
+                        if($(".pers").html() == ""){
+                            $(".person-box").fadeIn()
+                            per(arr,allpri,arr2)
+                        }else{
+                            $(".pay-box").fadeIn()
+                            pay(arr,allpri,arr2)
+
+                        }
+                }
+
+                // 修改提交个人信息
+                function per (arr,allpri,arr2){
+                    $(".cancel-pay").click(()=>{$(".person-box").fadeOut()})
+                    $(".enter-pay").click(function(){
+                        let reg = /^1[3456789]\d{9}$/
+                        let reg2 = /^[a-z0-9_-]{6,18}$/
+                        let phone = $("#phone").val()
+                        let address = $("#address").val()
+                        let payPassword = $("#payPassword").val()
+                        let payPassword2 = $("#payPassword2").val()
+                        // 定义三个开关变量
+                        let ph = false
+                        let paypss = false
+                        let paypss2 = false
+                        let obj = {
+                            phone,
+                            address,
+                            payPassword
+                        }
+                        // 验证手机号
+                        if(reg.test(phone)){
+                            ph = true
+                        }else{layer.tips('请输入合格的手机号',"#phone",{
+                            tips: [1, '#ee3131'],
+                            time: 4000,
+                            tipsMore: true
+                            });
+                            ph = false
+                        }
+                        // 验证密码格式
+                        if(reg2.test(payPassword)){
+                            paypss = true
+                        }else{
+                            layer.tips('密码格式6-18位',"#payPassword",{
+                            tips: [1, '#ee3131'],
+                            time: 4000,
+                            tipsMore: true
+                            });
+                            paypss = false 
+                        }
+                        // 验证确认密码
+                        if(payPassword2 === payPassword){
+                            paypss2 = true
+                        }else{
+                            layer.tips('两次密码不一致',"#payPassword2",{
+                            tips: [1, '#ee3131'],
+                            time: 4000,
+                            tipsMore: true
+                            });
+                            paypss2 = false
+                        }
+                        if(address ===""){
+                            paypss2 = false
+                            paypss = false 
+                            ph = false
+                            layer.tips('地址不能为空',"#address",{
+                            tips: [1, '#ee3131'],
+                            time: 4000,
+                            tipsMore: true
+                            });
+                        }
+                        if(ph&&paypss&&paypss2){
+                            $.post("/personUpdate",{obj:obj},function(data){
+                            if(data.co == 1){
+                                // 验证支付密码
+                                $(".person-box").fadeOut()
+                                $(".pay-box").fadeIn()
+                                pay(arr,allpri,arr2)
+                            }
+                        })
+                        }
+                        
+
+
+                    })
+
+
+                }
+
+                // 验证支付密码正确性
+                function pay (arr,allpri,arr2){
+                    
+                    $(".amount>span:first").html(allpri)
+                    $("#pay-cancel").click(()=>{$(".pay-box").fadeOut()})
+                    $("#pay-enter").click(function(){
+                        let val = $("#pay-pass").val()
+                        if(val === ""){
+                            layer.msg("请输入密码!",{icon:2,time:1000})
+                        }else{
+                            $.post("/pay",{payPassword:val,allpri}, function(data){
+                                if(data.co == 1){
+                                    // 支付成功
+                                    layer.confirm("恭喜支付成功!",{
+                                        btn:["确定","查看订单"]
+                                        
+                                    },()=>{
+                                        $(".pay-box").fadeOut()
+                                       layer.msg("已生成订单，可前往‘我的订单’查看",{icon:1,time:1500})
+                                       
+                                    },()=>{
+                                        myorder()
+                                    })
+                                     // 生成订单
+                                     or(arr,allpri,arr2)
+                                }else if(data.co == 0){
+                                    // 账户余额不足
+                                    layer.msg("账户余额不足,请稍后充值再试!",{icon:2,time:1500})
+                                }
+                                else{
+                                    layer.msg("密码错误!",{icon:2,time:1500})
+                                }
+                            })
+                        }
+                             
+                    })
+
+                }
+
+                // 订单函数
+                function or (arr,allpri,arr2){
+                    // 发送教材id数组
+                    $.post("/order",{arr,allpri,arr2},function(data){
+                        if(data.co == 1){
+                            removebook(arr)
+                        }
+                    })
+                    // 删除购物车中对应的教材
+                    function removebook(arr){
+                        let newArr = []
+                        for(let i in arr){
+                            newArr.push(arr[i].bookid)
+                        }
+                        
+                        $.post("/payshop",{ids:newArr},function(data){
+                            
+                        })
+                    }
+                }
+
+
+            }
+
+
+            // 计算总价
+            function allpri(){
+                $(".checks").on("change",function(){
+                    let allcheck = document.querySelectorAll(".checks")
+                    let allprice = 0
+                    for(let i in allcheck){
+                        if(allcheck[i].checked){
+                             allprice += parseInt($(allcheck[i]).parent().children(".subtotal").html())
+                        }else if(allcheck[i].checked === false){
+                            $(".check").prop("checked",false)
+                        }
+                    }
+                    $(".allpri").html(`${allprice}元`)
+                })
+                
+            }
+            // 全选按钮
+            function allpris(){
+                $(".check").change(function(){
+                    if($(this).prop("checked")){
+                        $(".checks").prop("checked",true).change()
+                    }
+                    
+                })
+            }
+            
+
+
+
+
+            // 绑定购物车更改数量时小计的变化
+            function sub (){
+
+                $(".num").change(function(){
+                    let pri = parseInt($(this).parent().parent().children(".prices").html())
+                    let bookid = $(this).parent().parent().children(".boids").text()
+                    let val = $(this).val()
+                    $(this).parent().parent().children(".subtotal").html(pri*val + "元")
+                    $(".checks").change()
+                    // 更改保存的数量
+                    $.get("/num",{id:bookid,num:val},function(){
+
+                    })
+
+                })
+            }
+
+
+
+
+
+
+           
+            // 取消绑定收藏的函数
+            function removeColl(){
+                $(".removeColl").click(function(){
+                    let removeID = $(this).parent().children(".collID").text()
+
+                    let favorite = $(this).parent().children(".favorite").text()
+                    let bookid = $(this).parent().children(".collID").text()
+                    var index =  layer.load(2, {shade:[.1,"#000"]});
+                    $.get("/removecoll",{removeID,favorite,bookid},function(data){
+                        if(data.co == 1){
+                            index = null
+                            layer.msg("取消收藏成功",{icon:1})
+                            col()
+                        }
+                    })
+
+
+                })
+                
+
+            }
+
+
+
+            // 课程咨询页面封装
+            function bookzixun(){
+                $.get("/release",{page:1},function(data){
+                  $(".main").html(data)
+                  le()
+                  ri()
+                  search()
+                  $(".more").click(function(){
+                      let val = $(".nav3").html()
+                      dail(this)
+                      $(".nav3").html(`${val}<i style='color:#555;'>></i><span>资讯详情</span>`)
+                      // 返回课程咨询
+                        $(".ser").click(function(){
+                            bookzixun()      
+                        })
+                  })
+                  
+              })
+            }
+
+            function dail(is){
+                let bookId = $(is).parent().children(".dailID").text()
+                
+                    $.post("/details",{id:bookId},function(data){
+                        $(".center").html(data)
+                    })
+            }
+            // 点击首页资讯标题跳转
+            $(".zixuntitle").click(function(){
+                let id = $(this).parent().children(".dailID").text()
+                 
+                      
+                       $.post("/details",{id},function(data){
+                        $(".main").html(`
+                        <div class="nav2">
+                            <div class="w1100 nav3">
+                                    <a href="/">首页></a>
+                                    <a class="ser" href="javascript:;" style="color: rgb(109, 135, 211);">课程咨询</a>
+                            </div>
+                        </div>
+
+                        <div class="w1100 center">
+                            ${data}
+                        </div>
+                                `)
+                        let val = $(".nav3").html()
+                        $(".nav3").html(`${val}<i style='color:#555;'>></i><span>资讯详情</span>`)
+                      // 返回课程咨询
+                        $(".ser").click(function(){
+                            bookzixun()      
+                        })
+                    })
+                      
+            })
+
+            // 资讯模糊查询
+
+
+            function search (){
+                $(".search-box").click(function(){
+                    let val = $(".search-text").val()
+                    
+                    // 检测值是否为空
+                    if(val == ""){
+                        $(".search-text").attr("placeholder","内容不能为空!")
+
+                        setTimeout(()=>{
+                            $(".search-text").attr("placeholder","模糊查询资讯")
+                        },1200)
+                    }else{
+                        $.get("/search",{val:val},function(data){
+                            
+                            $(".main").html(data)
+                            le()
+                            ri()
+                            // let al = $(".media").length
+                            // $(".quantity").html(`共找到${al}条内容`)
+                            if($(".media").length ===0){
+                                
+                                document.querySelector(".mediaBox").innerHTML =
+                                     `
+                                    <span id='tip'>目前没有相关内容</span>
+                                    `
+                            }
+                            //更换页面点击事件会失效,所以重新绑定
+                            search()
+                            
+                            $(".more").click(function(){
+                            let val = $(".nav3").html()
+                            dail(this)
+                            $(".nav3").html(`${val}<i style='color:#555;'>></i><span>资讯详情</span>`)
+                            // 返回课程咨询
+                                $(".ser").click(function(){
+                                    bookzixun()      
+                                })
+                            })
+                            $(".all").click(function(){
+                                bookzixun()
+                            })
+                        })
+                    }
+
+                })
+            }
+            
+
+            // 点击切换图片
+            // 给第一张小图添加边框
+            let one = document.querySelectorAll(".book-list2 > li")[0]
+            one.className = " active"
+            $(".book-list2 > li").click(function(){
+                let lis = document.querySelectorAll(".book-list2 > li")
+                let imgs = document.querySelectorAll(".book-list > li > img")
+                let index = $(this).index()
+                for(let i in lis){
+                    lis[i].className = ""
+                }
+                for(let i in imgs){
+                    imgs[i].className = ""
+                }
+
+                imgs[index].className = "zindex"
+                $(this).addClass(" active")
+
+            })
+
+            // 联系我们页面请求
+            
+            function sendMessage (){
+                $(".sendMessage").click(()=>{
+                   
+                    $.get("/sendMessage",(data)=>{
+                        if(data.co == -1){
+                            // 用户没有登陆
+                            
+                            layer.tips('需要先登录哦！',".sendMessage",{
+                            tips: [4, '#ee3131'],
+                            time: 4000,
+                            tipsMore: true
+                            });
+                        }else{
+                            // 用户登陆，可以访问
+                            $(".main").html(data)
+                            $(".msg-content").click(function(){
+                                let id = $(this).children(".msgid").text()
+                                let nick = $(this).children(".mananick").html()
+                                let img = $(this).children("img").attr("src")
+                                $(".send").show()
+                                $(".mana-head").children("img").attr("src",img)
+                                $(".mana-head").children("span").html(nick)
+                                $(".inputBox > .manaid").html(id)
+                                Message("#sendMsg")
+                                
+                            })
+                        }
+                    })
+                })
+            }
+                
+                
+            // 当点击发送的时候，获取val，向服务器发送消息
+            
+            function Message (sub){
+                $(sub).click((e)=>{
+                     // 验证用户是否登陆，如果登陆传递id
+                    
+                    let id = $("#userNoneID").html()
+                    let val = $("#sendVal").val()
+                    let toid = $(".manaid").html()
+                    let avatar = $("#avatar").attr("src")
+                    let nick = $("#Nick").html()
+                    
+                    socket.emit("sendMessage",{
+                        val,
+                        toid,
+                        id,
+                        avatar,
+                        nick
+                    })
+                    $("#sendVal").val("")
+                })
+                    $(document).keydown((e)=>{
+                    if(e.keyCode === 13){
+                        let id = $("#userNoneID").html()
+                        let val = $("#sendVal").val()
+                        let toid = $(".manaid").html()
+                        let avatar = $("#avatar").attr("src")
+                        let nick = $("#Nick").html()
+                        socket.emit("sendMessage",{
+                            val,
+                            toid,
+                            id,
+                            avatar,
+                            nick
+                        })
+                        $("#sendVal").val("")
+                    }
+                })
+            }
+
+            
+           
+            // 客户端接收消息的函数
+            // function ms (){
+            //     socket.on("reloveMessage",(data)=>{
+            //             // 接收数据    
+            //             resMsg(data)
+
+            //     })
+            // }
+            
+            // 数据接收逻辑
+            function resMsg(data){
+                let h = $(".msg-main").scrollTop()
+                if(data.data.length){
+                            let data2 = data.data
+                            for(let i in data2){
+                                $(".msg-main").append(`
+                                    <li class="msgs">
+                                        <div>
+                                            <img src="${data2[i].touser.avatar}">
+                                            
+                                        </div>
+                                        <span>
+                                           ${data2[i].touser.val}
+                                        </span>
+                                    </li>
+                            `)
+                            h += 100
+                            $(".msg-main").scrollTop(h)
+                            }
+                        }else{
+                            if(data.sure){
+                            // 接收别人的消息
+                            $(".msg-main").append(`
+                                    <li class="msgs">
+                                        <div>
+                                            <img src="${data.data.avatar}">
+                                        </div>
+                                        <span>
+                                           ${data.data.val}
+                                        </span>
+                                    </li>
+                            `)
+                            h += 100
+                            $(".msg-main").scrollTop(h)
+                        }else{
+                            // 接收自己发送的消息
+                            $(".msg-main").append(`
+                                    <li class="msgsed">
+                                        <div>
+                                           <img src="${data.data.avatar}">
+                                        </div>
+                                        <span>
+                                           ${data.data.val}
+                                        </span>
+                                    </li>
+                            `)
+                            h += 100
+                            $(".msg-main").scrollTop(h)
+                        }
+                        }
+            }
+
+           
+        })
+       
+    
+    </script>
+</html>

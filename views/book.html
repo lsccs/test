@@ -1,0 +1,467 @@
+    {{ extend "./userIndex.html" }}
+    {{block "con"}}
+         <div class="nav2">
+                <div class="w1100">
+                        <a href="/">首页></a>
+                        <span>全部课程></span>
+                        <span>教材详情</span>
+            
+                </div>
+                
+        </div>
+
+        <!-- 头部 -->
+        <div class="book-head w1100">
+            <!-- 图片 -->
+            <ul class="book-list" >
+            
+            <li>
+                <img src="{{book.bookImg[0]}}" class="zindex">
+                <img src="{{book.bookImg[1]}}" >
+                <img src="{{book.bookImg[2]}}" >
+            </li>
+            <ul class="book-list2">
+                {{each book.bookImg}}
+
+                    <li><img src="{{$value}}"></li>
+                   
+                {{ /each }}
+            </ul>
+            
+            </ul>
+            <!-- 信息 -->
+            <ul class="book-massage">
+                <h2 style="margin: 0;">{{book.bookName}}</h2>
+                <li style="color: red; font-weight: bold;">{{book.price}}元</li>
+                <li style="font-weight: bold;">类别: {{book.class}}</li>
+                <li style="font-weight: bold;">浏览量: {{book.browse}}</li>
+                <li style="font-weight: bold;" class="favorite">收藏量: <span>{{book.favorite}}</span></li>
+                <li style="font-weight: bold;">销量: {{book.sales}}</li>
+                <li>
+                   
+                    <div class="box">
+                        <span>数量</span>
+                        <input type="text" value="1" class="tity">
+                        <span class="bookid" style="display: none;">{{book.id}}</span>
+                        {{ if user }}
+                        <!-- 判断是否收藏 -->
+                        {{ each user.collect }}
+                        {{ if $value.bookid == book.id }}
+                        <span class="coo" style="display: none;"></span>
+                        {{/if]}}
+                        {{ /each }}
+                        <!-- 判断是否添加购物车 -->
+                        {{each user.shop}}
+                        {{ if $value.bookid == book.id }}
+                        <span class="soo" style="display: none;"></span>
+                        {{/if}}
+                        {{/each}}
+                        <a href="javascript:;" class="collect">收藏</a>
+                        {{else}}
+                        <a href="javascript:;" class="collect" style="background: #549f54;">收藏</a>
+                        {{/if}}
+                        <a href="javascript:;" class="shoping">添加到购物车</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- 底部评论 -->
+        <div class="footer">
+            <div class="top-bar w1100">
+                <div class="description"><span>描述</span></div>
+                <div class="comment comment-avtive"><span>评论</span></div>
+            </div>
+            <!-- 全部评论 -->
+            <div class="allcom w1100">
+                    <form class="comment-form">
+                            {{if user}}
+                            <textarea class="comment-main"></textarea>
+                            <input type="text"  id="rep" disabled value="回复:">
+                            <input type="text"  id="at" disabled>
+                            <input class="subs" type="button" value="提交">
+                            <span></span>
+                            <p style="display: none;"></p>
+                            {{else}}
+                            <textarea class="comment-main" disabled>请先登陆才能评论哦!</textarea>
+                            <input type="text"  id="rep" disabled value="回复:">
+                            <input type="text"  id="at" disabled>
+                            <input class="subs" type="button" value="提交" disabled style="color: black;background: rgb(212, 208, 208);">
+                            <span></span>
+                            <p style="display: none;"></p>
+                            {{/if}}
+                    </form>
+
+                    <!--评论展示 -->
+                    <ul class="w1100 com">
+                            {{each com}}
+                            {{ each $value.comment }}
+                                <li class="comment-user">
+                                    <img src="{{$value.fromID.avatar}}">
+                                    <span class="liketoid" style="display: none;">{{$value._id}}</span>
+                                    <span style="display: none;" class="commentID">{{$value._id}}</span>
+                                    <span style="color: #ff7300;" class="commentNick">{{$value.fromID.nickname}}</span>
+                                     | <span>{{$value.time}}</span>
+                                     {{if user}}
+                                        {{if $value.like.length === 0}}
+                                        <i class="likeID">
+                                                &#xe600;
+                                        </i>
+                                        {{else}}
+                                            {{each $value.like}}
+                                                    
+                                                            {{if $value.id == user._id}}
+                                                                <i class="likeID heart-active">
+                                                                        &#xe600;
+                                                                </i>
+                                                            {{else}}
+                                                                <i class="likeID">
+                                                                        &#xe600;
+                                                                </i>
+                                                            {{/if}}
+                                            {{/each}}
+                                        {{/if}}
+                                    {{else}}
+                                    <i class="likeID">
+                                        &#xe600;
+                                    </i>
+                                    {{/if}}
+                                    <span class="likenum">{{$value.like.length}}</span>
+                                     {{if user}}
+                                     <a href="javascript:;" style="color: #ff7300;margin-left: 60px;" class="replay">回复</a>
+                                     {{else}}
+                                     {{/if}}
+                                     
+                                    <span class="contents">{{$value.content}}</span>
+                                    <!-- 子回复 -->
+                                    {{each $value.toID}}
+                                    {{if $value.manaid}}
+                                    <div class="toBox">
+                                            <img src="{{$value.manaid.avatar}}" class="toimg">
+                                            <span class="liketoid" style="display: none;">{{$value._id}}</span>
+                                            <span style="display: none;" class="commentIDs"></span>
+                                            <span style="color: #ff7300;" class="commentNick">{{$value.manaid.nickname}}</span>
+                                             | <span>{{$value.time}}</span>
+                                             <div class="idc"><span>管理员</span></div>
+                                            {{if user}}
+                                                {{if $value.likes.length === 0}}
+                                                    <i class="likeID">
+                                                            &#xe600;
+                                                    </i>
+                                                {{else}}
+                                                    {{each $value.likes}}
+                                                        {{if $value.id == user._id}}
+                                                        <i class="likeID heart-active">
+                                                                &#xe600;
+                                                        </i>
+                                                        {{else}}
+                                                            <i class="likeID">
+                                                                    &#xe600;
+                                                            </i>
+                                                        {{/if}}
+                                                    {{/each}}
+                                                {{/if}}
+                                            {{else}}
+                                            <i class="likeID">
+                                                    &#xe600;
+                                            </i>
+                                            {{/if}}
+                                            <span class="likenum"> {{$value.likes.length}}</span>
+                                             {{if user}}
+                                             
+                                             <a href="javascript:;" style="color: #ff7300;margin-left: 60px;" class="replays">回复</a>
+                                             {{else}}
+                                             {{/if}}
+                                             <span class="to-contents">回复 <span style="color: #ff7300;">{{$value.atval}}</span> : {{$value.tocon}}</span>
+                                    </div>
+                                    {{else}}
+                                    <div class="toBox">
+                                            <img src="{{$value.toid.avatar}}" class="toimg">
+                                            <span class="liketoid" style="display: none;">{{$value._id}}</span>
+                                            <span style="display: none;" class="commentIDs"></span>
+                                            <span style="color: #ff7300;" class="commentNick">{{$value.toid.nickname}}</span>
+                                             | <span>{{$value.time}}</span>
+                                             {{if user}}
+                                                {{if $value.likes.length === 0}}
+                                                <i class="likeID">
+                                                        &#xe600;
+                                                </i>
+                                                {{else}}
+                                                    {{each $value.likes}}
+                                                            {{if $value.id == user._id}}
+                                                            <i class="likeID heart-active">
+                                                                    &#xe600;
+                                                            </i>
+                                                            {{else}}
+                                                                <i class="likeID">
+                                                                        &#xe600;
+                                                                </i>
+                                                            {{/if}}
+                                                    {{/each}}
+                                                {{/if}}
+                                            {{else}}
+                                            <i class="likeID">
+                                                    &#xe600;
+                                            </i>
+                                            
+                                            {{/if}}
+                                            <span class="likenum">{{$value.likes.length}}</span>
+                                             {{if user}}
+                                             <a href="javascript:;" style="color: #ff7300;margin-left: 60px;" class="replays">回复</a>
+                                             {{else}}
+                                             {{/if}}
+                                             <span class="to-contents">回复 <span style="color: #ff7300;">{{$value.atval}}</span> : {{$value.tocon}}</span>
+                                    </div>
+                                    {{/if}}
+                                    
+                                    {{/each}}
+                                </li>
+                            {{ /each ]}}
+                            {{ /each ]}}
+                    </ul>
+                    
+            </div>
+            <!-- 描述 -->
+            <div class="description_main w1100" style="display: none;">
+                <div class="w1100 description_con">
+                    <span>{{book.val}}</span>
+                </div>
+            </div>
+        </div>
+
+    {{/block}}
+    {{ block "script" }}
+    <script>
+        // 同步点赞数颜色
+        $(".likenum").each((i,v)=>{
+            $(v).css("color",$(v).parent().children(".likeID").css("color"))
+        })
+
+
+        // 点击切换
+        $(".description").click(function(){
+            $(this).addClass(" comment-avtive")
+            $(".comment").removeClass(" comment-avtive")
+            $(".allcom").hide()
+            $(".description_main").show()
+
+        })
+        $(".comment").click(function(){
+            $(this).addClass(" comment-avtive")
+            $(".description").removeClass(" comment-avtive")
+            $(".allcom").show()
+            $(".description_main").hide()
+        })
+
+        // 判断是否购买次教材，购买后才可以评论
+        let bookid = $(".bookid").html()
+        $.get("/shoped",{bookid},(data)=>{
+            if(data.co == -1){
+                // 没有购买，不可以评论
+                $(".comment-main").prop("disabled",true)
+                $(".comment-main").val("购买之后才能评论哦!")
+                $(".replay").css("display","none")
+                $(".replays").css("display","none")
+                $(".subs").prop("disabled",true)
+                $(".subs").css({
+                    "color":"black",
+                    "background": "rgb(212, 208, 208)",
+                })
+            }
+        })
+
+
+
+        // 获取coo
+        let coo = $(".coo").length
+        if(coo != 0 ){
+            $(".collect").html("已收藏")
+            $(".collect").css("background","#ff7600")
+        }
+
+        
+
+        $(".collect").click(function(){
+
+            let id = $(this).parent().children(".bookid").text()
+            let favorite = $(".favorite > span").text()
+            let bookid = $(".bookid").text()
+            
+            // 验证是否已经收藏
+            if($(".collect").html() == "已收藏"){
+                layer.msg('加载中', {
+                    icon: 15
+                    ,shade: 0.01
+                });
+                $.get("/removecoll",{removeID:id,favorite:favorite,bookid:bookid},function(data){
+                    if(data.co == 1 ){
+                        layer.msg("取消收藏成功！",{icon:1,time:1500})
+                        
+                        $(".collect").html("收藏")
+                        $(".collect").css("background","#549f54")
+                    }
+                })
+            }else{
+                $.post("/mycollect",{id:id,favorite:favorite,bookid:bookid},function(data){
+                    if(data.co == 1 ){
+                        layer.msg("收藏成功！",{icon:1,time:1500})
+                        
+                        $(".collect").html("已收藏")
+                        $(".collect").css("background","#ff7600")
+                    }else{
+                        layer.msg("您还没有登陆哦!",{icon:2,time:1500})
+                    }
+
+                })
+            }
+            
+            
+        })
+
+        // 添加购物车
+        $(".shoping").click(function(){
+            layer.msg('加载中', {
+                icon: 15
+                ,shade: 0.01
+            });
+            // 判断soo是否存在，如果有说明已经添加过购物车了
+            let num = $(".tity").val()
+            let length1 = $(".soo").length
+           
+            let id = $(this).parent().children(".bookid").text()
+                $.post("/shop",{id:id,num:num},function(data){
+                    if(data.co == 1 ){
+                        layer.msg("添加成功",{icon:1,time:1500})
+                        
+                    }else if(data.co == -2){
+                        layer.msg("购物车已经有了",{icon:2})
+                    }
+                    else{
+                        layer.msg("您还没有登陆哦!",{icon:2,time:1500})
+                    }
+
+                })
+            
+        })
+
+
+        // 同步id
+        
+        $(".commentIDs").each((i,v)=>{
+            let vals = $(v).parent().parent().children(".commentID").html()
+            $(v).html(vals)
+        })
+            
+        
+        // 提交评论
+        $(".subs").click(function(){
+            let val = $(".comment-main").val()
+            let id = $(".bookid").html()
+            let user = $(".comment-form > p").html()
+            let atval = $("#at").val()
+            let index =  layer.load(2,{shade:[.1,"#000"]})
+            if(user !== ""){
+                
+                $.post("/comment",{val,id,user,atval},function(data){
+                    // 回复成功
+                    // 同步点赞数颜色
+                    $(".likenum").each((i,v)=>{
+                        $(v).css("color",$(v).parent().children(".likeID").css("color"))
+                    })
+                    $(".comment-main").val("")
+                    if(data.co == 1){
+                        // 渲染评论
+                        
+                        $.get("/com",{id},(data)=>{
+                            layer.close(index)
+                            layer.msg("回复成功!",{icon:1,time:1500})
+                            $(".com").html(data)
+                        })
+                    }
+                    
+                })
+            
+                return
+            }
+                
+            $.post("/comment",{val,id},async function(data){
+                // 评论成功
+                // 同步点赞数颜色
+                $(".likenum").each((i,v)=>{
+                    $(v).css("color",$(v).parent().children(".likeID").css("color"))
+                })
+                $(".comment-main").val("")
+                if(data.co == 1){
+                    
+                    // 渲染评论
+                    $.get("/com",{id},(data)=>{
+                        layer.close(index)
+                        layer.msg("评论成功!",{icon:1,time:1500})
+                        $(".com").html(data)
+                    })
+                }
+                
+                
+            })
+            
+            
+
+
+        })
+        $(".replays").click(function(){
+                replays(this)
+        })
+        $(".replay").click(function(){
+            
+                replay(this)
+        })
+        // 点赞评论
+        like()
+        async function like(){
+                $(".likeID").click(function(){
+                    let index =  parseInt($(this).parent().children(".likenum").html())
+                    $(this).toggleClass(" heart-active")
+                    $(this).parent().children(".likenum").css("color",$(this).css("color"))
+                    
+                    if($(this).hasClass("heart-active")){
+                        $(this).parent().children(".likenum").html(index+1)
+                    }else{
+                        $(this).parent().children(".likenum").html(index-1)
+                    }
+                    let toid = $(this).parent().children(".liketoid").html()
+                    let bookid = $(".bookid").html()
+                    $.post("/likes",{toid,bookid},data=>{
+
+                    })
+
+
+                })
+
+
+        }
+        
+
+
+        function replay (v){
+            let id =  $(v).parent().children(".commentID").html()
+            
+            let nick = $(v).parent().children(".commentNick").html()
+            $(".comment-form > span").html(`@${nick}`)
+            $(".comment-form > p").html(`${id}`)
+            $("#at").val(`${nick}`)
+            $("#at").fadeIn()
+            $("#rep").fadeIn()
+            $(".comment-main").addClass(" active-comment")
+        }
+        function replays (v){
+            let id =  $(v).parent().children(".commentIDs").html()
+            
+            let nick = $(v).parent().children(".commentNick").html()
+            $(".comment-form > span").html(`@${nick}`)
+            $(".comment-form > p").html(`${id}`)
+            $("#at").val(`${nick}`)
+            $("#at").fadeIn()
+            $("#rep").fadeIn()
+            $(".comment-main").addClass(" active-comment")
+        }
+    </script>
+    {{/block}}

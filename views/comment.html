@@ -1,0 +1,127 @@
+{{each com}}
+{{ each $value.comment }}
+    <li class="comment-user">
+        <img src="{{$value.fromID.avatar}}">
+        <span class="liketoid" style="display: none;">{{$value._id}}</span>
+        <span style="display: none;" class="commentID">{{$value._id}}</span>
+        <span style="color: #ff7300;" class="commentNick">{{$value.fromID.nickname}}</span>
+         | <span>{{$value.time}}</span>
+         {{if user}}
+            {{if $value.like.length === 0}}
+            <i class="likeID">
+                    &#xe600;
+            </i>
+            {{else}}
+                {{each $value.like}}
+                    {{if $value.id == user._id}}
+                    <i class="likeID heart-active">
+                            &#xe600;
+                    </i>
+                    {{else}}
+                        <i class="likeID">
+                                &#xe600;
+                        </i>
+                    {{/if}}
+                {{/each}}
+            {{/if}}
+        {{else}}
+        <i class="likeID">
+            &#xe600;
+        </i>
+       
+        {{/if}}
+        <span class="likenum">{{$value.like.length}}</span>
+         {{if user}}
+         <a href="javascript:;" style="color: #ff7300;margin-left: 60px;" class="replay">回复</a>
+         {{else}}
+         {{/if}}
+         
+        <span class="contents">{{$value.content}}</span>
+        <!-- 子回复 -->
+        {{each $value.toID}}
+        {{if $value.manaid}}
+        <div class="toBox">
+                <img src="{{$value.manaid.avatar}}" class="toimg">
+                <span class="liketoid" style="display: none;">{{$value._id}}</span>
+                <span style="display: none;" class="commentIDs"></span>
+                <span style="color: #ff7300;" class="commentNick">{{$value.manaid.nickname}}</span>
+                 | <span>{{$value.time}}</span>
+                 <div class="idc"><span>管理员</span></div>
+                 {{if user}}
+                    {{if $value.likes.length === 0}}
+                        <i class="likeID">
+                            &#xe600;
+                        </i>
+                    {{else}}
+                        {{each $value.likes}}
+                                    {{if $value.id == user._id}}
+                                        <i class="likeID heart-active">
+                                            &#xe600;
+                                        </i>
+                                    {{else}}
+                                    <i class="likeID">
+                                        &#xe600;
+                                    </i>
+                                    {{/if}}
+                        {{/each}}
+                    {{/if}}
+                {{else}}
+                <i class="likeID">
+                        &#xe600;
+                </i>
+                
+                {{/if}}
+                <span class="likenum"> {{$value.likes.length}}</span>
+                 {{if user}}
+                 <a href="javascript:;" style="color: #ff7300;margin-left: 60px;" class="replays">回复</a>
+                 {{else}}
+                 {{/if}}
+                 <span class="to-contents">回复 <span style="color: #ff7300;">{{$value.atval}}</span> : {{$value.tocon}}</span>
+        </div>
+        {{else}}
+        <div class="toBox">
+                <img src="{{$value.toid.avatar}}" class="toimg">
+                <span class="liketoid" style="display: none;">{{$value._id}}</span>
+                <span style="display: none;" class="commentIDs"></span>
+                <span style="color: #ff7300;" class="commentNick">{{$value.toid.nickname}}</span>
+                 | <span>{{$value.time}}</span>
+                 {{if user}}
+                    {{if $value.likes.length === 0}}
+                    <i class="likeID">
+                            &#xe600;
+                    </i>
+                    {{else}}
+                        {{each $value.likes}}
+                            {{if $value.id == user._id}}
+                            <i class="likeID heart-active">
+                                    &#xe600;
+                            </i>
+                            
+                            {{else}}
+                            <i class="likeID">
+                                    &#xe600;
+                            </i>
+                            
+                            {{/if}}
+                        {{/each}}
+                        
+                    {{/if}}
+                {{else}}
+                <i class="likeID">
+                        &#xe600;
+                </i>
+                
+                {{/if}}
+                <span class="likenum">{{$value.likes.length}}</span>
+                 {{if user}}
+                 <a href="javascript:;" style="color: #ff7300;margin-left: 60px;" class="replays">回复</a>
+                 {{else}}
+                 {{/if}}
+                 <span class="to-contents">回复 <span style="color: #ff7300;">{{$value.atval}}</span> : {{$value.tocon}}</span>
+        </div>
+        {{/if}}
+        
+        {{/each}}
+    </li>
+{{ /each ]}}
+{{ /each ]}}

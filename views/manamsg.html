@@ -1,0 +1,8 @@
+<div class="messageBox">
+        {{each userlist}}
+        <li class="messageImg" style="cursor: pointer;">
+            <img src="{{$value.avatar}}" style="width: 40px;height: 40px;border-radius: 100%;">
+            <span style="display: none;">{{$value._id}}</span>
+        </li>
+        {{/each}}
+</div>

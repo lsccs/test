@@ -1,0 +1,77 @@
+    <div class="title">
+        <h4>修改教材</h4>
+        <p class="tips">错误信息</p>
+    </div>
+    <!-- 搜索框 -->
+    <div class="search_box">
+        <input type="text"  id="search_main" placeholder="请输入教材名称/分类!">
+        <input type="button" class="search_book" value="搜索">
+        <span>共找到 {{bookMain.total}} 条内容</span>
+    </div>
+    <a href="javascript:;" class="allsearch">查看全部</a>
+    <table class="table table-striped table-bordered table-hover custom-table">
+            <thead id="thead">
+                <tr>
+                    <th>图片</th>
+                    <th>名称</th>
+                    <th>类别</th>
+                    <th>价格(元)</th>
+                    <th>状态</th>
+                    <th>收藏量</th>
+                    <th>浏览量</th>
+                    <th>描述</th>
+                    <th>上架时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="update">
+                {{ each  bookMain.records}}
+                    <tr>
+                            <th><img src="{{$value.bookImg[0]}}" alt="" id="bookimg"></th>
+                            <th class="imgId">{{$value.id}}</th>
+                            <th>{{$value.bookName}}</th>
+                            <th class="cla">{{$value.class}}</th>
+                            <th>{{$value.price}}</th>
+                            <th style="display: none;" class="sw">{{$value.off}}</th>
+                            {{ if $value.off==1 }}
+                            <th class="th"><li class="switch"><a href="javascript:;" class="inner"></a></li></th>
+                            {{ else }}
+                            <th class="th"><li class="switch swc"><a href="javascript:;" class="inner acv"></a></li></th>
+                            {{ /if }}
+                            <th>{{$value.favorite}}</th>
+                            <th>{{$value.browse}}</th>
+                            <th class="title-length upval">{{$value.val}}</th>
+                            <th class="date">{{$value.time}}</th>
+                            <th id="operating">
+                                <a href="javascript:;" class="icon-bianji editBianji" ></a>
+                                <a href="javascript:;" class="icon-chacha editRemove"></a>
+                            </th>
+                        </tr>
+                {{ /each }}
+                <span id="nowPage" style="display: none;">{{bookMain.page}}</span>
+            </tbody>
+            
+                       
+    </table>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            
+            {{if bookMain.page>1}}  
+          <li>
+            <a href="javascript:;" class="previous" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          {{/if}}
+          {{each bookMain.display}}
+          <li><a href="javascript:;" class="pages">{{$value}}</a></li>
+          {{/each}}
+          {{if bookMain.page< bookMain.pages}} 
+          <li>
+            <a href="javascript:;" class="next" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          {{/if}}
+        </ul>
+      </nav>     

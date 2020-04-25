@@ -1,0 +1,40 @@
+         <div class="nav2">
+                <div class="w1100">
+                        <a href="/">首页></a>
+                        
+                        <span>联系我们</span>
+            
+                </div>
+                
+        </div>
+
+        <div class="msglist w1100">
+            {{each mana}}
+            <div class="msg-content">
+                <img src="{{$value.avatar}}" style="width: 40px;height: 40px;border-radius: 100%;">
+                <span class="mananick">{{$value.nickname}}</span>
+                <span class="msgid" style="display: none;">{{$value.id}}</span>
+            </div>
+            {{/each}}
+        </div>
+    <div class="w1100 send" style="display: none;">
+        <div class="msg">
+            <!-- 对方头像 渲染-->
+            <div class="mana-head">
+                <img src="" style="width: 40px;height: 40px;border-radius: 100%;">
+                <span></span>
+            </div>
+            <div class="msg-main">
+                
+            </div>
+        </div>
+        <div class="inputBox">
+            <textarea id="sendVal" cols="30" rows="10"></textarea>
+            
+            <span class="manaid" style="display: none;"></span>
+          
+            <input type="button" value="发送" id="sendMsg" class="btn btn-primary">
+        </div>
+    </div>
+
+
