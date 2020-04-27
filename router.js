@@ -1066,12 +1066,22 @@ router.get("/finance",async (res,rso)=>{
     if(res.query.start&&res.query.end){
         let newstart = res.query.start
         let newend = res.query.end
+        if(res.query.start>res.query.end){
+            newend = res.query.start
+            newstart = res.query.end
+        }
         
+        let or3 = {$gte:newstart,$lt:newend}
+        let or2 = {$regex:newstart}
+        let or4 = {$regex:newend}
         
-        let result = await model.Order.find({$or:[{"bookId.payTime":{$gte:newstart ,$lte:newend}},{"bookId.payTime":{$regex:newstart,$regex:newend}}]}).populate("bookId.bookid.bookid userid")
-        
+        let result = await model.Order.aggregate([{$lookup:{
+            from: "users",
+            localField: "userid",
+            foreignField: "_id", 
+            as: "userid" 
+        }},{"$unwind":"$bookId"},{"$match":{$or:[{"bookId.payTime":or3},{"bookId.payTime":or2},{"bookId.payTime":or4}]}},{$sort:{"bookId.payTime":-1}}])
         let user = JSON.stringify(result)
-        
         result = JSON.parse(user)
         if(JSON.stringify(result) === "[]"){
             rso.send({co:-1})
@@ -1084,11 +1094,18 @@ router.get("/finance",async (res,rso)=>{
         return
     }
     let date = res.query.date?res.query.date:moment(d.getTime()).format("YYYY/MM/DD")
+    let reg = new RegExp(date)
+    //let result = await model.Order.find({"bookId.payTime":{$regex:reg}},{"bookId.$":1}).populate("bookId.bookid.bookid userid")
+    let result = await model.Order.aggregate([{$lookup:{
+        from: "users",
+        localField: "userid",
+        foreignField: "_id", 
+        as: "userid" 
+    }},{"$unwind":"$bookId"},{"$match":{"bookId.payTime":{$regex:date}}},{$sort:{"bookId.payTime":-1}}])
    
-    let result = await model.Order.find({"bookId.payTime":{$regex:date}}).populate("bookId.bookid.bookid userid")
-    
     let user = JSON.stringify(result)
     result = JSON.parse(user)
+    
     if(JSON.stringify(result) === "[]"){
         rso.send({co:-1})
     }else{
