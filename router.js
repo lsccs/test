@@ -1074,7 +1074,6 @@ router.get("/finance",async (res,rso)=>{
         let or3 = {$gte:newstart,$lt:newend}
         let or2 = {$regex:newstart}
         let or4 = {$regex:newend}
-        
         let result = await model.Order.aggregate([{$lookup:{
             from: "users",
             localField: "userid",
@@ -1094,8 +1093,8 @@ router.get("/finance",async (res,rso)=>{
         return
     }
     let date = res.query.date?res.query.date:moment(d.getTime()).format("YYYY/MM/DD")
-    let reg = new RegExp(date)
-    //let result = await model.Order.find({"bookId.payTime":{$regex:reg}},{"bookId.$":1}).populate("bookId.bookid.bookid userid")
+    
+   
     let result = await model.Order.aggregate([{$lookup:{
         from: "users",
         localField: "userid",
@@ -1118,7 +1117,12 @@ router.get("/finance",async (res,rso)=>{
 })
 // 查看全部账单
 router.get("/allfinance",async (res,rso)=>{
-    let result = await model.Order.find().populate("bookId.bookid.bookid userid")
+    let result = await model.Order.aggregate([{$lookup:{
+        from: "users",
+        localField: "userid",
+        foreignField: "_id", 
+        as: "userid" 
+    }},{"$unwind":"$bookId"},{$sort:{"bookId.payTime":-1}}])
     
     let user = JSON.stringify(result)
     result = JSON.parse(user)
