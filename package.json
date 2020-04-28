@@ -1,0 +1,28 @@
+{
+  "name": "crud",
+  "version": "1.0.0",
+  "description": "",
+  "main": "crud.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "art-template": "^4.13.2",
+    "blueimp-md5": "^2.13.0",
+    "body-parser": "^1.19.0",
+    "decimal.js": "^10.2.0",
+    "express": "^4.17.1",
+    "express-art-template": "^1.0.1",
+    "express-session": "^1.17.0",
+    "formidable": "^1.2.2",
+    "jquery": "^3.4.1",
+    "moment": "^2.24.0",
+    "mongodb": "^3.5.5",
+    "mongoose": "^5.9.6",
+    "mongoose-double": "0.0.1",
+    "mongoose-sex-page": "^1.2.4",
+    "socket.io": "^2.3.0"
+  }
+}

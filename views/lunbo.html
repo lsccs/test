@@ -1,0 +1,36 @@
+ <!-- 分类标题 -->
+ <div class="title">
+        <h4>更换轮播图</h4>
+        <p class="tips">错误信息</p>
+    </div>
+    <!-- /分类标题 -->
+    <form class="form-container ">
+       
+       
+        <div class = "clear">
+            {{ each allLunbo }}
+                <div class="form-group imgbox">
+                        <label for="exampleInputFile">图片预览</label>
+                        <div class="thumbnail-waper chi">
+                            <span class="lunboID" style="display: none;">{{ $value.id }}</span>
+                            <img class="img-thumbnail ims"  src="{{ $value.image }}">
+                            <div class="buttons re">
+                                    <input type="button" class="btn btn-primary removeBtn" value="删除图片" >
+                            </div>
+                        </div>
+                        <input type="file" class="fil" onchange="read(this)">
+                        
+                </div>
+            {{ /each }}
+
+        </div>
+        
+       
+        <div class="buttons">
+            <input type="submit" class="btn btn-primary" value="确认" id="lunboBtn">
+        </div>
+        <div class="buttons">
+            <input type="button" class="btn btn-primary" value="添加图片" id="addBtn">
+        </div>
+        
+    </form>

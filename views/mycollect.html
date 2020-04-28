@@ -1,0 +1,38 @@
+{{ extend "./userIndex.html" }}
+{{block "con"}}
+<div class="nav2">
+        <div class="w1100">
+                <a href="/">首页></a>
+                
+                <span>我的收藏</span>
+    
+        </div>
+</div>
+<!-- 收藏 -->
+<div class="w1100 collect-box">
+        
+        <!-- 具体教材 -->
+        <ul class="collects-box">
+                <!-- 遍历隐藏ID -->
+                {{ each user.collect}}
+                <li style="display: none;" class="books">{{$value.bookid}}</li>
+                {{ /each }}
+                {{ each bookss }}
+                <ul class="fl collbox">
+                        <a href="/shoping?id={{$value.id}}&browse={{$value.browse}}"><img src="{{$value.bookImg[0]}}" alt=""></a>
+                        <a href="/shoping?id={{$value.id}}&browse={{$value.browse}}"  class="article-title" style="padding-left: 10px;">{{$value.bookName}}</a>
+                        <li style="color: #ee3131; font-weight: bold;padding-left: 10px;">
+                                {{$value.price}}元
+                                <span class="favorite" style="display: none;">{{$value.favorite}}</span>
+                                <span class="collID" style="display: none;">{{$value.id}}</span>
+                                <span class="removeColl">★取消收藏</span>
+                        </li>
+                        
+                </ul>
+                {{ /each }}
+                
+        </ul>
+</div>
+
+
+{{/block}}

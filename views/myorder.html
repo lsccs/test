@@ -1,0 +1,128 @@
+{{ extend "./userIndex.html" }}
+{{block "con"}}
+<div class="nav2">
+        <div class="w1100">
+                <a href="/">首页></a>
+                
+                <span>我的订单</span>
+    
+        </div>
+</div>
+<!-- 订单 -->
+<div class="myorder-con w1100">
+    <div class="myorder-head">
+        <span>全部订单</span>
+    </div>
+
+    <div class="myorder-main">
+        
+        {{ each allOrder.bookId }}
+       
+        <ul class="order-list">
+           {{if $value.receipt}}
+                <div class="order-tishi" style="background: #23eb5f;color: rgb(255, 255, 255);">
+                    <h2>订单详情</h2>
+                    <li style="color: rgb(255, 255, 255);" class="stau">交易完成</li>
+                    
+                </div>
+           {{else}}
+            {{ if $value.deliTime}}
+            <div class="order-tishi" style="background: #50df7b;color: rgb(255, 255, 255);">
+                    <h2>订单详情</h2>
+                    <li style="color: rgb(255, 255, 255);" class="stau">已发货</li>
+                    
+            </div>
+            {{ else }}
+                <div class="order-tishi" style="background: #ff7600;color: #fff;">
+                        <h2>订单详情</h2>
+                        <li style="color: rgb(255, 255, 255);" class="stau">未发货</li>
+                        
+                </div>
+            {{ /if }}
+           {{/if}}
+            <div class="persons">
+                <li>
+                    <span>{{allOrder.userid.nickname}}</span>
+                    <span>{{allOrder.userid.phone}}</span>
+                </li>
+                <li>
+                    <span>{{allOrder.userid.address}}</span>
+                </li>
+            </div>
+            <span class="orderNum">订单编号: <span>{{$value.orderNum}}</span> </span>
+            <div class="order-b">
+            {{ each $value.bookid}}
+            
+                
+                    <div class="order-book">
+                            
+                            <li><a href="/shoping?id={{$value.bookid._id}}&browse={{$value.bookid.browse}}"><img src="{{$value.bookid.bookImg[0]}}"></a></li>
+                            <li class="length-box">
+                                <h2 class="order-length">{{ $value.bookid.bookName }}</h2>
+                                <span class="cla">{{$value.bookid.class}}</span>
+                                <span class="nums">
+                                    <i style="font-size: 12px;">￥</i><span class="pris">{{ $value.bookid.price }}</span>
+                                    <span class="nu">×<span class="nus">{{$value.num}}</span> </span>
+                                </span>
+                                
+                            </li>
+                            
+                    </div>
+                
+            
+            {{ /each }}
+            
+        </div>
+
+
+                <div class="math">
+                        {{if $value.receipt}}
+                        <li style="color: #23eb5f;" class="oldstau">交易完成</li>
+                        {{else}}
+                            {{ if $value.deliTime}}
+                            <li style="color: #50df7b;" class="oldstau">已发货</li>
+                            {{ else }}
+                            <li style="color: red;" class="oldstau">未发货</li>
+                            {{ /if }}
+                        {{/if}}
+                        <!-- 点 -->
+                        
+                        <li class="allpr">
+                            <span>  共
+                                    <span class="allnum">
+                                    </span>
+                                    件
+                            </span>
+                            
+                            
+                            <span>合计:￥
+                                <span class="allp">{{$value.allpri}}</span>
+                            </span>
+                        </li>
+                        <li><a href="javascript:;" class="receipt">确认收货</a></li>
+                        <li><a href="javascript:;" class="order-message-btn">查看详情</a></li>
+                        <li><a href="javascript:;" class="removeOrder">删除订单</a></li>
+                </div>
+                <span class="po">...</span>
+                <!-- 订单信息 -->
+                <div class="order-message">
+                        <h2>订单信息</h2>
+                        <ul>
+                            <li>订单编号: <span>{{$value.orderNum}}</span> </li>
+                            <li>付款时间: <span>{{$value.payTime}}</span></li>
+                            <li>发货时间: <span>{{$value.deliTime}}</span></li>
+                        </ul>
+                    </div>
+            
+        </ul>
+        {{ /each }}
+        
+       
+    </div>
+
+
+</div>
+
+
+
+{{/block}}

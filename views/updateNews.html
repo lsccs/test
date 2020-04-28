@@ -1,0 +1,37 @@
+<div class="title">
+        <h4>发布资讯</h4>
+        <p class="tips">错误信息</p>
+    </div>
+    <!-- /分类标题 -->
+    <form class="form-container" action="/rele" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label>标题</label>
+            <input type="text" value="{{bianjis.title}}" class="form-control" placeholder="请输入标题" id="tit" name="title" autocomplete="off">
+        </div>
+       
+
+        <div class="form-group" >
+           <label for="exampleInputFile">插入图片</label>
+           <input type="file" onchange="star()" id="maxfile">
+           <div class="thumbnail-waper">
+               <img class="img-thumbnail" src="{{bianjis.img}}" id="maximg">
+           </div>
+        </div>
+        <div class="form-group">
+            <label>内容</label>
+            <div id="editor"></div>
+            <textarea class="form-control"  style="resize: none;" name="main" >
+            {{bianjis.main}}
+            </textarea>
+        </div>
+        <div class="buttons">
+            <input type="submit" class="btn btn-primary" value="确认修改" id="releas">
+            {{if bianjis.stikey}}
+            <input type="checkbox"  id="sticky" checked>
+            {{else}}
+            <input type="checkbox"  id="sticky">
+            {{/if}}
+            <span>是否将资讯置顶(最多三条)</span>
+        </div>
+        
+    </form>

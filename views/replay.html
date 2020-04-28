@@ -1,0 +1,47 @@
+{{each replays}}
+    {{ each $value.comment }}
+        <li class="allreplay">
+                <img src="{{$value.fromID.avatar}}">
+                <span style="display: none;" class="commentID">{{$value._id}}</span>
+                <div class="user_nick"><span style="color: #ff7300;" class="user_nick_span">{{$value.fromID.nickname}}</span>
+                    | <span>{{$value.time}}</span>
+                    <a href="javascript:;" style="color: #ff7300;" class="Replay">回复</a>
+                    <a href="javascript:;" class="deleteReplay">删除</a>
+                </div>
+                 
+                <div class="con_main_box"><span class="con_main">{{$value.content}}</span></div>
+                <!-- 子回复 -->
+                {{each $value.toID}}
+                <div class="toBox">
+                    {{ if $value.manaid }}
+                    <img src="{{$value.manaid.avatar}}" class="toimg">
+                    <span style="display: none;" class="commentIDs"></span>
+                    <span class="deleteID" style="display: none;">{{$value._id}}</span>
+                    <span style="color: #ff7300;" class="commentNick">{{$value.manaid.nickname}}</span>
+                     | <span>{{$value.time}}</span>
+                     <div class="idc"><span >管理员</span></div>
+                     <a href="javascript:;" style="color: #ff7300;" class="Replays">回复</a>
+                     <a href="javascript:;" class="deleteManaReplays">删除</a>
+                    <div class="to-contents-box"> <span class="to-contents">回复 <span style="color: #ff7300;">{{$value.atval}}</span> : {{$value.tocon}}</span></div>
+                    {{else}}
+                    <img src="{{$value.toid.avatar}}" class="toimg">
+                    <span style="display: none;" class="commentIDs"></span>
+                    <span class="deleteID" style="display: none;">{{$value._id}}</span>
+                    <span style="color: #ff7300;" class="commentNick">{{$value.toid.nickname}}</span>
+                     | <span>{{$value.time}}</span>
+                     
+                     <a href="javascript:;" style="color: #ff7300;" class="Replays">回复</a>
+                     <a href="javascript:;" class="deleteReplays">删除</a>
+                    <div class="to-contents-box"> <span class="to-contents">回复 <span style="color: #ff7300;">{{$value.atval}}</span> : {{$value.tocon}}</span></div>
+                    {{/if}}
+                      
+                </div>
+                {{/each}}
+                
+        </li>
+    {{ /each ]}}
+{{ /each ]}}
+
+
+
+               

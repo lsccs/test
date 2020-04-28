@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>登陆</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    <link rel="stylesheet" href="/public/css/bootstrap.css">
+	<link rel="stylesheet" href="/public/css/style.default.css" id="theme-stylesheet">
+	<link rel="stylesheet" href="/public/css/demo.css">
+	<style>
+		#login-password{
+			margin-bottom: 20px;
+		}
+		
+		
+		#mana{
+			width: 250px;
+			height: 160px;
+			display: none;
+			position: absolute;
+			z-index: 10000;
+			top: 40%;
+			left: 40%;
+			background: #fff;
+			
+			font-size: 15px;
+			border-radius: 5px;
+			box-shadow: 0 0 2px rgba(0, 0, 0, .3);
+		}
+		#manaCon{
+			width: 250px;
+			height: 160px;
+			display: flex;
+			flex-flow: column;
+			text-align: center;
+			justify-content: space-around;
+			align-items: center;
+		}
+		#manaVal{
+			width: 50%;
+			font-size: 8px;
+			padding-left: 3px;
+		}
+		#manaCon >div{
+			width: 100%;
+			display: flex;
+			justify-content: space-around;
+		}
+		#manaBtn{
+			cursor: pointer;
+			width: 50px;
+			
+			font-size: 13px;
+			
+			
+			border: none;
+		}
+		#manaBtn2{
+			cursor: pointer;
+			width: 50px;
+			font-size: 13px;
+			border: none;
+			background: rgba(255, 0, 0, .6);
+			
+		}
+		#manaBtn2:hover{
+			background: rgba(255, 0, 0, .9);
+		}
+		#Mask{
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, .3);
+			position: absolute;
+			z-index: 1000;
+			display: none;
+		}
+	</style>
+  </head>
+  <body>
+	  <div id="Mask">
+		</div>
+    <div class="page login-page">
+      <div class="container d-flex align-items-center main">
+        <div class="form-holder has-shadow content">
+          <div class="row">
+            <!-- Logo & Information Panel-->
+            <div class="col-lg-6">
+              <div class="info d-flex align-items-center">
+                <div class="content">
+                  <div class="logo">
+                    <h1>欢迎登录</h1>
+                  </div>
+                  <p>教材管理系统</p>
+                </div>
+              </div>
+            </div>
+            <!-- Form Panel    -->
+            <div class="col-lg-6 bg-white">
+              <div class="form d-flex align-items-center">
+                <div class="content">
+                  <form  class="form-validate" id="loginFrom" action="/form" method="POST" onsubmit=" return form()">
+                    <div class="form-group">
+                      <input id="login-username" type="text" name="username" required data-msg="请输入用户名" placeholder="用户名" value="admin" class="input-material"  autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                      <input id="login-password" type="password" name="password" required data-msg="请输入密码" placeholder="密码" class="input-material">
+					</div>
+					
+                    <button id="login" type="button" class="btn btn-primary">登录</button>
+                    <div style="margin-top: -40px;"> 
+                    	<!-- <input type="checkbox"  id="check1"/>&nbsp;<span>记住密码</span>
+                    	<input type="checkbox" id="check2"/>&nbsp;<span>自动登录</span> -->
+                    	<div class="custom-control custom-checkbox " style="float: right;">
+											    <input type="checkbox" class="custom-control-input" id="check2" >
+											    <label class="custom-control-label" for="check2">管理员登陆</label>
+											</div>
+											<div class="custom-control custom-checkbox " style="float: right;">
+											    <input type="checkbox" class="custom-control-input" id="check1" >
+											    <label class="custom-control-label" for="check1">记住密码&nbsp;&nbsp;</label>
+											</div> 
+                    </div>
+                  </form>
+                  <br />
+                  <small>没有账号?</small><a href="/registered" class="signup">&nbsp;注册</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+	</div>
+
+	<!-- 管理员密码弹窗 -->
+	<form action="" id="mana">
+		<div id="manaCon">
+			<span>请输入管理员密码</span>
+			<input type="password" name="password" id="manaVal" placeholder="请输入密码" autofocus>
+			<div>
+				<input type="button"  id="manaBtn" value="确认" class="btn btn-primary">
+				<input type="button"  id="manaBtn2" value="取消" class="btn ">
+			</div>
+		</div>
+		
+	</form>
+
+    <!-- JavaScript files-->
+    <script src="/public/js/jquery-3.4.1.js"></script>
+    <script src="/public/js/bootstrap.min.js"></script>
+    <script src="/public/layer/layer.js"></script>
+    <!-- Main File-->
+    <script src="/public/js/front.js"></script>
+    <script>
+    	$(function(){
+    		/*判断上次是否勾选记住密码和自动登录*/
+    		var check1s=localStorage.getItem("check1");
+    		var check2s=localStorage.getItem("check2");
+    		var oldName=localStorage.getItem("userName");
+    		var oldPass=localStorage.getItem("passWord");
+    		if(check1s=="true"){
+    			 $("#login-username").val(oldName);
+    			 $("#login-password").val(oldPass);
+				 $("#check1").prop('checked',true);
+				 
+    		}else{
+    			 $("#login-username").val('');
+    			 $("#login-password").val('');
+    			 $("#check1").prop('checked',false);
+			}
+			
+    		
+    		/*登录*/
+    		$("#login").click(function(){
+    			var userName=$("#login-username").val();
+    			var passWord=$("#login-password").val();
+    			/*获取当前输入的账号密码*/
+    			localStorage.setItem("userName",userName)
+    			localStorage.setItem("passWord",passWord)
+    			/*获取记住密码  自动登录的 checkbox的值*/
+    			var check1 = $("#check1").prop('checked');
+	    		var check2 = $('#check2').prop('checked');
+	    		localStorage.setItem("check1",check1);
+	    		localStorage.setItem("check2",check2);
+    		})
+    		
+    		
+			
+			$("#login").click(function(){
+				// 获取管理员按钮的值
+				var manaV = $("#check2").prop("checked")
+				
+				var username = $("#login-username").val()
+				var	password = $("#login-password").val()
+				
+				if(username === ""){
+					
+					
+					layer.tips('请输入用户名',"#login-username",{
+                        tips: [1, '#ee3131'],
+                        time: 4000,
+                        tipsMore: true
+                    });
+				}else if(password === ""){
+					
+					
+					layer.tips('请输入密码',"#login-password",{
+                        tips: [1, '#ee3131'],
+                        time: 4000,
+                        tipsMore: true
+                    });
+				}else if(manaV === true){
+					$("#mana").fadeIn()
+					$("#Mask").fadeIn()
+					$("#manaBtn2").click(function(){
+						$("#mana").fadeOut()
+						$("#Mask").fadeOut()
+					})
+					
+					
+					$("#manaBtn").click(function(){
+						
+						var passVal = $("#manaVal").val()
+						$("#mana").fadeOut()
+						$("#Mask").fadeOut()
+						$.post("/manaPassword",{username:username,password:password,passw:passVal},function(data){
+							
+							if(data.co == 0){
+								layer.msg("管理员密码不正确!",{icon:2,time:1500})
+							}else if(data.co == -1){
+								layer.msg("管理员账号或密码不正确!",{icon:2,time:1500})
+							}else{
+								location.href = "/management"
+							}
+						})
+					})
+				}else{
+					go()
+				}
+				function go(){
+				$.post("/mation",{username:username,password:password},function(data){
+						
+						if(data.co === -1){
+							layer.msg("用户名或密码不正确!",{icon:2,time:1500})
+						}else if(data.co === 1){
+							location.href = "/"
+						}else{
+							// 弹出警示
+							layer.open({
+								type: 1
+								,title: false //不显示标题栏
+								,closeBtn: false
+								,area: '300px;'
+								,shade: 0.8
+								,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+								,resize: false
+								,btn: ['我知道了', '好吧']
+								,btnAlign: 'c'
+								,moveType: 1 //拖拽模式，0或者1
+								,content: `<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">
+									
+									该账户违反规定已被封禁！</br>请稍后再试
+									</div>`
+								
+								});
+						}
+					})
+			}
+				
+			})
+
+			
+
+			
+
+    	})
+    </script>
+  </body>
+</html>

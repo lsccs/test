@@ -1,0 +1,40 @@
+<div class="title">
+        <h4>编辑用户</h4>
+        <p class="tips">错误信息</p>
+    </div>
+    <!-- /分类标题 -->
+    <form class="form-container">
+        <div class="form-group">
+            <label>用户名</label>
+            <input type="text" class="form-control nick" placeholder="请输入用户名" value="{{ups.nickname}}">
+        </div>
+        <div class="form-group">
+            <label>邮箱</label>
+            <input type="email" class="form-control user" placeholder="请输入邮箱地址" value="{{ups.username}}">
+        </div>
+        <div class="form-group">
+            <label>修改密码</label>
+            <input type="password" class="form-control pass" placeholder="请输入密码" >
+        </div>
+        <div class="form-group">
+            <label>确认密码</label>
+            <input type="password" class="form-control en-pass" placeholder="请输入密码">
+        </div>
+        <div class="form-group">
+            <label>角色</label>
+            <select class="form-control ordinary">
+                {{if ups.code == 1}}
+                <option>管理员</option>
+                <option>普通用户</option>
+                {{else}}
+                <option>普通用户</option>
+                <option>管理员</option>
+                {{/if}}
+            </select>
+        </div>
+       
+        <div class="buttons">
+            <input type="submit" class="btn btn-primary" id="submit2" >
+        </div>
+    </form>
+</div>

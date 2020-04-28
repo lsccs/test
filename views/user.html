@@ -1,0 +1,90 @@
+{{ each allMana }}
+<tr>
+    <td>{{$value.nickname}}</td>
+    <td class="username">{{$value.username}}</td>
+    <td class="identity">管理员</td>
+    {{if $value._id != manaUser._id}}
+        {{ if $value.status == 1 }}
+    
+        <td style="position: relative;">
+                <span class="noneCode" style="display: none;">{{$value.code}}</span>
+                <span class="noneUserID" style="display: none;">{{$value._id}}</span>
+                <span class="noneUserStatus" style="display: none;">{{$value.status}}</span>
+            <div class="switch2 ">
+                <div class="inner2 ">
+
+                </div>
+            </div>
+        </td>
+        {{ else }}
+        <td style="position: relative;">
+                <span class="noneCode" style="display: none;">{{$value.code}}</span>
+                <span class="noneUserID" style="display: none;">{{$value._id}}</span>
+                <span class="noneUserStatus" style="display: none;">{{$value.status}}</span>
+                <div class="switch2 swc">
+                        <div class="inner2 acv">
+            
+                        </div>
+                </div>
+        </td>
+        {{ /if }}
+    {{else}}
+        <td style="position: relative;">
+            <div class="switch3 ">
+                <div class="inner3 ">
+
+                </div>
+            </div>
+        </td>
+    {{/if}}
+   
+    
+    <td id="userUp">
+        <a href="javascript:;" class="icon-bianji glyphicon-edit update"></a>
+        {{ if  $value.username !== manaUser.username}}
+        <a href="javascript:;" class="icon-chacha glyphicon-remove remove" data-toggle="modal" data-target=".confirm-modal"></a>
+        {{ /if }}
+    </td>
+</tr>
+{{ /each }}
+{{ each allUser }}
+<tr>
+
+<td>{{$value.nickname}}</td>
+<td class="username">{{$value.username}}</td>
+
+<td class="identity">普通用户</td>
+
+{{ if $value.status == 1 }}
+    <td style="position: relative;">
+            <span class="noneCode" style="display: none;">{{$value.code}}</span>
+        <span class="noneUserID" style="display: none;">{{$value._id}}</span>
+        <span class="noneUserStatus" style="display: none;">{{$value.status}}</span>
+        <div class="switch2 ">
+            <div class="inner2 ">
+
+            </div>
+        </div>
+    </td>
+{{ else }}
+    <td style="position: relative;">
+            <span class="noneCode" style="display: none;">{{$value.code}}</span>
+            <span class="noneUserID" style="display: none;">{{$value._id}}</span>
+            <span class="noneUserStatus" style="display: none;">{{$value.status}}</span>
+            <div class="switch2 swc">
+                    <div class="inner2 acv">
+        
+                    </div>
+            </div>
+    </td>
+{{ /if }}
+<td id="userUp">
+    <a href="javascript:;" class="icon-bianji glyphicon-edit update"></a>
+    
+    
+    <a href="javascript:;"  class="icon-chacha glyphicon-remove remove" data-toggle="modal" data-target=".confirm-modal"></a>
+    
+    
+</td>
+</tr>
+{{ /each }}

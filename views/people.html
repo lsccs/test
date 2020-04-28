@@ -1,0 +1,124 @@
+{{ extend "./management.html"}}
+
+{{ block "sty" }}
+<style>
+    #image{
+        width: 100px;
+        height: 100px;
+        margin-bottom: 8px;
+    }
+    .tips{
+        display: none;
+    }
+</style>
+{{ /block }}
+{{ block "content" }}
+<div class="main">
+        <!-- 分类标题 -->
+        <div class="title">
+            <h4 id="per">{{ manaUser.nickname}}的个人信息</h4>
+            <p class="tips">错误信息</p>
+        </div>
+        <!-- /分类标题 -->
+        <form class="form-container">
+            <div class="form-group">
+                <label>用户名</label>
+                <input type="text" class="form-control" placeholder="请输入用户名" value="{{ manaUser.nickname }}" id="nickname">
+            </div>
+            <div class="form-group">
+                <label>邮箱</label>
+                <input type="email" class="form-control" placeholder="请输入邮箱地址" value="{{ manaUser.username }}" id="users" readonly>
+            </div>
+            <div>
+
+            <div class="form-group">
+                <label>头像</label>
+                <dl>
+                        <dd><img src="{{manaUser.avatar}}" id="image"></dd>
+                        <div class="fileBox">
+                           
+                            <input type="file" id="file"  onchange="startRead()">
+                        </div>
+                </dl>
+            </div>
+            
+            <!-- <div class="form-group">
+                <label>密码</label>
+                <input type="password" class="form-control" placeholder="请输入密码">
+            </div> -->
+            <div class="form-group">
+                <label>角色</label>
+                <select class="form-control">
+                    <option>管理员</option>
+                </select>
+            </div>
+           
+            <div class="buttons">
+                <input type="submit" class="btn btn-primary" id="sub">
+            </div>
+        </form>
+    </div>
+</div>
+{{ /block }}
+
+{{ block "script" }}
+
+<script>
+
+
+        $("#sub").click(function(e){
+        e.preventDefault()
+        var newPeople = {}
+        var imageCode = $("#image").attr("src")
+        
+        newPeople.nickname = $("#nickname").val()
+        
+        newPeople.avatar = imageCode
+            $.post("/people",newPeople,function(data){
+                if(data.co == -1){
+                    $(".tips").html("用户名已存在!")
+                    $(".tips").fadeIn()
+                    setTimeout(function(){
+                        $(".tips").fadeOut()
+                    },1300)
+                }else{
+                    
+                    $("#nick").html(data.nickname)
+                    $("#nick2").html(data.nickname)
+                    $("#images").attr("src",data.avatar)
+                    $("#per").html(data.nickname+"的个人信息")
+                    $(".tips").html("修改成功!")
+                    $(".tips").fadeIn()
+                    setTimeout(function(){
+                        $(".tips").fadeOut()
+                    },1300)
+                }
+            })
+
+
+        })
+
+        function startRead (){
+            const fileInput = document.querySelector("#file")
+            const image = document.querySelector("#image")
+
+            if(fileInput&&image){
+                Handle(fileInput,image)
+            }
+
+        }
+        function Handle(fileInput,image){
+            let file = fileInput.files[0]
+            var reader = new FileReader()
+                reader.readAsDataURL(file)
+
+            reader.onloadstart = function(){
+                console.log("上传....")
+            }
+            reader.onload = function(e){
+                image.setAttribute("src",reader.result)
+                
+            }
+        }
+</script>
+{{ /block }}

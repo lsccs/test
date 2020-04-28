@@ -1,0 +1,48 @@
+
+        <!-- {{each fis}}
+        <div>
+                <ul style="display:none;" >
+                        
+                        <div class="Nick2">{{$value.userid.nickname}}</div>
+                        <div class="Phone2">{{$value.userid.phone}}</div>
+                        <div class="Address2">{{$value.userid.address}}</div>
+                </ul>
+        
+                    {{each $value.bookId}}
+                    <ul class="finance-list">
+                        <li >{{$value.orderNum}}</li>
+                        <li class="nick2" ></li>
+                        <li class="phone2" ></li>
+                        <li class="address2" ></li>
+                        <li >{{$value.allpri}}元</li>
+                        <li ><span>
+                                {{$value.payTime}}
+                        </span></li>
+                        <li style="color: rgb(76, 243, 165);" class="smallPri">+<span>{{$value.allpri}}</span></li>
+                    </ul>
+                    {{/each}}
+        </div>
+        
+        {{/each}} -->
+
+        <div>
+               
+        
+                    {{each fis}}
+                    <ul class="finance-list">
+                        <li >{{$value.bookId.orderNum}}</li>
+                        {{each $value.userid}}
+                        <li class="nick2" >{{$value.nickname}}</li>
+                        <li class="phone2" >{{$value.phone}}</li>
+                        <li class="address2" >{{$value.address}}</li>
+                        {{/each}}
+                        <li >{{$value.bookId.allpri}}元</li>
+                        <li ><span>
+                                {{$value.bookId.payTime}}
+                        </span></li>
+                        <li style="color: rgb(76, 243, 165);" class="smallPri">+<span>{{$value.bookId.allpri}}</span></li>
+                    </ul>
+                    {{/each}}
+        </div>
+        
+
